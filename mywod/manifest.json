@@ -1,0 +1,30 @@
+{
+  "name": "MYWOD — Training App",
+  "short_name": "MYWOD",
+  "description": "Rutina de entrenamiento personalizada PPL con seguimiento de pesos y progresión",
+  "start_url": "/mywod/",
+  "scope": "/mywod/",
+  "display": "standalone",
+  "background_color": "#0d0d0d",
+  "theme_color": "#0d0d0d",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icons/icon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
