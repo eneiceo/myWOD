@@ -655,7 +655,7 @@ function getSessions(block){
       id:'wod',type:'wod',title:'WOD',shortTitle:'WOD',
       focus:'Halterofilia · CrossFit',duration:'60–75 min',
       exercises: wodExercises(block),
-      metcon: wodMetcon(block)
+      metcon: wodMetcon(block, S.week)
     }
   ];
 }
@@ -688,27 +688,72 @@ function wodExercises(block){
   ];
 }
 
-// Metcon de cierre del día WOD: formato variable por bloque.
-function wodMetcon(block){
-  if(block===1){
-    return {title:'Metcon — Engine builder',duration:'12 min',format:'AMRAP 10\'',rounds:[
-      {desc:'10 KB swings (24kg)',time:'ronda'},
-      {desc:'10 Box jumps',time:'ronda'},
-      {desc:'10 Burpees',time:'ronda'}
-    ]};
-  }
-  if(block===2){
-    return {title:'Metcon — Power couplet',duration:'12 min',format:'EMOM 12\'',rounds:[
-      {desc:'min 1·4·7·10: 5 Power cleans',time:''},
-      {desc:'min 2·5·8·11: 8 Thrusters',time:''},
-      {desc:'min 3·6·9·12: 10 Burpees',time:''}
-    ]};
-  }
-  return {title:'Metcon — "Fran" style',duration:'8 min',format:'For Time (cap 8\')',rounds:[
-    {desc:'21-15-9 reps:',time:''},
-    {desc:'Thrusters (40kg)',time:''},
-    {desc:'Pull-ups',time:''}
-  ]};
+// Metcon de cierre del día WOD: rota 3 variantes por bloque (cicla en las 6 semanas).
+function wodMetcon(block, week){
+  const idx = ((week-1) % 3 + 3) % 3; // 0,1,2 cíclico — sem 1·4=A, sem 2·5=B, sem 3·6=C
+  const sets = {
+    1: [
+      // A — Engine builder
+      {title:'Metcon — Engine builder',duration:'10 min',format:'AMRAP 10\'',rounds:[
+        {desc:'10 KB swings (24kg)',time:'ronda'},
+        {desc:'10 Box jumps',time:'ronda'},
+        {desc:'10 Burpees',time:'ronda'}
+      ]},
+      // B — Cindy modificada (gimnástico, peso corporal)
+      {title:'Metcon — "Cindy" modificada',duration:'12 min',format:'AMRAP 12\'',rounds:[
+        {desc:'5 Pull-ups',time:'ronda'},
+        {desc:'10 Push-ups',time:'ronda'},
+        {desc:'15 Air squats',time:'ronda'}
+      ]},
+      // C — Conditioning steady (formato EMOM, baja intensidad sostenida)
+      {title:'Metcon — Steady mix',duration:'10 min',format:'EMOM 10\'',rounds:[
+        {desc:'min impar: 12 Wall balls (9kg)',time:''},
+        {desc:'min par: 12 KB swings (20kg)',time:''}
+      ]}
+    ],
+    2: [
+      // A — Power couplet
+      {title:'Metcon — Power couplet',duration:'12 min',format:'EMOM 12\'',rounds:[
+        {desc:'min 1·4·7·10: 5 Power cleans',time:''},
+        {desc:'min 2·5·8·11: 8 Thrusters',time:''},
+        {desc:'min 3·6·9·12: 10 Burpees',time:''}
+      ]},
+      // B — "Grace" style (volumen de C&J)
+      {title:'Metcon — "Grace" style',duration:'≤8 min',format:'For Time',rounds:[
+        {desc:'30 Clean & Jerks',time:''},
+        {desc:'Carga: 50–60 kg',time:''},
+        {desc:'Cap: 8 min',time:''}
+      ]},
+      // C — 5 RFT (rounds for time) pesado
+      {title:'Metcon — Heavy 5 RFT',duration:'≤15 min',format:'5 RFT',rounds:[
+        {desc:'5 Power cleans (60kg)',time:'por ronda'},
+        {desc:'10 Box jumps (60cm)',time:'por ronda'},
+        {desc:'15 KB swings (24kg)',time:'por ronda'}
+      ]}
+    ],
+    3: [
+      // A — "Fran" clásico
+      {title:'Metcon — "Fran" style',duration:'≤8 min',format:'For Time',rounds:[
+        {desc:'21-15-9 reps:',time:''},
+        {desc:'Thrusters (40 kg)',time:''},
+        {desc:'Pull-ups',time:''}
+      ]},
+      // B — Sprint metabólico
+      {title:'Metcon — Sprint',duration:'7 min',format:'AMRAP 7\'',rounds:[
+        {desc:'7 Burpees over the bar',time:'ronda'},
+        {desc:'14 Wall balls (9kg)',time:'ronda'}
+      ]},
+      // C — Chipper descendente
+      {title:'Metcon — Chipper',duration:'≤12 min',format:'For Time',rounds:[
+        {desc:'50 KB swings (20kg)',time:''},
+        {desc:'40 Wall balls (9kg)',time:''},
+        {desc:'30 Box jumps',time:''},
+        {desc:'20 Pull-ups',time:''},
+        {desc:'10 Thrusters (40kg)',time:''}
+      ]}
+    ]
+  };
+  return sets[block][idx];
 }
 
 // =====================================================================
