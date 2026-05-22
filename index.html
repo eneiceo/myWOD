@@ -68,8 +68,6 @@ body{
 .week-strip::-webkit-scrollbar{display:none;}
 .week-btn{flex-shrink:0;height:34px;min-width:40px;padding:0 8px;background:var(--surface);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);transition:var(--transition);display:flex;align-items:center;justify-content:center;touch-action:manipulation;}
 .week-btn.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:700;}
-.week-btn.rm-week{border-color:var(--accent2);color:var(--accent2);}
-.week-btn.rm-week.active{background:var(--accent2);border-color:var(--accent2);color:#fff;}
 
 /* DAY PILLS */
 .day-row{display:flex;gap:5px;overflow-x:auto;padding:0 16px 10px;scrollbar-width:none;}
@@ -80,13 +78,12 @@ body{
 .day-pill.push .dt{color:var(--push);}
 .day-pill.pull .dt{color:var(--pull);}
 .day-pill.legs .dt{color:var(--legs);}
-.day-pill.rm-day .dt{color:var(--accent2);}
+.day-pill.wod .dt{color:var(--accent);}
 .day-pill.active{border-width:1.5px;}
 .day-pill.active.push{border-color:var(--push);background:rgba(255,107,53,.1);}
 .day-pill.active.pull{border-color:var(--pull);background:rgba(71,200,255,.1);}
 .day-pill.active.legs{border-color:var(--legs);background:rgba(180,127,255,.1);}
-.day-pill.active.rm-day{border-color:var(--accent2);background:rgba(255,107,53,.1);}
-.day-pill .attended-dot{width:5px;height:5px;border-radius:50%;background:#4cff88;flex-shrink:0;}
+.day-pill.active.wod{border-color:var(--accent);background:rgba(232,255,71,.08);}
 
 /* SESSION */
 .session-top{padding:14px 16px 0;}
@@ -96,11 +93,10 @@ body{
 .session-badge.push{background:rgba(255,107,53,.12);color:var(--push);}
 .session-badge.pull{background:rgba(71,200,255,.12);color:var(--pull);}
 .session-badge.legs{background:rgba(180,127,255,.12);color:var(--legs);}
+.session-badge.wod{background:rgba(232,255,71,.1);color:var(--accent);}
 .session-meta{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;display:flex;gap:10px;flex-wrap:wrap;}
 .block-banner{margin:10px 16px 0;padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-left:2.5px solid var(--accent);border-radius:0 8px 8px 0;font-size:10px;color:var(--muted);line-height:1.5;}
 .block-banner strong{color:var(--text);}
-.rm-banner{margin:8px 16px 0;padding:8px 12px;background:rgba(255,107,53,.06);border:1px solid rgba(255,107,53,.3);border-radius:8px;font-size:10px;color:var(--accent2);display:none;}
-.rm-banner.visible{display:block;}
 
 /* SECTION LABEL */
 .section-label{font-size:8px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:4px 0;border-bottom:1px solid var(--border);margin-bottom:6px;font-family:'DM Mono',monospace;}
@@ -111,7 +107,7 @@ body{
 .ex-card[data-type="push"]{border-left-color:var(--push);}
 .ex-card[data-type="pull"]{border-left-color:var(--pull);}
 .ex-card[data-type="legs"]{border-left-color:var(--legs);}
-.ex-card[data-type="rm"]{border-left-color:var(--accent2);}
+.ex-card[data-type="wod"]{border-left-color:var(--accent);}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 .ex-card:nth-child(1){animation-delay:.03s;}.ex-card:nth-child(2){animation-delay:.06s;}
 .ex-card:nth-child(3){animation-delay:.09s;}.ex-card:nth-child(4){animation-delay:.12s;}
@@ -164,26 +160,6 @@ body{
 .hiit-rdesc{font-size:10px;flex:1;color:var(--muted);}
 .hiit-rtime{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);}
 
-/* RM TEST */
-.rm-test-card{background:rgba(255,107,53,.04);border:1px solid rgba(255,107,53,.25);border-radius:var(--radius);padding:13px;}
-.rm-test-title{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--accent2);margin-bottom:9px;}
-.rm-test-item{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,107,53,.1);}
-.rm-test-item:last-of-type{border-bottom:none;}
-.rm-exname{font-size:11px;}
-.rm-inputs{display:flex;align-items:center;gap:5px;}
-.rm-prev{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);}
-.rm-inp{width:68px;background:var(--bg);border:1px solid rgba(255,107,53,.3);border-radius:6px;color:var(--accent2);font-family:'DM Mono',monospace;font-size:16px;text-align:center;padding:6px 3px;outline:none;touch-action:manipulation;}
-.rm-inp:focus{border-color:var(--accent2);}
-.rm-unit{font-size:9px;color:var(--muted);}
-.rm-save-btn{width:100%;margin-top:10px;padding:14px;background:var(--accent2);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;touch-action:manipulation;}
-
-/* CHECK-IN */
-.checkin-wrap{padding:16px 16px 4px;}
-.checkin-btn{width:100%;padding:15px;background:transparent;border:1.5px solid var(--accent);border-radius:var(--radius);color:var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;touch-action:manipulation;display:flex;align-items:center;justify-content:center;gap:8px;transition:var(--transition);letter-spacing:.3px;}
-.checkin-btn:active{background:rgba(232,255,71,.08);transform:scale(.99);}
-.checkin-btn.checked{border-color:#4cff88;color:#4cff88;}
-.checkin-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
-
 /* PROGRESS */
 .prog-header{padding:calc(18px + var(--safe-top)) 16px 12px;background:rgba(13,13,13,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border);}
 .prog-title{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;margin-bottom:2px;}
@@ -220,7 +196,6 @@ body{
 .hist-w.latest{color:var(--accent);}
 .hist-w-unit{font-size:9px;color:var(--muted);}
 .hist-tag{font-size:8px;padding:1px 6px;border-radius:100px;font-family:'DM Mono',monospace;}
-.hist-tag.rm{background:rgba(255,107,53,.12);color:var(--accent2);border:1px solid rgba(255,107,53,.2);}
 .hist-tag.manual{background:rgba(232,255,71,.08);color:var(--accent);border:1px solid rgba(232,255,71,.15);}
 
 /* INFO */
@@ -236,50 +211,12 @@ body{
 .info-p:last-child{margin-bottom:0;}
 .info-p strong{color:var(--text);font-weight:500;}
 
-/* ATTENDANCE CALENDAR */
-.cal-header{padding:calc(18px + var(--safe-top)) 16px 12px;background:rgba(13,13,13,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border);}
-.cal-header-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px;}
-.cal-title{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;}
-.cal-stats{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
-.cal-stat{flex:1;padding:8px 10px;text-align:center;border-right:1px solid var(--border);}
-.cal-stat:last-child{border-right:none;}
-.cal-stat-val{font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1;color:var(--accent);}
-.cal-stat-lbl{font-size:8px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-top:1px;}
-.cal-nav{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 8px;}
-.cal-month-label{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--text);text-transform:uppercase;}
-.cal-nav-btn{width:34px;height:34px;background:var(--surface);border:1px solid var(--border);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:var(--transition);touch-action:manipulation;font-size:16px;}
-.cal-nav-btn:active{background:var(--border);}
-.cal-body{padding:0 16px 16px;}
-.cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px;}
-.cal-wd{text-align:center;font-size:8px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-family:'DM Mono',monospace;padding:4px 0;}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
-.cal-cell{aspect-ratio:1;background:var(--surface);border:1px solid var(--border);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:var(--transition);touch-action:manipulation;min-height:38px;}
-.cal-cell.empty{background:transparent;border-color:transparent;cursor:default;}
-.cal-cell.today{border-color:var(--accent);border-width:1.5px;}
-.cal-cell.has-session{background:var(--surface2);}
-.cal-day-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
-.cal-cell.today .cal-day-num{color:var(--accent);font-weight:700;}
-.cal-dots{display:flex;gap:2px;flex-wrap:wrap;justify-content:center;margin-top:2px;}
-.cal-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
-.cal-dot.push{background:var(--push);}
-.cal-dot.pull{background:var(--pull);}
-.cal-dot.legs{background:var(--legs);}
-.cal-dot.rm-test{background:var(--accent2);}
-.cal-detail{display:none;margin:8px 0 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:13px;animation:fadeUp .2s ease;}
-.cal-detail.open{display:block;}
-.cal-detail-date{font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;}
-.cal-detail-entry{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;}
-.cal-detail-entry:last-child{border-bottom:none;}
-.cal-detail-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.cal-detail-name{flex:1;font-weight:500;}
-.cal-detail-meta{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);}
-
 /* BOTTOM NAV */
 .bottom-nav{
   position:fixed;bottom:0;left:0;right:0;
   background:rgba(13,13,13,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-top:1px solid var(--border);
-  display:grid;grid-template-columns:repeat(4,1fr);
+  display:grid;grid-template-columns:repeat(3,1fr);
   z-index:100;
   padding:0 0 calc(4px + var(--safe-bottom));
 }
@@ -288,7 +225,6 @@ body{
 .nav-icon{width:22px;height:22px;display:flex;align-items:center;justify-content:center;}
 .nav-icon svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
 .nav-label{font-size:8px;text-transform:uppercase;letter-spacing:.8px;}
-.tag-rm{font-size:7px;background:rgba(255,107,53,.15);color:var(--accent2);padding:1px 5px;border-radius:3px;margin-left:3px;vertical-align:middle;}
 .tag-shoulder{font-size:7px;background:rgba(71,200,255,.1);color:var(--accent3);padding:1px 5px;border-radius:3px;margin-left:3px;vertical-align:middle;}
 </style>
 </head>
@@ -317,7 +253,6 @@ body{
     <div class="session-meta"><span id="sess-dur">75–90 min</span><span id="sess-focus">Pecho · Hombros · Tríceps</span></div>
   </div>
   <div class="block-banner" id="block-banner"></div>
-  <div class="rm-banner" id="rm-banner">⚡ <strong>Semana de test RM</strong> — Testeá tus RMs al finalizar los compuestos principales.</div>
   <div class="exercises" id="exercises-container"></div>
 </div>
 
@@ -339,65 +274,30 @@ body{
       <div class="istat"><span class="il">Edad</span><span class="iv">34 años</span></div>
       <div class="istat"><span class="il">Peso</span><span class="iv">83–85 kg</span></div>
       <div class="istat"><span class="il">Altura</span><span class="iv">1.84 m</span></div>
-      <div class="istat"><span class="il">Frecuencia</span><span class="iv">4–5 días / semana</span></div>
-      <div class="istat"><span class="il">Duración</span><span class="iv">75–90 min</span></div>
+      <div class="istat"><span class="il">Frecuencia</span><span class="iv">4 días / semana</span></div>
+      <div class="istat"><span class="il">Duración</span><span class="iv">60–90 min</span></div>
       <div class="istat"><span class="il">Limitación hombro</span><span class="iv">Inclinado y declinado</span></div>
     </div>
     <div class="info-card">
+      <div class="info-card-title">Estructura semanal</div>
+      <p class="info-p">Split <strong>Push / Pull / Legs / WOD</strong>. Cada sesión cierra con un bloque de <strong>core + conditioning</strong> (EMOM/AMRAP/For Time) de 6–10 min.</p>
+      <p class="info-p">El día WOD agrega halterofilia (clean, snatch, jerk) y compuestos CrossFit (thruster, wall ball, KB swing) con un metcon final.</p>
+    </div>
+    <div class="info-card">
       <div class="info-card-title">Bloque 1 — Acumulación (Sem 1–6)</div>
-      <p class="info-p">Cargas al <strong>70% del RM</strong>. Base muscular y adaptación al nuevo estímulo. Superávit calórico leve recomendado (+200/300 kcal).</p>
-      <p class="info-p">4 series · 12–15 reps · 60–90" descanso</p>
+      <p class="info-p">Base muscular y adaptación. Volumen alto, intensidad moderada. Superávit calórico leve (+200/300 kcal).</p>
+      <p class="info-p">4 series · 12–15 reps · 60" descanso · core EMOM</p>
     </div>
     <div class="info-card">
       <div class="info-card-title">Bloque 2 — Intensificación (Sem 7–12)</div>
-      <p class="info-p">Cargas al <strong>82% del RM</strong>. Fuerza y volumen. Mantenimiento calórico o leve superávit.</p>
-      <p class="info-p">5 series · 6–10 reps · 90–120" descanso</p>
-    </div>
-    <div class="info-card">
-      <div class="info-card-title">Bloque 3 — Definición (Sem 13–18)</div>
-      <p class="info-p">Cargas al <strong>75% del RM</strong>. Alta densidad, HIIT intenso. Déficit calórico leve (-300/400 kcal).</p>
-      <p class="info-p">4 series · 12–15 reps · 45–60" descanso</p>
-    </div>
-    <div class="info-card">
-      <div class="info-card-title">Test de RM — Semanas 6, 12 y 18</div>
-      <p class="info-p">Al finalizar cada bloque hay una <strong>sesión dedicada de test</strong> (Día 6). Se evalúan 4 ejercicios: Back Squat, Deadlift, Bench Press y Seated DB Press. No se entrena otra cosa ese día — el foco es exclusivamente el test con calentamiento progresivo.</p>
-      <p class="info-p">El Lat Pulldown se incluye como referencia funcional (máximo de reps con peso fijo, no 1RM).</p>
+      <p class="info-p">Fuerza y carga. Menos reps, más peso. Mantenimiento calórico o leve superávit.</p>
+      <p class="info-p">5 series · 6–10 reps · 90" descanso · core AMRAP</p>
     </div>
     <div class="info-card" style="margin-bottom:20px;">
-      <div class="info-card-title">Cambios vs. plan original</div>
-      <p class="info-p"><strong>Push A:</strong> Reemplaza pushdown de barra recta → <strong>Chest Dip</strong> (compuesto real de tríceps).</p>
-      <p class="info-p"><strong>Push B:</strong> Reemplaza pushdown de barra recta → <strong>Close Grip Bench Press</strong> (mayor carga diferencial).</p>
-      <p class="info-p"><strong>Pull A:</strong> Reemplaza One Arm Row → <strong>Dumbbell Pullover</strong> (ángulo completamente diferente sobre el dorsal).</p>
-      <p class="info-p"><strong>Pull B:</strong> Reemplaza Seated Cable Row → <strong>Bent Over Row</strong> (tirón libre con mayor reclutamiento de core y erectores).</p>
-      <p class="info-p"><strong>Legs:</strong> Incorpora <strong>Deadlift</strong> como primer ejercicio. Se elimina Leg Extension — con Deadlift, Squat y Leg Press el cuádriceps e isquios quedan suficientemente cubiertos.</p>
+      <div class="info-card-title">Bloque 3 — Definición (Sem 13–18)</div>
+      <p class="info-p">Alta densidad, metcons intensos. Déficit calórico leve (-300/400 kcal).</p>
+      <p class="info-p">4 series · 12–15 reps · 45" descanso · core For Time</p>
     </div>
-  </div>
-</div>
-
-<!-- ASISTENCIA -->
-<div id="view-attendance" class="view">
-  <div class="cal-header">
-    <div class="cal-header-row">
-      <div class="cal-title">ASISTENCIA</div>
-    </div>
-    <div class="cal-stats">
-      <div class="cal-stat"><div class="cal-stat-val" id="cal-stat-month">0</div><div class="cal-stat-lbl">Este mes</div></div>
-      <div class="cal-stat"><div class="cal-stat-val" id="cal-stat-streak">0</div><div class="cal-stat-lbl">Racha</div></div>
-      <div class="cal-stat"><div class="cal-stat-val" id="cal-stat-total">0</div><div class="cal-stat-lbl">Total días</div></div>
-    </div>
-  </div>
-  <div class="cal-nav">
-    <button class="cal-nav-btn" onclick="calPrev()">‹</button>
-    <div class="cal-month-label" id="cal-month-label"></div>
-    <button class="cal-nav-btn" onclick="calNext()">›</button>
-  </div>
-  <div class="cal-body">
-    <div class="cal-weekdays">
-      <div class="cal-wd">Lun</div><div class="cal-wd">Mar</div><div class="cal-wd">Mié</div>
-      <div class="cal-wd">Jue</div><div class="cal-wd">Vie</div><div class="cal-wd">Sáb</div><div class="cal-wd">Dom</div>
-    </div>
-    <div class="cal-grid" id="cal-grid"></div>
-    <div class="cal-detail" id="cal-detail"></div>
   </div>
 </div>
 
@@ -409,10 +309,6 @@ body{
   <button class="nav-btn" onclick="switchView('progress',this)">
     <span class="nav-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
     <span class="nav-label">Progresión</span>
-  </button>
-  <button class="nav-btn" onclick="switchView('attendance',this)">
-    <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 11 18 15 14"/></svg></span>
-    <span class="nav-label">Asistencia</span>
   </button>
   <button class="nav-btn" onclick="switchView('info',this)">
     <span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
@@ -603,6 +499,73 @@ const LIBRARY = {
     msName: 'Dumbbell Pullover',
     muscles: 'Dorsal ancho · Pectoral · Serrato anterior'
   },
+  // ── WOD · Olympic lifts ─────────────────────────────────────────────────
+  'power-clean': {
+    url: 'https://www.muscleandstrength.com/exercises/power-clean.html',
+    msName: 'Power Clean',
+    muscles: 'Cadena posterior · Trapecio · Cuádriceps · Glúteos · Core'
+  },
+  'hang-clean': {
+    url: 'https://www.muscleandstrength.com/exercises/hang-clean.html',
+    msName: 'Hang Clean',
+    muscles: 'Trapecio · Glúteos · Cuádriceps · Erectores'
+  },
+  'clean-and-jerk': {
+    url: 'https://www.muscleandstrength.com/exercises/clean-and-jerk.html',
+    msName: 'Clean and Jerk',
+    muscles: 'Full-body · Hombros · Trapecio · Cuádriceps · Glúteos'
+  },
+  'power-snatch': {
+    url: 'https://www.muscleandstrength.com/exercises/power-snatch.html',
+    msName: 'Power Snatch',
+    muscles: 'Cadena posterior · Hombros · Trapecio · Core'
+  },
+  'hang-snatch': {
+    url: 'https://www.muscleandstrength.com/exercises/hang-snatch.html',
+    msName: 'Hang Snatch',
+    muscles: 'Trapecio · Hombros · Glúteos · Cuádriceps'
+  },
+  'overhead-squat': {
+    url: 'https://www.muscleandstrength.com/exercises/overhead-squat.html',
+    msName: 'Overhead Squat',
+    muscles: 'Cuádriceps · Glúteos · Hombros · Core · Movilidad torácica'
+  },
+  'push-jerk': {
+    url: 'https://www.muscleandstrength.com/exercises/push-jerk.html',
+    msName: 'Push Jerk',
+    muscles: 'Hombros · Tríceps · Cuádriceps · Core'
+  },
+  'split-jerk': {
+    url: 'https://www.muscleandstrength.com/exercises/split-jerk.html',
+    msName: 'Split Jerk',
+    muscles: 'Hombros · Tríceps · Cuádriceps · Glúteos · Core'
+  },
+  // ── WOD · CrossFit compounds ────────────────────────────────────────────
+  'thruster': {
+    url: 'https://www.muscleandstrength.com/exercises/thruster.html',
+    msName: 'Thruster',
+    muscles: 'Cuádriceps · Glúteos · Hombros · Tríceps · Core'
+  },
+  'wall-ball': {
+    url: 'https://www.muscleandstrength.com/exercises/wall-ball.html',
+    msName: 'Wall Ball',
+    muscles: 'Cuádriceps · Glúteos · Hombros · Core'
+  },
+  'kb-swing': {
+    url: 'https://www.muscleandstrength.com/exercises/two-arm-kettlebell-swing.html',
+    msName: 'Kettlebell Swing',
+    muscles: 'Glúteos · Isquiotibiales · Erectores · Hombros · Core'
+  },
+  'box-jump': {
+    url: 'https://www.muscleandstrength.com/exercises/box-jump.html',
+    msName: 'Box Jump',
+    muscles: 'Cuádriceps · Glúteos · Gastrocnemio'
+  },
+  'burpee': {
+    url: 'https://www.muscleandstrength.com/exercises/burpee.html',
+    msName: 'Burpee',
+    muscles: 'Full-body · Pectoral · Cuádriceps · Core'
+  },
 };
 
 function msUrl(id) {
@@ -615,143 +578,163 @@ function msName(id) {
 // =====================================================================
 // ROUTINE DATA
 // =====================================================================
-const RM = {
-  backSquat:130, deadlift:155, benchPress:105, frontSquat:115,
-  shoulderPress:60, cleanJerk:85, snatch:67, overheadSquat:70, thrusters:90
-};
 const BP = {
-  1:{pct:.70,repsRange:'12–15',rest:'60"',label:'Acumulación',setsMain:4,setsAcc:3},
-  2:{pct:.82,repsRange:'6–10', rest:'90"',label:'Intensificación',setsMain:5,setsAcc:4},
-  3:{pct:.75,repsRange:'12–15',rest:'45"',label:'Definición',setsMain:4,setsAcc:3}
+  1:{repsRange:'12–15',rest:'60"',label:'Acumulación',setsMain:4,setsAcc:3,coreFormat:'EMOM 8\''},
+  2:{repsRange:'6–10', rest:'90"',label:'Intensificación',setsMain:5,setsAcc:4,coreFormat:'AMRAP 7\''},
+  3:{repsRange:'12–15',rest:'45"',label:'Definición',setsMain:4,setsAcc:3,coreFormat:'For Time'}
 };
-const BWO = {1:0,2:6,3:12};
-const RMW = [6,12,18];
-function kg(v){return Math.round(v/2.5)*2.5;}
+
+// Core diario: rota por sesión y se adapta al formato del bloque.
+function coreBlock(block, sessionIdx){
+  const fmt = BP[block].coreFormat;
+  const variants = [
+    // PUSH — abdominal recto + hipopresivo
+    {rounds:[
+      {desc:'Plank frontal 40s',time:'min impar'},
+      {desc:'Hanging leg raise x10',time:'min par'}
+    ]},
+    // PULL — anti-extensión + flexores cadera
+    {rounds:[
+      {desc:'Ab wheel rollout x8',time:'min impar'},
+      {desc:'Plank lateral 30s/lado',time:'min par'}
+    ]},
+    // LEGS — core resistente sin carga lumbar
+    {rounds:[
+      {desc:'Hanging leg raise x12',time:'min impar'},
+      {desc:'Plank frontal 45s',time:'min par'}
+    ]}
+  ];
+  const v = variants[sessionIdx] || variants[0];
+  return { title:'Core + Conditioning', duration:'8 min', format:fmt, rounds:v.rounds };
+}
 
 function getSessions(block){
-  const b=BP[block], p=b.pct;
+  const b=BP[block];
   return [
     {
-      id:'push-a',type:'push',title:'PUSH A',shortTitle:'Push A',
-      focus:'Pecho · Hombros · Tríceps',duration:'75–90 min',
+      id:'push',type:'push',title:'PUSH',shortTitle:'Push',
+      focus:'Pecho · Hombros · Tríceps',duration:'70–85 min',
       exercises:[
-        {id:'bench-press',  name:'Press en banco plano (barra)',sets:b.setsMain,reps:b.repsRange,rest:b.rest,weight:kg(RM.benchPress*p),rmBased:true, note:'Escápulas apretadas. Barra baja hasta el esternón. Empuje controlado.',isRMTest:true},
-        {id:'cable-fly',    name:'Aperturas en cable (polea alta)',sets:b.setsAcc,reps:'12–15',rest:'60"',weight:12,rmBased:false,note:'Máxima contracción pectoral al juntar las manos. Peso por lado.'},
-        {id:'arnold-press', name:'Press Arnold con mancuernas',sets:b.setsMain,reps:b.repsRange,rest:b.rest,weight:kg(RM.shoulderPress*.48*p),rmBased:true,note:'Rotá la muñeca durante el movimiento. Rango completo.'},
-        {id:'lateral-raise-cable',name:'Elevaciones laterales en cable',sets:b.setsAcc,reps:'15',rest:'60"',weight:8,rmBased:false,note:'Brazo ligeramente flexionado. Sin balanceo de torso.'},
-        {id:'tricep-rope',  name:'Rope Tricep Extension',sets:b.setsAcc,reps:'12–15',rest:'60"',weight:25,rmBased:false,note:'Codos pegados. Separá la cuerda al fondo para mayor contracción.'},
-        {id:'chest-dip',    name:'Chest Dip',sets:b.setsAcc,reps:'10–12',rest:'60"',weight:0,rmBased:false,note:'Torso levemente inclinado hacia adelante para foco pectoral. Lastre cuando superes 12 reps con facilidad.'}
+        {id:'bench-press',  name:'Press en banco plano (barra)',sets:b.setsMain,reps:b.repsRange,rest:b.rest,weight:60,note:'Escápulas apretadas. Barra baja hasta el esternón. Empuje controlado.'},
+        {id:'db-shoulder-press',name:'Press militar con mancuernas sentado',sets:b.setsMain,reps:b.repsRange,rest:b.rest,weight:18,note:'Sube sin bloquear los codos. Core activo. Peso por mancuerna.'},
+        {id:'cable-fly',    name:'Aperturas en cable (polea alta)',sets:b.setsAcc,reps:'12–15',rest:'60"',weight:12,note:'Máxima contracción pectoral al juntar las manos. Peso por lado.'},
+        {id:'lateral-raise-cable',name:'Elevaciones laterales en cable',sets:b.setsAcc,reps:'15',rest:'60"',weight:8,note:'Brazo ligeramente flexionado. Sin balanceo de torso.'},
+        {id:'tricep-rope',  name:'Rope Tricep Extension',sets:b.setsAcc,reps:'12–15',rest:'60"',weight:25,note:'Codos pegados. Separá la cuerda al fondo para mayor contracción.'},
+        {id:'chest-dip',    name:'Chest Dip',sets:b.setsAcc,reps:'10–12',rest:'60"',weight:0,note:'Torso levemente inclinado hacia adelante para foco pectoral. Lastre cuando superes 12 reps con facilidad.'}
       ],
-      hiit:{title:'HIIT Final — Empuje Metabólico',duration:'12 min',rounds:[
-        {desc:'Calentamiento suave',time:'2 min'},
-        {desc:'5 rondas: 30" Burpees / 30" descanso',time:'5 min'},
-        {desc:'5 rondas: 20" Push-up explosivo / 40" descanso',time:'3 min'},
-        {desc:'Vuelta a la calma',time:'2 min'}
-      ]}
+      core: coreBlock(block, 0)
     },
     {
-      id:'pull-a',type:'pull',title:'PULL A',shortTitle:'Pull A',
-      focus:'Espalda · Bíceps',duration:'75–90 min',
+      id:'pull',type:'pull',title:'PULL',shortTitle:'Pull',
+      focus:'Espalda · Bíceps',duration:'70–85 min',
       exercises:[
-        {id:'lat-pulldown', name:'Lat Pull Down',sets:b.setsMain,reps:b.repsRange,rest:b.rest,weight:kg(RM.backSquat*.55*p),rmBased:true,note:'Pecho arriba. Barra baja hasta la clavícula. Codos hacia los bolsillos.',isRMTest:true},
-        {id:'hammer-row',   name:'Seated Cable Row',sets:b.setsMain,reps:b.repsRange,rest:b.rest,weight:70,rmBased:false,note:'Pecho apoyado. Codos atrás. Apretá las escápulas al final.',isRMTest:true},
-        {id:'db-pullover',  name:'Dumbbell Pullover',sets:b.setsAcc,reps:'12–15',rest:'60"',weight:24,rmBased:false,note:'Leve flexión en el codo. Pensá en llevar los codos hacia los muslos activando el dorsal.'},
-        {id:'pullover',     name:'Pull-over en polea (brazos rectos)',sets:b.setsAcc,reps:'12–15',rest:'60"',weight:30,rmBased:false,note:'Brazos casi rectos. Pensá en llevar los codos hacia los muslos.'},
-        {id:'ez-curl',      name:'Curl con barra EZ',sets:b.setsAcc,reps:'10–12',rest:'60"',weight:30,rmBased:false,note:'Sin balanceo. Excéntrica lenta de 2–3 seg.'},
-        {id:'hammer-curl',  name:'Curl martillo con mancuernas',sets:b.setsAcc,reps:'12',rest:'60"',weight:16,rmBased:false,note:'Agarre neutro. Trabaja braquial y braquiorradial. Peso por lado.'}
+        {id:'pullups',      name:'Pull Up',sets:b.setsMain,reps:'6–10',rest:b.rest,weight:0,note:'Escápulas primero, luego brazos. Rango completo. Lastre si hacés más de 10 reps con facilidad.'},
+        {id:'bent-over-row',name:'Bent Over Row',sets:b.setsMain,reps:b.repsRange,rest:b.rest,weight:60,note:'Torso paralelo al suelo. Codos cerca del cuerpo. Core activo. Barra toca el abdomen.'},
+        {id:'hammer-row',   name:'Seated Cable Row',sets:b.setsAcc,reps:'12–15',rest:'60"',weight:55,note:'Pecho apoyado. Codos atrás. Apretá las escápulas al final.'},
+        {id:'db-pullover',  name:'Dumbbell Pullover',sets:b.setsAcc,reps:'12–15',rest:'60"',weight:24,note:'Leve flexión en el codo. Pensá en llevar los codos hacia los muslos activando el dorsal.'},
+        {id:'ez-curl',      name:'Curl con barra EZ',sets:b.setsAcc,reps:'10–12',rest:'60"',weight:25,note:'Sin balanceo. Excéntrica lenta de 2–3 seg.'},
+        {id:'hammer-curl',  name:'Curl martillo con mancuernas',sets:b.setsAcc,reps:'12',rest:'60"',weight:14,note:'Agarre neutro. Trabaja braquial y braquiorradial. Peso por lado.'},
+        {id:'face-pulls',   name:'Cable Face Pull with External Rotation',sets:b.setsAcc,reps:'15',rest:'45"',weight:20,note:'Cuerda a la altura de los ojos. Codos altos. Preventivo de hombro.'}
       ],
-      hiit:null
+      core: coreBlock(block, 1)
     },
     {
-      id:'legs',type:'legs',title:'LEGS',shortTitle:'Piernas',
-      focus:'Cuádriceps · Isquios · Glúteos · Pantorrillas',duration:'75–90 min',
+      id:'legs',type:'legs',title:'LEGS',shortTitle:'Legs',
+      focus:'Cuádriceps · Glúteos · Posterior',duration:'75–90 min',
       exercises:[
-        {id:'deadlift',   name:'Deadlift',sets:b.setsMain,reps:block===2?'4–5':'5',rest:"2'",weight:kg(RM.deadlift*p),rmBased:true,note:'Caderas abajo, pecho arriba. La barra roza las piernas en todo el recorrido. Empuje con los pies hacia el suelo.',isRMTest:true},
-        {id:'squat',      name:'Barbell Back Squat',sets:b.setsMain,reps:b.repsRange,rest:"2'",weight:kg(RM.backSquat*p),rmBased:true,note:'Profundidad completa. Rodillas en línea con puntas. Espalda neutra.',isRMTest:true},
-        {id:'leg-press',  name:'Leg Press',sets:b.setsMain,reps:b.repsRange,rest:b.rest,weight:120,rmBased:false,note:'Pies a ancho de hombros. No bloquees las rodillas al extender.'},
-        {id:'leg-curl',   name:'Leg Curl',sets:b.setsAcc,reps:'12–15',rest:'60"',weight:35,rmBased:false,note:'Cadera pegada al pad. Sube rápido, baja lento (2–3 seg).'},
-        {id:'hip-thrust', name:'Barbell Hip Thrust',sets:b.setsMain,reps:b.repsRange,rest:b.rest,weight:kg(RM.backSquat*.75*p),rmBased:true,note:'Mentón al pecho. Cadera horizontal arriba. Apretá el glúteo 1 seg.'},
-        {id:'calf-raise', name:'Standing Machine Calf Raise',sets:b.setsAcc,reps:'15–20',rest:'45"',weight:60,rmBased:false,note:'Rango completo. Pausa 1 seg arriba apretando la pantorrilla.'}
+        {id:'deadlift',   name:'Deadlift',sets:b.setsMain,reps:block===2?'4–5':'5',rest:"2'",weight:90,note:'Caderas abajo, pecho arriba. La barra roza las piernas en todo el recorrido. Empuje con los pies hacia el suelo.'},
+        {id:'squat',      name:'Barbell Back Squat',sets:b.setsMain,reps:b.repsRange,rest:"2'",weight:80,note:'Profundidad completa. Rodillas en línea con puntas. Espalda neutra.'},
+        {id:'leg-press',  name:'Leg Press',sets:b.setsMain,reps:b.repsRange,rest:b.rest,weight:120,note:'Pies a ancho de hombros. No bloquees las rodillas al extender.'},
+        {id:'leg-curl',   name:'Leg Curl',sets:b.setsAcc,reps:'12–15',rest:'60"',weight:35,note:'Cadera pegada al pad. Sube rápido, baja lento (2–3 seg).'},
+        {id:'hip-thrust', name:'Barbell Hip Thrust',sets:b.setsMain,reps:b.repsRange,rest:b.rest,weight:80,note:'Mentón al pecho. Cadera horizontal arriba. Apretá el glúteo 1 seg.'},
+        {id:'calf-raise', name:'Standing Machine Calf Raise',sets:b.setsAcc,reps:'15–20',rest:'45"',weight:60,note:'Rango completo. Pausa 1 seg arriba apretando la pantorrilla.'}
       ],
-      hiit:{title:'Cardio Activo Final (LISS)',duration:'10 min',rounds:[
-        {desc:'Bicicleta estática a ritmo moderado (65–70% FCmax)',time:'10 min'}
-      ]}
+      core: coreBlock(block, 2)
     },
     {
-      id:'push-b',type:'push',title:'PUSH B',shortTitle:'Push B',
-      focus:'Hombros · Pecho · Tríceps (variante)',duration:'75–90 min',
-      exercises:[
-        {id:'db-shoulder-press',name:'Press militar con mancuernas sentado',sets:b.setsMain,reps:b.repsRange,rest:b.rest,weight:kg(RM.shoulderPress*.48*p),rmBased:true,note:'Sube sin bloquear los codos. Core activo durante todo el set.',isRMTest:true},
-        {id:'pec-deck',    name:'Aperturas en máquina (Pec Deck)',sets:b.setsMain,reps:'12–15',rest:'60"',weight:50,rmBased:false,note:'Codos levemente flexionados. Apretá el pecho 1 seg al cerrar.'},
-        {id:'lateral-raise-db',name:'Elevaciones laterales con mancuernas',sets:b.setsAcc,reps:'15',rest:'60"',weight:12,rmBased:false,note:'Hasta la línea de hombros. Sin compensar con el torso.'},
-        {id:'face-pulls',  name:'Face pulls en polea',sets:b.setsAcc,reps:'15',rest:'60"',weight:20,rmBased:false,note:'Cuerda a la altura de los ojos. Codos altos. Preventivo de hombro.'},
-        {id:'tricep-overhead',name:'Seated Dumbbell Tricep Extension',sets:b.setsAcc,reps:'12',rest:'60"',weight:20,rmBased:false,note:'Codos cerca de las orejas. No los abras al bajar. Ataca la cabeza larga del tríceps.'},
-        {id:'close-grip-bench',name:'Close Grip Bench Press',sets:b.setsAcc,reps:'10–12',rest:'60"',weight:kg(RM.benchPress*.6*p),rmBased:true,note:'Agarre a la anchura de los hombros. Codos pegados al torso. Compuesto de tríceps con mayor carga.'}
-      ],
-      hiit:{title:'HIIT Final — Cardio Express',duration:'12 min',rounds:[
-        {desc:'Calentamiento suave',time:'2 min'},
-        {desc:'5 rondas: 30" Sprints en bicicleta estática / 30" descanso',time:'5 min'},
-        {desc:'5 rondas: 20" Saltos al cajón (box step-up) / 40" descanso',time:'5 min'}
-      ]}
-    },
-    {
-      id:'pull-b',type:'pull',title:'PULL B + CORE',shortTitle:'Pull B+Core',
-      focus:'Espalda · Bíceps · Core',duration:'75–90 min',
-      exercises:[
-        {id:'pullups',      name:'Pull Up',sets:b.setsMain,reps:'6–10',rest:b.rest,weight:0,rmBased:false,note:'Escápulas primero, luego brazos. Rango completo. Lastre si hacés más de 10 reps.'},
-        {id:'bent-over-row',name:'Bent Over Row',sets:b.setsMain,reps:b.repsRange,rest:b.rest,weight:kg(RM.deadlift*.6*p),rmBased:true,note:'Torso paralelo al suelo. Codos cerca del cuerpo. Core activo. Barra toca el abdomen.'},
-        {id:'face-pulls', name:'Cable Face Pull with External Rotation',sets:b.setsAcc,reps:'15',rest:'60"',weight:20,rmBased:false,note:'Imprescindible para equilibrar el trabajo de empuje y proteger el hombro.'},
-        {id:'preacher-curl',name:'EZ Bar Preacher Curl',sets:b.setsAcc,reps:'12',rest:'60"',weight:30,rmBased:false,note:'Aísla el bíceps. Sin trampa de hombro. Excéntrica lenta.'},
-        {id:'plank',      name:'Plank',sets:3,reps:'—',rest:'45"',weight:0,rmBased:false,note:'30–45 seg. Alternar frontal, lateral y con elevación de pierna.'},
-        {id:'ab-wheel',   name:'Barbell Abdominal Rollout',sets:3,reps:'12–15',rest:'60"',weight:15,rmBased:false,note:'Movimiento lento y controlado. Abdomen activo durante todo el set.'},
-        {id:'hanging-leg-raise',name:'Hanging Leg Raise',sets:3,reps:'12–15',rest:'60"',weight:0,rmBased:false,note:'Sin balanceo. Activa el core al final del recorrido.'}
-      ],
-      hiit:{title:'HIIT Final — Core Metabólico',duration:'10 min',rounds:[
-        {desc:'Calentamiento suave',time:'1 min'},
-        {desc:'4 rondas: 30" Mountain climbers / 30" descanso',time:'4 min'},
-        {desc:'4 rondas: 30" Jump rope o saltos en el lugar / 30" descanso',time:'4 min'},
-        {desc:'Vuelta a la calma',time:'1 min'}
-      ]}
-    },
-    // ── DÍA 6: TEST DE RM — solo en semanas 6, 12, 18 ──────────────────
-    {
-      id:'rm-test',type:'pull',title:'TEST RM',shortTitle:'Test RM',
-      focus:'Sesión de evaluación — Solo semanas 6 · 12 · 18',duration:'60–75 min',
-      isRMDay: true,
-      exercises:[
-        {id:'squat',     name:'Barbell Back Squat',sets:3,reps:'1 RM',rest:"4'",weight:kg(RM.backSquat*p),rmBased:true,note:'Calentamiento progresivo obligatorio. 50% x5 → 70% x3 → 85% x1 → intento de RM.'},
-        {id:'deadlift',  name:'Deadlift',sets:3,reps:'1 RM',rest:"4'",weight:kg(RM.deadlift*p),rmBased:true,note:'Calentamiento progresivo. Agarre mixto si es necesario. Foco en técnica impecable.'},
-        {id:'bench-press',name:'Barbell Bench Press',sets:3,reps:'1 RM',rest:"3'",weight:kg(RM.benchPress*p),rmBased:true,note:'Spotter obligatorio. Escápulas apretadas. No rebotar la barra en el pecho.'},
-        {id:'db-shoulder-press',name:'Seated Dumbbell Press',sets:3,reps:'1 RM',rest:"3'",weight:kg(RM.shoulderPress*.48*p),rmBased:true,note:'Core activo. Sin arquear la espalda. Registrar peso por mancuerna.'},
-        {id:'lat-pulldown',name:'Lat Pull Down',sets:2,reps:'Max reps',rest:"3'",weight:kg(RM.backSquat*.55*p),rmBased:true,note:'Referencia funcional — no 1RM verdadero. Elegí un peso fijo y anotá el máximo de reps limpias.'}
-      ],
-      hiit: null
+      id:'wod',type:'wod',title:'WOD',shortTitle:'WOD',
+      focus:'Halterofilia · CrossFit',duration:'60–75 min',
+      exercises: wodExercises(block),
+      metcon: wodMetcon(block)
     }
   ];
+}
+
+// Día WOD: técnica oly + compuesto pesado, rotando por bloque.
+function wodExercises(block){
+  const b=BP[block];
+  if(block===1){
+    return [
+      {id:'power-clean',name:'Power Clean',sets:5,reps:'3',rest:'2\'',weight:50,note:'Foco técnico. Tirón explosivo desde el suelo. Hombros sobre la barra. Codos arriba en el catch.'},
+      {id:'push-jerk',  name:'Push Jerk',sets:5,reps:'3',rest:'2\'',weight:45,note:'Dip-drive vertical. Empuje activo bajo la barra. Bloqueo de codos arriba.'},
+      {id:'overhead-squat',name:'Overhead Squat',sets:b.setsAcc,reps:'5–8',rest:'90"',weight:30,note:'Movilidad torácica. Barra encima de la cabeza, hombros activos. Profundidad completa.'},
+      {id:'kb-swing',   name:'Kettlebell Swing (russian)',sets:b.setsAcc,reps:'15',rest:'60"',weight:24,note:'Hinge de cadera. KB hasta la línea de hombros. Glúteo y abdomen apretados arriba.'}
+    ];
+  }
+  if(block===2){
+    return [
+      {id:'clean-and-jerk',name:'Clean and Jerk',sets:6,reps:'2',rest:"2'30\"",weight:55,note:'Complex completo: clean + split o push jerk. Reset breve entre cada rep.'},
+      {id:'power-snatch',name:'Power Snatch',sets:5,reps:'2',rest:'2\'',weight:35,note:'Tirón largo. Recepción en cuarto de squat. Brazos pasivos hasta la extensión.'},
+      {id:'thruster',   name:'Thruster',sets:b.setsMain,reps:'5',rest:'90"',weight:45,note:'Front squat + push press en un solo movimiento. Codos arriba en el front rack.'},
+      {id:'box-jump',   name:'Box Jump',sets:b.setsAcc,reps:'8',rest:'60"',weight:0,note:'Cajón 60cm. Extensión completa arriba. Bajar caminando para cuidar tendón.'}
+    ];
+  }
+  // block 3
+  return [
+    {id:'hang-snatch',name:'Hang Snatch + OHS complex',sets:5,reps:'1+1',rest:'2\'',weight:35,note:'Hang snatch seguido inmediato de un overhead squat. Trabajo de potencia + movilidad.'},
+    {id:'hang-clean', name:'Hang Clean',sets:5,reps:'3',rest:'90"',weight:50,note:'Triple extensión explosiva desde la rodilla. Catch agresivo en front rack.'},
+    {id:'thruster',   name:'Thruster pesado',sets:4,reps:'5',rest:'2\'',weight:50,note:'Carga progresiva. Front squat profundo, push press de cierre. Sin pausa entre fase.'},
+    {id:'wall-ball',  name:'Wall Ball',sets:b.setsAcc,reps:'15',rest:'60"',weight:9,note:'Pelota 9kg a target 3m. Squat profundo, impulso de piernas a la pelota.'}
+  ];
+}
+
+// Metcon de cierre del día WOD: formato variable por bloque.
+function wodMetcon(block){
+  if(block===1){
+    return {title:'Metcon — Engine builder',duration:'12 min',format:'AMRAP 10\'',rounds:[
+      {desc:'10 KB swings (24kg)',time:'ronda'},
+      {desc:'10 Box jumps',time:'ronda'},
+      {desc:'10 Burpees',time:'ronda'}
+    ]};
+  }
+  if(block===2){
+    return {title:'Metcon — Power couplet',duration:'12 min',format:'EMOM 12\'',rounds:[
+      {desc:'min 1·4·7·10: 5 Power cleans',time:''},
+      {desc:'min 2·5·8·11: 8 Thrusters',time:''},
+      {desc:'min 3·6·9·12: 10 Burpees',time:''}
+    ]};
+  }
+  return {title:'Metcon — "Fran" style',duration:'8 min',format:'For Time (cap 8\')',rounds:[
+    {desc:'21-15-9 reps:',time:''},
+    {desc:'Thrusters (40kg)',time:''},
+    {desc:'Pull-ups',time:''}
+  ]};
 }
 
 // =====================================================================
 // STATE
 // =====================================================================
-let S={block:1,week:1,day:0,openWeight:null,openProg:null,step:2.5,weights:{},rmHistory:{},weightHistory:{},attendanceLog:[]};
+const BWO = {1:0,2:6,3:12}; // semanas acumuladas al iniciar cada bloque (para el log de progreso)
+
+let S={block:1,week:1,day:0,openWeight:null,openProg:null,step:2.5,weights:{},weightHistory:{}};
 
 function loadState(){
   try{
-    const raw=localStorage.getItem('mywod_v6')||localStorage.getItem('mywod_v5');
+    const raw=localStorage.getItem('mywod_v7')
+            ||localStorage.getItem('mywod_v6')
+            ||localStorage.getItem('mywod_v5');
     const d=JSON.parse(raw||'{}');
-    ['weights','rmHistory','weightHistory','block','week','day','attendanceLog']
-      .forEach(k=>{if(d[k]!==undefined)S[k]=d[k];});
-    if(!Array.isArray(S.attendanceLog))S.attendanceLog=[];
-    if(!localStorage.getItem('mywod_v6'))saveState();
+    ['weights','weightHistory','block','week','day'].forEach(k=>{if(d[k]!==undefined)S[k]=d[k];});
+    if(S.day>3)S.day=0; // el viejo día 4 o 5 (push-b/pull-b/rm-test) ya no existe
+    if(!localStorage.getItem('mywod_v7')){
+      saveState();
+      localStorage.removeItem('mywod_v6');
+      localStorage.removeItem('mywod_v5');
+    }
   }catch(e){}
-  if(!S.rmHistory.backSquat)   S.rmHistory.backSquat=  [{v:130,date:'Inicial',tag:'rm'}];
-  if(!S.rmHistory.deadlift)    S.rmHistory.deadlift=   [{v:155,date:'Inicial',tag:'rm'}];
-  if(!S.rmHistory.benchPress)  S.rmHistory.benchPress= [{v:105,date:'Inicial',tag:'rm'}];
-  if(!S.rmHistory.shoulderPress)S.rmHistory.shoulderPress=[{v:60,date:'Inicial',tag:'rm'}];
-  if(!S.rmHistory.frontSquat)  S.rmHistory.frontSquat= [{v:115,date:'Inicial',tag:'rm'}];
 }
 function saveState(){
-  try{localStorage.setItem('mywod_v6',JSON.stringify({weights:S.weights,rmHistory:S.rmHistory,weightHistory:S.weightHistory,block:S.block,week:S.week,day:S.day,attendanceLog:S.attendanceLog}));}catch(e){}
+  try{localStorage.setItem('mywod_v7',JSON.stringify({weights:S.weights,weightHistory:S.weightHistory,block:S.block,week:S.week,day:S.day}));}catch(e){}
 }
 function wKey(b,d,n){return `${b}-${d}-${n.substring(0,22)}`;}
 function getW(b,d,n,def){const k=wKey(b,d,n);return S.weights[k]!==undefined?S.weights[k]:def;}
@@ -764,8 +747,6 @@ function setW(b,d,n,val){
   if(prev!==val)S.weightHistory[k].push({v:val,date:`Sem ${abs} · ${today}`,tag:'manual'});
   saveState();
 }
-function absWeek(){return BWO[S.block]+S.week;}
-function isRMWeek(){return RMW.includes(absWeek());}
 
 // =====================================================================
 // RENDER HEADER
@@ -775,24 +756,19 @@ function renderHeader(){
   const ws=document.getElementById('week-strip');
   ws.innerHTML='';
   for(let w=1;w<=6;w++){
-    const abs=BWO[S.block]+w, isRM=RMW.includes(abs);
+    const abs=BWO[S.block]+w;
     const btn=document.createElement('div');
-    btn.className=`week-btn${isRM?' rm-week':''}${w===S.week?' active':''}`;
+    btn.className=`week-btn${w===S.week?' active':''}`;
     btn.textContent=`S${abs}`;
     btn.onclick=()=>{S.week=w;saveState();renderHeader();renderSession();};
     ws.appendChild(btn);
   }
   const dr=document.getElementById('day-row');
   dr.innerHTML='';
-  const todayStr=todayDate();
   getSessions(S.block).forEach((s,i)=>{
-    // Only show RM day pill on RM weeks
-    if(s.isRMDay && !isRMWeek()) return;
     const pill=document.createElement('div');
-    const pillType = s.isRMDay ? 'rm-day' : s.type;
-    pill.className=`day-pill ${pillType}${i===S.day?' active':''}`;
-    const attendedToday=S.attendanceLog.some(e=>e.date===todayStr&&e.sessionId===s.id);
-    pill.innerHTML=`<div class="dl">Día ${i+1}</div><div class="dt">${s.shortTitle}</div>${attendedToday?'<div class="attended-dot"></div>':''}`;
+    pill.className=`day-pill ${s.type}${i===S.day?' active':''}`;
+    pill.innerHTML=`<div class="dl">Día ${i+1}</div><div class="dt">${s.shortTitle}</div>`;
     pill.onclick=()=>{S.day=i;S.openWeight=null;saveState();renderSession();renderHeader();};
     dr.appendChild(pill);
   });
@@ -806,95 +782,18 @@ function renderSession(){
 
   document.getElementById('sess-title').textContent=s.title;
   const badge=document.getElementById('sess-badge');
-  if(s.isRMDay){
-    badge.textContent='TEST'; badge.className='session-badge push';
-    document.getElementById('block-banner').innerHTML=`⚡ <strong>Sesión de test RM — Semana ${absWeek()}</strong> · Calentamiento progresivo obligatorio en cada ejercicio · Sin HIIT hoy`;
-    document.getElementById('block-banner').style.borderLeftColor='var(--accent2)';
-    document.getElementById('rm-banner').classList.remove('visible');
-  } else {
-    badge.textContent=s.type.toUpperCase(); badge.className=`session-badge ${s.type}`;
-    document.getElementById('block-banner').innerHTML=`<strong>Bloque ${S.block} — ${b.label}</strong> · ${Math.round(b.pct*100)}% RM · ${b.repsRange} reps · Descanso ${b.rest}`;
-    document.getElementById('block-banner').style.borderLeftColor='var(--accent)';
-    document.getElementById('rm-banner').classList.toggle('visible', isRMWeek());
-  }
+  badge.textContent=s.type.toUpperCase();
+  badge.className=`session-badge ${s.type}`;
+  document.getElementById('block-banner').innerHTML=`<strong>Bloque ${S.block} — ${b.label}</strong> · ${b.repsRange} reps · Descanso ${b.rest} · Core ${b.coreFormat}`;
   document.getElementById('sess-dur').textContent=s.duration;
   document.getElementById('sess-focus').textContent=s.focus;
 
   const cont=document.getElementById('exercises-container');
   cont.innerHTML='';
 
-  // RM test day: special layout
-  if(s.isRMDay){
-    const rml=document.createElement('div');
-    rml.className='section-label';rml.textContent='Protocolo de test — 1 Repetición Máxima';
-    cont.appendChild(rml);
-
-    const proto=document.createElement('div');
-    proto.style.cssText='margin-bottom:10px;padding:10px 13px;background:rgba(255,107,53,.06);border:1px solid rgba(255,107,53,.2);border-radius:9px;font-size:10px;color:var(--muted);line-height:1.7;';
-    proto.innerHTML=`<strong style="color:var(--accent2)">Protocolo de calentamiento por ejercicio:</strong><br>
-      50% RM × 5 reps → 65% × 3 → 80% × 1 → 90% × 1 → <strong style="color:var(--accent)">Intento de RM</strong><br>
-      Descanso 3–4 min entre series. Registrá el nuevo RM abajo al finalizar.`;
-    cont.appendChild(proto);
-
-    s.exercises.forEach((ex,idx)=>{
-      const url=msUrl(ex.id); const lib=LIBRARY[ex.id];
-      const card=document.createElement('div');
-      card.className='ex-card';
-      card.dataset.type='rm';
-      card.innerHTML=`
-        <div class="ex-main">
-          <div class="ex-num">${String(idx+1).padStart(2,'0')}</div>
-          <div class="ex-info">
-            <div class="ex-name">${msName(ex.id)||ex.name}</div>
-            <div class="ex-params">
-              <span class="pchip series">${ex.sets} series</span>
-              <span class="pchip reps">${ex.reps}</span>
-              <span class="pchip">${ex.rest}</span>
-            </div>
-            ${lib?`<div class="ex-muscles">${lib.muscles}</div>`:''}
-          </div>
-          <div class="ex-right">
-            <div class="w-val" style="font-size:14px;color:var(--accent2)">MAX</div>
-            <div class="w-unit">1RM</div>
-          </div>
-        </div>
-        <div style="padding:8px 13px 10px;background:var(--surface2);font-size:10px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);line-height:1.5;">${ex.note}</div>
-        ${url?`<div style="border-top:1px solid var(--border);"><button class="ex-action-btn" onclick="window.open('${url}','_blank')">▶ Ver en M&amp;S</button></div>`:''}
-      `;
-      cont.appendChild(card);
-    });
-
-    // RM input form
-    const rl=document.createElement('div');
-    rl.className='section-label';rl.style.marginTop='6px';rl.textContent='Registrar nuevos RMs';
-    cont.appendChild(rl);
-    const rc=document.createElement('div');rc.className='rm-test-card';
-    const rmFields=[
-      {key:'backSquat',label:'Back Squat'},
-      {key:'deadlift',label:'Deadlift'},
-      {key:'benchPress',label:'Bench Press'},
-      {key:'shoulderPress',label:'Seated DB Press (por mancuerna)'},
-    ];
-    rc.innerHTML=`
-      <div class="rm-test-title">⚡ Nuevos RMs — Semana ${absWeek()}</div>
-      ${rmFields.map(f=>{
-        const h=S.rmHistory[f.key],prev=h&&h.length?h[h.length-1].v:'—';
-        return `<div class="rm-test-item">
-          <span class="rm-exname">${f.label}</span>
-          <div class="rm-inputs">
-            <span class="rm-prev">Ant: ${prev} kg</span>
-            <input class="rm-inp" type="number" inputmode="decimal" id="rminp-${f.key}" placeholder="${prev}" min="0" step="2.5">
-            <span class="rm-unit">kg</span>
-          </div></div>`;
-      }).join('')}
-      <button class="rm-save-btn" onclick="saveRMs()">Guardar RMs</button>`;
-    cont.appendChild(rc);
-    return; // skip the rest of renderSession for RM day
-  }
-
-  // Normal day
   const lbl=document.createElement('div');
-  lbl.className='section-label';lbl.textContent='Ejercicios principales';
+  lbl.className='section-label';
+  lbl.textContent = s.type==='wod' ? 'Trabajo principal — técnica y carga' : 'Ejercicios principales';
   cont.appendChild(lbl);
 
   s.exercises.forEach((ex,idx)=>{
@@ -903,7 +802,6 @@ function renderSession(){
     const isOpenW=S.openWeight===idx;
     const url=msUrl(ex.id);
     const exMsName=msName(ex.id);
-    const rmTag=ex.isRMTest&&isRMWeek()?'<span class="tag-rm">TEST RM</span>':'';
     const lib=LIBRARY[ex.id];
 
     const card=document.createElement('div');
@@ -913,7 +811,7 @@ function renderSession(){
       <div class="ex-main">
         <div class="ex-num">${String(idx+1).padStart(2,'0')}</div>
         <div class="ex-info">
-          <div class="ex-name">${exMsName||ex.name}${rmTag}</div>
+          <div class="ex-name">${exMsName||ex.name}</div>
           <div class="ex-params">
             <span class="pchip series">${ex.sets} series</span>
             <span class="pchip reps">${ex.reps} reps</span>
@@ -924,7 +822,6 @@ function renderSession(){
         <div class="ex-right">
           <div class="w-val" id="wval-${idx}">${curW>0?curW:'—'}</div>
           <div class="w-unit">${curW>0?'kg':'corporal'}</div>
-          ${ex.rmBased?`<div class="w-pct">${Math.round(b.pct*100)}% RM</div>`:''}
         </div>
       </div>
       <div class="ex-actions">
@@ -946,45 +843,25 @@ function renderSession(){
     cont.appendChild(card);
   });
 
-  // HIIT
-  if(s.hiit){
+  // Bloque final: core (push/pull/legs) o metcon (wod)
+  const finisher = s.core || s.metcon;
+  if(finisher){
     const hl=document.createElement('div');
-    hl.className='section-label';hl.textContent='HIIT / Cardio final';
+    hl.className='section-label';
+    hl.textContent = s.metcon ? 'Metcon — cierre del día' : 'Core + Conditioning';
     cont.appendChild(hl);
     const hc=document.createElement('div');hc.className='hiit-card';
     hc.innerHTML=`
-      <div class="hiit-head"><span class="hiit-badge">HIIT</span><span class="hiit-dur">${s.hiit.duration}</span></div>
-      <div class="hiit-title">${s.hiit.title}</div>
-      <div class="hiit-rounds">${s.hiit.rounds.map((r,i)=>`
+      <div class="hiit-head"><span class="hiit-badge">${finisher.format||'FINISHER'}</span><span class="hiit-dur">${finisher.duration}</span></div>
+      <div class="hiit-title">${finisher.title}</div>
+      <div class="hiit-rounds">${finisher.rounds.map((r,i)=>`
         <div class="hiit-round">
           <span class="hiit-rnum">${String(i+1).padStart(2,'0')}</span>
           <span class="hiit-rdesc">${r.desc}</span>
-          <span class="hiit-rtime">${r.time}</span>
+          <span class="hiit-rtime">${r.time||''}</span>
         </div>`).join('')}</div>`;
     cont.appendChild(hc);
   }
-
-  // RM week reminder on normal days — point to Test RM day
-  if(isRMWeek()){
-    const rl=document.createElement('div');
-    rl.className='section-label';rl.textContent='Esta semana hay test de RM';
-    cont.appendChild(rl);
-    const reminder=document.createElement('div');
-    reminder.style.cssText='padding:12px 14px;background:rgba(255,107,53,.06);border:1px solid rgba(255,107,53,.25);border-radius:10px;font-size:11px;color:var(--accent2);line-height:1.6;';
-    reminder.innerHTML=`<strong>Semana ${absWeek()} — Semana de test.</strong><br>Al finalizar la semana, andá al <strong>Día 6 · Test RM</strong> para evaluar tus máximos y registrar los nuevos valores.`;
-    cont.appendChild(reminder);
-  }
-
-  // Check-in button
-  const td=todayDate();
-  const checked=S.attendanceLog.some(e=>e.date===td&&e.sessionId===s.id);
-  const cw=document.createElement('div');
-  cw.className='checkin-wrap';
-  cw.innerHTML=`<button class="checkin-btn${checked?' checked':''}" onclick="checkIn()">
-    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-    ${checked?'Sesión completada hoy':'Marcar sesión como completada'}
-  </button>`;
-  cont.appendChild(cw);
 }
 
 // =====================================================================
@@ -1016,19 +893,6 @@ function selectBlock(b){
   S.block=b;S.day=0;S.week=1;S.openWeight=null;
   saveState();renderHeader();renderSession();
 }
-function saveRMs(){
-  const fields=['backSquat','deadlift','benchPress','shoulderPress'];
-  const today=new Date().toLocaleDateString('es-AR',{day:'2-digit',month:'short',year:'numeric'});
-  let saved=false;
-  fields.forEach(k=>{
-    const el=document.getElementById(`rminp-${k}`);
-    if(el&&el.value){const v=parseFloat(el.value);if(!isNaN(v)&&v>0){
-      if(!S.rmHistory[k])S.rmHistory[k]=[];
-      S.rmHistory[k].push({v,date:today,tag:'rm'});saved=true;
-    }}
-  });
-  if(saved){saveState();alert('✅ RMs guardados. Los pesos de trabajo del próximo bloque se recalcularán automáticamente.');}
-}
 
 // =====================================================================
 // PROGRESS VIEW
@@ -1039,16 +903,19 @@ function renderProgress(){
   const sessions=getSessions(S.block);
 
   // Stats bar
-  let changed=0,total=0,bestGain=0;
+  let changed=0,total=0,bestKey=null,bestGain=0;
   sessions.forEach((sess,di)=>{
     sess.exercises.forEach(ex=>{
       total++;
-      if((S.weightHistory[wKey(S.block,di,ex.name)]||[]).length)changed++;
+      const k=wKey(S.block,di,ex.name);
+      const hist=S.weightHistory[k]||[];
+      if(hist.length)changed++;
+      if(hist.length){
+        const init=Math.round(ex.weight*10)/10;
+        const gain=hist[hist.length-1].v-init;
+        if(gain>bestGain){bestGain=gain;bestKey=msName(ex.id)||ex.name;}
+      }
     });
-  });
-  ['backSquat','deadlift','benchPress','shoulderPress'].forEach(k=>{
-    const h=S.rmHistory[k]||[];
-    if(h.length>1){const g=h[h.length-1].v-h[0].v;if(g>bestGain)bestGain=g;}
   });
   const sb=document.createElement('div');
   sb.className='prog-stats-bar';
@@ -1059,7 +926,7 @@ function renderProgress(){
     </div>
     <div class="prog-stat">
       <div class="prog-stat-val">${bestGain>0?'+'+bestGain:'—'}</div>
-      <div class="prog-stat-lbl">Mejor ganancia RM</div>
+      <div class="prog-stat-lbl">${bestKey?`Mejor ganancia · ${bestKey.split(' ').slice(0,2).join(' ')}`:'Mejor ganancia'}</div>
     </div>`;
   cont.appendChild(sb);
 
@@ -1104,60 +971,6 @@ function renderProgress(){
       cont.appendChild(card);
     });
   });
-
-  // RMs
-  const rml=document.createElement('div');
-  rml.className='section-label';rml.style.cssText='margin:14px 0 4px;';
-  rml.textContent='RMs principales (1 repetición máxima)';
-  cont.appendChild(rml);
-
-  [
-    {key:'backSquat',label:'Back Squat',initial:130},
-    {key:'deadlift',label:'Deadlift',initial:155},
-    {key:'benchPress',label:'Bench Press',initial:105},
-    {key:'shoulderPress',label:'Seated DB Press',initial:60},
-  ].forEach(rm=>{
-    const hist=S.rmHistory[rm.key]||[{v:rm.initial,date:'Inicial',tag:'rm'}];
-    const latest=hist[hist.length-1];
-    const change=hist.length>1?latest.v-hist[0].v:null;
-    const isOpen=S.openProg===`rm-${rm.key}`;
-    const card=document.createElement('div');card.className='prog-ex-card';
-    card.innerHTML=`
-      <div class="prog-ex-head" onclick="toggleProg('rm-${rm.key}')">
-        <div>
-          <div class="prog-ex-session" style="color:var(--accent2)">RM · 1 rep máxima</div>
-          <div class="prog-ex-name">${rm.label}</div>
-        </div>
-        <div class="prog-ex-right">
-          <div class="prog-ex-weight" style="color:var(--accent2)">${latest.v}<span style="font-size:10px;color:var(--muted)"> kg</span></div>
-          ${change!==null
-            ?`<div class="prog-ex-change ${change>0?'change-up':'change-none'}">${change>0?'+':''}${change} kg</div>`
-            :`<div class="prog-ex-change change-none" style="font-size:8px">Valor inicial</div>`}
-        </div>
-      </div>
-      <div class="prog-history${isOpen?' open':''}">
-        <div class="hist-label">Historial de RM</div>
-        <div class="hist-timeline">
-          ${hist.map((h,i)=>`
-            <div class="hist-entry">
-              <div class="hist-line-col">
-                <div class="hist-dot ${i===0?'initial':''} ${i===hist.length-1?'latest':''}"></div>
-                ${i<hist.length-1?'<div class="hist-line"></div>':''}
-              </div>
-              <div class="hist-content">
-                <div class="hist-date">${h.date}</div>
-                <div class="hist-weight-row">
-                  <div class="hist-w ${i===hist.length-1?'latest':''}">${h.v}</div>
-                  <div class="hist-w-unit">kg</div>
-                  <span class="hist-tag rm">RM TEST</span>
-                  ${i>0?`<span style="font-family:'DM Mono',monospace;font-size:9px;color:${h.v-hist[i-1].v>0?'#4cff88':'var(--accent2)'}">${h.v-hist[i-1].v>0?'+':''}${h.v-hist[i-1].v} kg</span>`:''}
-                </div>
-              </div>
-            </div>`).join('')}
-        </div>
-      </div>`;
-    cont.appendChild(card);
-  });
 }
 
 function buildTimeline(ex,dayIdx,key){
@@ -1194,113 +1007,6 @@ function switchView(view,btn){
   document.getElementById(`view-${view}`).classList.add('active');
   btn.classList.add('active');
   if(view==='progress')renderProgress();
-  if(view==='attendance')renderCalendar();
-}
-
-// =====================================================================
-// ATTENDANCE
-// =====================================================================
-function todayDate(){return new Date().toISOString().slice(0,10);}
-
-function checkIn(){
-  const s=getSessions(S.block)[S.day];
-  if(s.isRMDay)return;
-  const d=todayDate();
-  if(S.attendanceLog.some(e=>e.date===d&&e.sessionId===s.id))return;
-  S.attendanceLog.push({date:d,sessionId:s.id,type:s.type,block:S.block,week:S.week,day:S.day});
-  saveState();renderSession();renderHeader();
-}
-
-function calStreak(){
-  const unique=[...new Set(S.attendanceLog.map(e=>e.date))].sort();
-  if(!unique.length)return 0;
-  let streak=0,cursor=new Date();
-  for(let i=0;i<365;i++){
-    const d=cursor.toISOString().slice(0,10);
-    if(unique.includes(d)){streak++;}
-    else if(i>0){break;}
-    cursor.setDate(cursor.getDate()-1);
-  }
-  return streak;
-}
-
-function calMonthCount(y,m){
-  const pfx=`${y}-${String(m).padStart(2,'0')}`;
-  return new Set(S.attendanceLog.filter(e=>e.date.startsWith(pfx)).map(e=>e.date)).size;
-}
-
-// =====================================================================
-// CALENDAR
-// =====================================================================
-let calViewYear=new Date().getFullYear(),calViewMonth=new Date().getMonth()+1;
-const MONTHS_ES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-
-function calPrev(){if(--calViewMonth<1){calViewMonth=12;calViewYear--;}renderCalendar();}
-function calNext(){if(++calViewMonth>12){calViewMonth=1;calViewYear++;}renderCalendar();}
-
-function renderCalendar(){
-  const y=calViewYear,m=calViewMonth,td=todayDate();
-  document.getElementById('cal-stat-month').textContent=calMonthCount(y,m);
-  document.getElementById('cal-stat-streak').textContent=calStreak();
-  document.getElementById('cal-stat-total').textContent=new Set(S.attendanceLog.map(e=>e.date)).size;
-  document.getElementById('cal-month-label').textContent=`${MONTHS_ES[m-1]} ${y}`;
-
-  const grid=document.getElementById('cal-grid');
-  grid.innerHTML='';
-
-  const firstDayRaw=new Date(y,m-1,1).getDay();
-  const firstDayMon=(firstDayRaw===0)?6:firstDayRaw-1;
-  const daysInMonth=new Date(y,m,0).getDate();
-
-  const byDate={};
-  S.attendanceLog.forEach(e=>{(byDate[e.date]=byDate[e.date]||[]).push(e);});
-
-  for(let i=0;i<firstDayMon;i++){
-    const empty=document.createElement('div');
-    empty.className='cal-cell empty';
-    grid.appendChild(empty);
-  }
-  for(let d=1;d<=daysInMonth;d++){
-    const ds=`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const entries=byDate[ds]||[];
-    const cell=document.createElement('div');
-    cell.className=`cal-cell${ds===td?' today':''}${entries.length?' has-session':''}`;
-    cell.onclick=()=>showCalDetail(ds,entries);
-    const dayNum=document.createElement('div');
-    dayNum.className='cal-day-num';
-    dayNum.textContent=d;
-    cell.appendChild(dayNum);
-    if(entries.length){
-      const dots=document.createElement('div');
-      dots.className='cal-dots';
-      entries.forEach(e=>{
-        const dot=document.createElement('div');
-        dot.className=`cal-dot ${e.type==='rm-test'?'rm-test':e.type}`;
-        dots.appendChild(dot);
-      });
-      cell.appendChild(dots);
-    }
-    grid.appendChild(cell);
-  }
-  document.getElementById('cal-detail').classList.remove('open');
-}
-
-function showCalDetail(ds,entries){
-  const panel=document.getElementById('cal-detail');
-  if(!entries.length){panel.classList.remove('open');return;}
-  const [y,m,d]=ds.split('-');
-  panel.innerHTML=`<div class="cal-detail-date">${parseInt(d)} de ${MONTHS_ES[parseInt(m)-1]} ${y}</div>`
-    +entries.map(e=>`
-      <div class="cal-detail-entry">
-        <div class="cal-detail-dot" style="background:${{push:'var(--push)',pull:'var(--pull)',legs:'var(--legs)'}[e.type]||'var(--accent2)'}"></div>
-        <div class="cal-detail-name">${sessionLabel(e.sessionId)}</div>
-        <div class="cal-detail-meta">B${e.block} · Sem ${BWO[e.block]+e.week}</div>
-      </div>`).join('');
-  panel.classList.add('open');
-}
-
-function sessionLabel(id){
-  return {'push-a':'Push A','pull-a':'Pull A','legs':'Piernas','push-b':'Push B','pull-b':'Pull B + Core','rm-test':'Test RM'}[id]||id;
 }
 
 // INIT
