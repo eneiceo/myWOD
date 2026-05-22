@@ -584,28 +584,39 @@ const BP = {
   3:{repsRange:'12–15',rest:'45"',label:'Definición',setsMain:4,setsAcc:3,coreFormat:'For Time'}
 };
 
-// Core diario: rota por sesión y se adapta al formato del bloque.
-function coreBlock(block, sessionIdx){
+// Core diario: rota por sesión Y por semana. 3 variantes por tipo de día (ciclan sem 1·4=A, 2·5=B, 3·6=C).
+function coreBlock(block, sessionIdx, week){
   const fmt = BP[block].coreFormat;
+  const idx = ((week-1) % 3 + 3) % 3;
+  // [sessionIdx][variantIdx] = array de descripciones
   const variants = [
-    // PUSH — abdominal recto + hipopresivo
-    {rounds:[
-      {desc:'Plank frontal 40s',time:'min impar'},
-      {desc:'Hanging leg raise x10',time:'min par'}
-    ]},
-    // PULL — anti-extensión + flexores cadera
-    {rounds:[
-      {desc:'Ab wheel rollout x8',time:'min impar'},
-      {desc:'Plank lateral 30s/lado',time:'min par'}
-    ]},
+    // PUSH — abdominal recto + anti-extensión
+    [
+      ['Plank frontal 40s', 'Hanging leg raise x10'],
+      ['Ab wheel rollout x8', 'Plank lateral 30s/lado'],
+      ['Hollow hold 30s', 'Toes to bar x8']
+    ],
+    // PULL — anti-rotación + oblicuos
+    [
+      ['Ab wheel rollout x8', 'Plank lateral 30s/lado'],
+      ['Russian twist x20 (disco 10kg)', 'Bird dog 8/lado'],
+      ['Pallof press cable 10/lado', 'Dead bug 10/lado']
+    ],
     // LEGS — core resistente sin carga lumbar
-    {rounds:[
-      {desc:'Hanging leg raise x12',time:'min impar'},
-      {desc:'Plank frontal 45s',time:'min par'}
-    ]}
+    [
+      ['Hanging leg raise x12', 'Plank frontal 45s'],
+      ['Plank frontal 60s', 'Bicycle crunch x20'],
+      ['Hollow rocks x15', 'Side plank reach 8/lado']
+    ]
   ];
-  const v = variants[sessionIdx] || variants[0];
-  return { title:'Core + Conditioning', duration:'8 min', format:fmt, rounds:v.rounds };
+  const movs = (variants[sessionIdx] || variants[0])[idx];
+  // Etiqueta de tiempo según formato: EMOM alterna min impar/par, AMRAP/For Time se muestra solo el movimiento.
+  const isEMOM = fmt.startsWith('EMOM');
+  const rounds = movs.map((desc, i) => ({
+    desc,
+    time: isEMOM ? (i===0 ? 'min impar' : 'min par') : ''
+  }));
+  return { title:'Core + Conditioning', duration:'8 min', format:fmt, rounds };
 }
 
 function getSessions(block){
@@ -622,7 +633,7 @@ function getSessions(block){
         {id:'tricep-rope',  name:'Rope Tricep Extension',sets:b.setsAcc,reps:'12–15',rest:'60"',weight:25,note:'Codos pegados. Separá la cuerda al fondo para mayor contracción.'},
         {id:'chest-dip',    name:'Chest Dip',sets:b.setsAcc,reps:'10–12',rest:'60"',weight:0,note:'Torso levemente inclinado hacia adelante para foco pectoral. Lastre cuando superes 12 reps con facilidad.'}
       ],
-      core: coreBlock(block, 0)
+      core: coreBlock(block, 0, S.week)
     },
     {
       id:'pull',type:'pull',title:'PULL',shortTitle:'Pull',
@@ -636,7 +647,7 @@ function getSessions(block){
         {id:'hammer-curl',  name:'Curl martillo con mancuernas',sets:b.setsAcc,reps:'12',rest:'60"',weight:14,note:'Agarre neutro. Trabaja braquial y braquiorradial. Peso por lado.'},
         {id:'face-pulls',   name:'Cable Face Pull with External Rotation',sets:b.setsAcc,reps:'15',rest:'45"',weight:20,note:'Cuerda a la altura de los ojos. Codos altos. Preventivo de hombro.'}
       ],
-      core: coreBlock(block, 1)
+      core: coreBlock(block, 1, S.week)
     },
     {
       id:'legs',type:'legs',title:'LEGS',shortTitle:'Legs',
@@ -649,7 +660,7 @@ function getSessions(block){
         {id:'hip-thrust', name:'Barbell Hip Thrust',sets:b.setsMain,reps:b.repsRange,rest:b.rest,weight:80,note:'Mentón al pecho. Cadera horizontal arriba. Apretá el glúteo 1 seg.'},
         {id:'calf-raise', name:'Standing Machine Calf Raise',sets:b.setsAcc,reps:'15–20',rest:'45"',weight:60,note:'Rango completo. Pausa 1 seg arriba apretando la pantorrilla.'}
       ],
-      core: coreBlock(block, 2)
+      core: coreBlock(block, 2, S.week)
     },
     {
       id:'wod',type:'wod',title:'WOD',shortTitle:'WOD',
