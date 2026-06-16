@@ -1,12 +1,12 @@
 {
-  "name": "MYWOD — Training App",
+  "name": "MYWOD — HYROX Training",
   "short_name": "MYWOD",
-  "description": "Rutina de entrenamiento personalizada PPL con seguimiento de pesos y progresión",
+  "description": "Preparación HYROX Open: running, fuerza y estaciones por fases, con registro de sesiones y zonas de FC",
   "start_url": "/mywod/",
   "scope": "/mywod/",
   "display": "standalone",
-  "background_color": "#0d0d0d",
-  "theme_color": "#0d0d0d",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
   "orientation": "portrait-primary",
   "icons": [
     {
