@@ -50,9 +50,12 @@ S = {
   weights: {},              // strength working weights keyed by "phase-exerciseId"
   weightHistory: {},        // working-weight log per strength exercise
   logs: {},                 // session logs keyed by "week-day" (run/cond/strength entries)
+  support: {},              // weekly support checklist: support[week] = {prehab, mobility, strides} counts
   openWeight, openProg      // UI: which weight editor / progress card is open
 }
 ```
+
+`S.support` was added additively to the same `'mywod_v8'` schema (no key bump) — older saved state without it just defaults to `{}`.
 
 `loadState()` / `saveState()` handle serialization. Every user action that changes state calls `saveState()` followed by a render function.
 
@@ -60,7 +63,8 @@ S = {
 
 - `PHASES` — the 4 phases (0 Base, 1 Build, 2 Específica, 3 Peak+Taper) with their week ranges, focus, and chart color. `phaseOf(n)` derives the phase from a week number.
 - `WEEK_TABLE` — array of 37 entries (index 0 = week 1) holding the **variable** per-week prescription: `block` label, `deload`/`test`/`race` flags, `A` (long-run duration string), `C` (`{kind, txt}` quality session), `D` (`{kind, txt, rounds, run, stations, lines}` conditioning/sim). `getWeek(n)` augments a row with `n` + `phase`.
-- `strengthDay(phase)` — the Day-B exercise list, which evolves per phase (maintenance → strength-endurance + sled pattern → reduced volume + station practice → light/mobility).
+- `strengthDay(phase)` — the Day-B exercise list, built from a **fixed 5-pattern full-body template** (`STRENGTH_TEMPLATE`: leg / heavy pull / push / posterior chain / carry+core, pull-biased) with per-phase loading from `STRENGTH_PB[phase]`. `strengthFocus(phase)` returns the phase emphasis shown in the Day-B banner. Patterns are identical across phases, so the `phase-exerciseId` weight keys stay consistent for progression tracking.
+- `SUPPORT` + `renderSupport()` / `toggleSupport()` — the weekly recurring support checklist (prehab ×2, mobility ×3, strides ×2) shown on the Hoy view, tracked per week in `S.support[week]`.
 - `buildFinisher(week)` — builds the Day-D card from `D.kind` (`circuit` / `compromised` / `minirox` / `sim` / `recovery` / `race`).
 - `runSession(week, dayKey)` + `C_MAP` — build the A/C run cards with target HR zone and cue.
 - `STATIONS` / `CONTROL_TESTS` / `CIRCUIT` — fixed reference data (8 HYROX stations + gym substitutions, the 3 control tests, the Phase-0 technique circuit).
@@ -74,16 +78,16 @@ S = {
 
 ### Service Worker ([sw.js](sw.js))
 
-Cache-first strategy with network fallback. Cache name is currently `'mywod-v7'` — **bump this version whenever cached assets change** (icons, manifest, index.html) so users get the update.
+Cache-first strategy with network fallback. Cache name is currently `'mywod-v8'` — **bump this version whenever cached assets change** (icons, manifest, index.html) so users get the update.
 
 ### Key functions to know
 
 | Function | Purpose |
 |---|---|
 | `renderHeader()` | Redraws phase tabs, week strip (current phase, deload/test/race marks), day pills A/B/C/D |
-| `renderSession()` | Dispatches by day type → `renderRun` / `renderStrength` / `renderCond`, each with a log form |
+| `renderSession()` | Dispatches by day type → `renderRun` / `renderStrength` / `renderCond`, then appends `renderSupport()` (weekly checklist) |
 | `renderProgress()` | Volume chart, pace trend, strength timelines, control-test cards |
-| `renderPlan()` | HR-zone settings, macro table, stations, glossary |
+| `renderPlan()` | HR-zone settings + target paces, macro table, stations, tests, and reference cards (prevención/movilidad, técnica, pacing, fuel, autoregulation, logistics, glossary) |
 | `getW(phase, id, def)` / `setW(phase, id, val)` | Read / write a strength working weight (logs to `weightHistory`) |
 | `msUrl(id)` / `msName(id)` | Exercise library lookups |
 

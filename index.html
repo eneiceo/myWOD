@@ -169,6 +169,21 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;ove
 .hiit-rtime{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
 .hiit-note{font-size:10px;color:var(--muted);font-style:italic;line-height:1.6;padding:0 13px 12px;}
 
+/* STRENGTH BANNER */
+.strength-banner{background:var(--surface);border:1px solid var(--border);border-left:2.5px solid var(--strength);border-radius:0 8px 8px 0;padding:9px 12px;font-size:10px;color:var(--muted);line-height:1.6;margin-bottom:4px;}
+.strength-banner strong{color:var(--text);}
+
+/* SUPPORT CHECKLIST */
+.support-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.sup-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 13px;border-bottom:1px solid var(--border);}
+.sup-row:last-child{border-bottom:none;}
+.sup-label{font-size:12px;font-weight:600;}
+.sup-count{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-top:2px;}
+.sup-pips{display:flex;gap:6px;flex-shrink:0;}
+.sup-pip{width:26px;height:26px;border-radius:7px;border:1.5px solid var(--border2);background:var(--surface2);cursor:pointer;transition:var(--transition);touch-action:manipulation;}
+.sup-pip:active{transform:scale(.9);}
+.sup-pip.on{background:var(--aerobic);border-color:var(--aerobic);}
+
 /* LOG FORM */
 .log-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:13px;}
 .log-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px;}
@@ -347,6 +362,8 @@ const LIBRARY = {
   'squat':{url:'https://www.muscleandstrength.com/exercises/squat.html',msName:'Barbell Back Squat',muscles:'Cuádriceps · Glúteos · Isquiotibiales · Core'},
   'deadlift':{url:'https://www.muscleandstrength.com/exercises/deadlifts.html',msName:'Deadlift',muscles:'Isquiotibiales · Glúteos · Erectores · Trapecio · Core'},
   'romanian-deadlift':{url:'https://www.muscleandstrength.com/exercises/romanian-deadlift.html',msName:'Romanian Deadlift',muscles:'Isquiotibiales · Glúteos · Erectores'},
+  'weighted-pullup':{url:'https://www.muscleandstrength.com/exercises/weighted-pull-up.html',msName:'Weighted Pull Up',muscles:'Dorsal ancho · Romboides · Bíceps · Core'},
+  'overhead-press':{url:'https://www.muscleandstrength.com/exercises/standing-barbell-shoulder-press.html',msName:'Standing Barbell Shoulder Press',muscles:'Deltoides · Tríceps · Trapecio · Core'},
   'walking-lunge':{url:'https://www.muscleandstrength.com/exercises/dumbbell-walking-lunge.html',msName:'Dumbbell Walking Lunge',muscles:'Cuádriceps · Glúteos · Isquiotibiales · Core'},
   'bulgarian-split-squat':{url:'https://www.muscleandstrength.com/exercises/dumbbell-bulgarian-split-squat.html',msName:'Bulgarian Split Squat',muscles:'Cuádriceps · Glúteos · Aductores'},
   'leg-press':{url:'https://www.muscleandstrength.com/exercises/45-degree-leg-press.html',msName:'Leg Press',muscles:'Cuádriceps · Glúteos · Isquiotibiales'},
@@ -388,6 +405,13 @@ const CONTROL_TESTS = {
   24:{n:2,when:'Fin semana 24',what:'5 km + mini-rox de 4 estaciones → ¿mejoró el split bajo fatiga?'},
   33:{n:3,when:'Semana 33',what:'Simulación completa cronometrada → tiempo objetivo y plan de pacing'},
 };
+
+// Trabajo de soporte (§10–§11): checklist semanal recurrente. target = veces/semana.
+const SUPPORT = [
+  {key:'prehab',  label:'Prehab tobillo/pie/gemelo', target:2, detail:'10 min: elevaciones de talón (recta + rodilla flexionada), excéntricos de Aquiles, fortalecimiento de pie/arco, tibial anterior. Es lo que más protege la rampa de running.'},
+  {key:'mobility',label:'Movilidad de estaciones',    target:3, detail:'8–10 min: dorsiflexión de tobillo (sled push / sentadilla), hombro + torácica (wall balls), cadera (lunges).'},
+  {key:'strides', label:'Strides 4–6 × 100 m',         target:2, detail:'Al final de un rodaje fácil, suaves y técnicos. Cadencia ~170–180 pasos/min.'},
+];
 
 // Tabla semanal: lo variable por semana. Lo estable por fase se genera por función.
 const WEEK_TABLE = [
@@ -434,36 +458,39 @@ function getWeek(n){return Object.assign({n:n,phase:phaseOf(n)}, WEEK_TABLE[n-1]
 function fmtDist(m){return m>=1000?(m%1000===0?(m/1000)+' km':(m/1000).toFixed(1)+' km'):m+' m';}
 
 // Día B · Fuerza — evoluciona por fase
+// Día B · Fuerza — plantilla §9: full-body de mantenimiento, sesgo a tracción.
+// Los 5 patrones son fijos en las 4 fases (key de peso phase-exId consistente);
+// solo cambian carga/reps/nota por fase (PB[phase]).
+const STRENGTH_TEMPLATE = [
+  {id:'squat',          slot:'Pierna',           name:'Sentadilla',        alt:'alterná con peso muerto semana a semana'},
+  {id:'weighted-pullup',slot:'Tracción pesada',  name:'Dominadas con lastre', alt:'o remo pesado / jalón — alimenta SkiErg, Row y Sled Pull'},
+  {id:'overhead-press', slot:'Empuje',           name:'Press militar',     alt:'o push press — para Wall Balls y Burpees'},
+  {id:'romanian-deadlift',slot:'Cadena posterior',name:'Peso muerto rumano', alt:'o hip thrust — sprint y postura bajo fatiga'},
+  {id:'farmers-carry',  slot:'Carry + core',     name:'Farmers carry pesado', alt:'grip específico de carrera, no relleno — cerrá con core'},
+];
+// Parámetros por fase y por slot: [sets, reps, rest, weight, foco].
+const STRENGTH_PB = {
+  // F0 · mantenimiento, técnica limpia, carga moderada-alta
+  0:{squat:[4,'5',"2'30\"",80],'weighted-pullup':[4,'6',"2'",0],'overhead-press':[3,'8','90"',35],'romanian-deadlift':[3,'8',"2'",65],'farmers-carry':[3,'40 m','60"',24],
+     foco:'Mantenimiento: ya sos fuerte, mantenemos. Técnica limpia, descansos completos.'},
+  // F1 · más pesado + resistencia de fuerza + patrón de sled
+  1:{squat:[4,'5',"3'",90],'weighted-pullup':[4,'6',"2'30\"",6],'overhead-press':[4,'6',"2'",40],'romanian-deadlift':[3,'6',"2'30\"",80],'farmers-carry':[3,'200 m','90"',28],
+     foco:'Suma resistencia de fuerza y patrón de sled (sustituto: prensa pesada / giant set de piernas). Estaciones cerca del peso de carrera.'},
+  // F2 · volumen reducido (1–2 pesados) + práctica de estaciones a peso de carrera
+  2:{squat:[3,'4',"3'",95],'weighted-pullup':[3,'5',"2'30\"",8],'overhead-press':[2,'6',"2'",40],'romanian-deadlift':[2,'5',"3'",85],'farmers-carry':[3,'200 m','90"',24],
+     foco:'Volumen reducido, intensidad mantenida. Prioridad: piernas frescas para correr. Practicá estaciones al peso real.'},
+  // F3 · liviano, llegar fresco (nada pesado)
+  3:{squat:[2,'5','90"',40],'weighted-pullup':[2,'5','90"',0],'overhead-press':[2,'6','90"',25],'romanian-deadlift':[2,'6','90"',40],'farmers-carry':[2,'40 m','60"',16],
+     foco:'Nada pesado. Solo activar el patrón, sin fatigar las piernas. Llegá fresco a la carrera.'},
+};
 function strengthDay(phase){
-  if(phase===0)return [
-    {id:'squat',name:'Sentadilla',sets:4,reps:'5',rest:"2'30\"",weight:80,note:'Carga alta, descanso completo. No es para fundirte: es para no perder la fuerza que ya tenés.'},
-    {id:'romanian-deadlift',name:'Peso muerto rumano',sets:3,reps:'6',rest:"2'",weight:70,note:'Hinge de cadera, espalda neutra. Estirá los isquios en la bajada controlada.'},
-    {id:'walking-lunge',name:'Lunges caminando con peso',sets:3,reps:'12 / pierna',rest:'90"',weight:20,note:'Peso por mancuerna. Paso largo, rodilla trasera cerca del piso.'},
-    {id:'bulgarian-split-squat',name:'Búlgaras (o prensa 3×10)',sets:3,reps:'10',rest:'90"',weight:16,note:'Trabajo unilateral de cuádriceps y glúteo. Peso por mancuerna.'},
-    {id:'farmers-carry',name:'Farmers carry (core)',sets:3,reps:'40 m',rest:'60"',weight:24,note:'Carga pesada por mano. Core firme, hombros abajo. Cierra con core.'},
-  ];
-  if(phase===1)return [
-    {id:'squat',name:'Sentadilla (pesado)',sets:4,reps:'5',rest:"3'",weight:90,note:'Mantener fuerza máxima. Carga progresiva, técnica impecable.'},
-    {id:'deadlift',name:'Peso muerto',sets:3,reps:'5',rest:"3'",weight:110,note:'Cadena posterior. La barra roza las piernas todo el recorrido.'},
-    {id:'leg-press',name:'Prensa pesada (sustituto sled push)',sets:4,reps:'10',rest:'90"',weight:160,note:'Patrón de empuje de piernas, alto volumen. Simula el sled push.'},
-    {id:'farmers-carry',name:'Farmers carry pesado',sets:3,reps:'200 m',rest:'90"',weight:28,note:'Peso de carrera o más. Específico de la estación 6.'},
-    {id:'wall-ball',name:'Wall balls (fraccionado a 100)',sets:1,reps:'100 fracc.',rest:'—',weight:9,note:'Acumulá 100 reps. Resistencia de hombro y piernas.'},
-    {id:'walking-lunge',name:'Lunges cargados',sets:3,reps:'20 m',rest:'90"',weight:24,note:'Sandbag o DB. Específico de la estación 7 (sandbag lunges).'},
-  ];
-  if(phase===2)return [
-    {id:'squat',name:'Sentadilla (pesado, bajo volumen)',sets:3,reps:'4',rest:"3'",weight:95,note:'1–2 ejercicios pesados para no perder fuerza. Prioridad: piernas frescas para correr.'},
-    {id:'deadlift',name:'Peso muerto (bajo volumen)',sets:2,reps:'3',rest:"3'",weight:115,note:'Intensidad mantenida, volumen reducido.'},
-    {id:'farmers-carry',name:'Farmers carry — peso de carrera',sets:3,reps:'200 m',rest:'90"',weight:24,note:'Práctica técnica al peso real Open (2 × 24 kg).'},
-    {id:'wall-ball',name:'Wall balls — peso de carrera',sets:3,reps:'25',rest:'60"',weight:6,note:'Target 3 m. Técnica limpia al peso Open (6 kg).'},
-    {id:'walking-lunge',name:'Sandbag lunges — peso de carrera',sets:2,reps:'50 m',rest:'90"',weight:20,note:'Peso Open (20 kg). Práctica de la estación 7.'},
-  ];
-  // Fase 3 — nada pesado, llegar fresco
-  return [
-    {id:'squat',name:'Sentadilla liviana (activación)',sets:2,reps:'5',rest:'90"',weight:40,note:'Nada pesado. Solo activar el patrón. No fatigar las piernas.'},
-    {id:'walking-lunge',name:'Lunges livianos',sets:2,reps:'10 / pierna',rest:'60"',weight:0,note:'Movilidad y activación de glúteo.'},
-    {id:'plank',name:'Core + movilidad',sets:3,reps:'40 s',rest:'45"',weight:0,note:'Movilidad de cadera y tobillo. Llegá fresco a la carrera.'},
-  ];
+  const pb=STRENGTH_PB[phase]||STRENGTH_PB[0];
+  return STRENGTH_TEMPLATE.map(t=>{
+    const p=pb[t.id];
+    return {id:t.id,name:t.name,sets:p[0],reps:p[1],rest:p[2],weight:p[3],note:`${t.slot} · ${t.alt}.`};
+  });
 }
+function strengthFocus(phase){return (STRENGTH_PB[phase]||STRENGTH_PB[0]).foco;}
 
 // Día D · Conditioning / Compromised / Simulación
 function buildFinisher(w){
@@ -536,18 +563,18 @@ function zoneFlag(hr,zoneKey){
 // =====================================================================
 // STATE
 // =====================================================================
-let S={week:1,day:'A',hrMax:null,step:2.5,weights:{},weightHistory:{},logs:{},openWeight:null,openProg:null};
+let S={week:1,day:'A',hrMax:null,step:2.5,weights:{},weightHistory:{},logs:{},support:{},openWeight:null,openProg:null};
 
 function loadState(){
   try{
     const d=JSON.parse(localStorage.getItem('mywod_v8')||'{}');
-    ['week','day','hrMax','step','weights','weightHistory','logs'].forEach(k=>{if(d[k]!==undefined)S[k]=d[k];});
+    ['week','day','hrMax','step','weights','weightHistory','logs','support'].forEach(k=>{if(d[k]!==undefined)S[k]=d[k];});
     if(typeof S.week!=='number'||S.week<1||S.week>37)S.week=1;
     if(['A','B','C','D'].indexOf(S.day)<0)S.day='A';
   }catch(e){}
 }
 function saveState(){
-  try{localStorage.setItem('mywod_v8',JSON.stringify({week:S.week,day:S.day,hrMax:S.hrMax,step:S.step,weights:S.weights,weightHistory:S.weightHistory,logs:S.logs}));}catch(e){}
+  try{localStorage.setItem('mywod_v8',JSON.stringify({week:S.week,day:S.day,hrMax:S.hrMax,step:S.step,weights:S.weights,weightHistory:S.weightHistory,logs:S.logs,support:S.support}));}catch(e){}
 }
 function round1(x){return Math.round(x*10)/10;}
 function wKey(phase,id){return phase+'-'+id;}
@@ -630,6 +657,7 @@ function renderSession(){
   if(dayKey==='B')renderStrength(cont,phase,n);
   else if(dayKey==='A'||dayKey==='C')renderRun(cont,runSession(w,dayKey),n,dayKey);
   else renderCond(cont,buildFinisher(w),n);
+  renderSupport(cont,n);
 }
 
 function renderRun(cont,sess,n,dayKey){
@@ -639,10 +667,11 @@ function renderRun(cont,sess,n,dayKey){
   const zoneHtml=z
     ?'Objetivo '+z.name+' · <b>'+z.lo+'–'+z.hi+' lpm</b>'
     :'Objetivo '+sess.zoneKey+' — <span class="run-zone-cfg" onclick="goPlan()">configurá tu FC máx ↗</span>';
+  const drills=dayKey==='C'?'<div class="run-cue"><b>Drills antes de los intervalos:</b> A-skips, talón-cola, marcha técnica (2 × 20 m). Cadencia objetivo ~170–180 pasos/min.</div>':'';
   card.innerHTML='<div class="run-presc">'+sess.prescription+'</div>'+
     '<div class="run-zone">'+zoneHtml+'</div>'+
     '<div class="run-cue">'+sess.cue+'</div>'+
-    (sess.note?'<div class="run-cue">'+sess.note+'</div>':'');
+    (sess.note?'<div class="run-cue">'+sess.note+'</div>':'')+drills;
   cont.appendChild(card);
   cont.appendChild(sectionLabel('Registrar sesión'));
   cont.appendChild(logForm('run',n,dayKey,sess.zoneKey));
@@ -664,6 +693,9 @@ function renderCond(cont,fin,n){
 
 function renderStrength(cont,phase,n){
   const list=strengthDay(phase);
+  const banner=document.createElement('div');banner.className='strength-banner';
+  banner.innerHTML='<strong>Full-body de mantenimiento, sesgo a tracción.</strong> '+strengthFocus(phase)+' El upper también se entrena en las estaciones; los carries pesados son trabajo de grip.';
+  cont.appendChild(banner);
   cont.appendChild(sectionLabel('Ejercicios — peso de trabajo'));
   list.forEach((ex,idx)=>{
     const defW=round1(ex.weight),curW=getW(phase,ex.id,defW),isOpen=S.openWeight===idx;
@@ -737,6 +769,26 @@ function updW(idx){
 }
 function setStep(st){S.step=st;document.querySelectorAll('.step-btn').forEach(b=>b.classList.toggle('active',parseFloat(b.textContent.replace('±',''))===st));}
 function selectPhase(p){S.week=PHASES[p].weeks[0];S.openWeight=null;saveState();renderHeader();renderSession();}
+
+// Checklist de soporte (week-scoped): se reinicia solo al cambiar de semana.
+function renderSupport(cont,n){
+  const wk=S.support[n]||{};
+  cont.appendChild(sectionLabel('Soporte de la semana'));
+  const card=document.createElement('div');card.className='support-card';
+  card.innerHTML=SUPPORT.map(s=>{
+    const done=wk[s.key]||0;
+    const pips=Array.from({length:s.target},(_,i)=>'<span class="sup-pip'+(i<done?' on':'')+'" onclick="toggleSupport(\''+s.key+'\','+i+')"></span>').join('');
+    return '<div class="sup-row"><div class="sup-info"><div class="sup-label">'+s.label+'</div><div class="sup-count">'+done+'/'+s.target+' esta semana</div></div><div class="sup-pips">'+pips+'</div></div>';
+  }).join('');
+  cont.appendChild(card);
+}
+function toggleSupport(key,i){
+  if(!S.support[S.week])S.support[S.week]={};
+  const cur=S.support[S.week][key]||0;
+  // tap en un pip: si ya estaba lleno hasta ahí, baja a i; si no, sube a i+1.
+  S.support[S.week][key]=(cur===i+1)?i:i+1;
+  saveState();renderSession();
+}
 
 // =====================================================================
 // PROGRESS VIEW
@@ -845,15 +897,70 @@ function renderPlan(){
   const ts=document.createElement('div');ts.className='info-card';
   ts.innerHTML='<div class="info-card-title">Tests de control</div>'+[12,24,33].map(wn=>{const t=CONTROL_TESTS[wn];return '<p class="info-p"><strong>Test '+t.n+' ('+t.when+'):</strong> '+t.what+'</p>';}).join('');
   c.appendChild(ts);
-  // Glossary
-  const gl=document.createElement('div');gl.className='info-card';gl.style.marginBottom='20px';
-  gl.innerHTML='<div class="info-card-title">Tipos de sesión</div>'+
+
+  const card=(title,html)=>{const d=document.createElement('div');d.className='info-card';d.innerHTML='<div class="info-card-title">'+title+'</div>'+html;c.appendChild(d);return d;};
+
+  // Ritmos objetivo (§3) — va junto a zonas; reutiliza el markup de macro-row
+  const RITMOS=[
+    ['Z2 · Fácil','Podés hablar sin agitarte (~70–75% FC máx)','trote lento'],
+    ['Tempo','Cómodamente duro, sostenible ~1 h','medio maratón'],
+    ['Intervalos','Duro pero repetible (~esfuerzo de 5k)','—'],
+    ['Goal split','Ritmo objetivo de los 1 km de la carrera','~6:00–6:30/km'],
+  ];
+  card('Ritmos objetivo (provisionales)',
+    RITMOS.map(r=>'<div class="macro-row"><div class="macro-l"><div class="macro-ph">'+r[0]+'</div><div class="macro-fo">'+r[1]+'</div></div><div class="macro-wk">'+r[2]+'</div></div>').join('')+
+    '<p class="info-p" style="margin-top:8px">Punto de partida: 5 km en 35–40 min. <strong>Se recalibran con cada test de control.</strong></p>');
+
+  // Prevención y movilidad (§10) — liga con el checklist de soporte
+  card('Prevención y movilidad',
+    '<p class="info-p">El mayor riesgo del plan es lesionarte al subir el volumen de running. Reglas:</p>'+
+    '<p class="info-p"><strong>Volumen +10% máx por semana.</strong> Las tablas ya lo respetan; no te adelantes.</p>'+
+    '<p class="info-p"><strong>Regla de las molestias:</strong> dolor que persiste 3 días o empeora al correr → bajá carga, no lo aguantes.</p>'+
+    SUPPORT.map(s=>'<p class="info-p"><strong>'+s.label+' ('+s.target+'×/sem):</strong> '+s.detail+'</p>').join(''));
+
+  // Técnica de carrera (§11)
+  card('Técnica de carrera (economía)',
+    '<p class="info-p"><strong>Drills</strong> antes de los intervalos: A-skips, talón-cola, marcha técnica (2 × 20 m).</p>'+
+    '<p class="info-p"><strong>Cadencia:</strong> ~170–180 pasos/min (corregí con metrónomo o playlist).</p>'+
+    '<p class="info-p"><strong>Strides:</strong> 4–6 × 100 m suaves al final de un rodaje fácil, 1–2×/semana.</p>');
+
+  // Pacing y ejecución (§12)
+  card('Pacing y ejecución de carrera',
+    '<p class="info-p">El error #1 del primerizo en Open es salir rápido y morir en la segunda mitad.</p>'+
+    '<p class="info-p"><strong>Salida:</strong> primeros 2–3 km controlados, sensación de "podría ir más rápido".</p>'+
+    '<p class="info-p"><strong>Wall Balls:</strong> fraccioná desde el arranque (series de 10–15). Fallar reps cuesta carísimo.</p>'+
+    '<p class="info-p"><strong>Run post Sled Push:</strong> arrancá corto y suave, dejá que vuelvan las piernas.</p>'+
+    '<p class="info-p"><strong>Roxzone:</strong> la transición cuenta en tu tiempo. Movete con propósito.</p>'+
+    '<p class="info-p"><strong>Respiración:</strong> bajá pulsaciones en los primeros metros saliendo de cada estación.</p>');
+
+  // Combustible (§13)
+  card('Combustible e hidratación',
+    '<p class="info-p"><strong>Día a día:</strong> carbohidratos alrededor de las sesiones duras/largas, proteína repartida. No sostengas el plan en déficit agresivo.</p>'+
+    '<p class="info-p"><strong>Sesiones &gt; ~75 min:</strong> ensayá hidratación y sumá carbohidrato durante (gel o bebida).</p>'+
+    '<p class="info-p"><strong>Día de carrera:</strong> nada nuevo — exactamente lo que probaste en las simulaciones.</p>');
+
+  // Autorregulación (§14)
+  card('Autorregulación y contingencia',
+    '<p class="info-p"><strong>Perdiste 1–3 días:</strong> seguí donde ibas, no comprimas todo.</p>'+
+    '<p class="info-p"><strong>Perdiste una semana:</strong> repetí la última semana cumplida, no saltes adelante.</p>'+
+    '<p class="info-p"><strong>Enfermo:</strong> del cuello para arriba (mocos) → suave permitido; del cuello para abajo (fiebre/pecho) → descanso total y retomá un escalón abajo.</p>'+
+    '<p class="info-p"><strong>Fatiga acumulada</strong> (sueño malo, pulso en reposo alto, ánimo/rendimiento bajos): adelantá el deload. Mejor perder 3 días que 3 semanas.</p>');
+
+  // Logística (§15)
+  card('Logística',
+    '<p class="info-p"><strong>Inscripción:</strong> anotate temprano, los Open se llenan. Confirmá fecha y sede de marzo.</p>'+
+    '<p class="info-p"><strong>Calzado:</strong> buen grip para el sled. Probalo en entrenamiento, no lo estrenes en carrera.</p>'+
+    '<p class="info-p"><strong>Condiciones:</strong> pabellón caluroso/húmedo — hacé alguna sim sin ventilador y ajustá hidratación.</p>'+
+    '<p class="info-p"><strong>División:</strong> Open (sin clasificación ni time cap). Confirmá los pesos vigentes al inscribirte.</p>');
+
+  // Glossary (último)
+  const gl=card('Tipos de sesión',
     '<p class="info-p"><strong>A · Long Z2:</strong> ritmo conversacional, construye el motor. Lento = correcto.</p>'+
-    '<p class="info-p"><strong>B · Fuerza:</strong> mantenimiento. Carga alta, pocas series, descanso completo.</p>'+
-    '<p class="info-p"><strong>C · Calidad:</strong> intervalos / tempo / ritmo de carrera. Siempre con calentamiento.</p>'+
-    '<p class="info-p"><strong>D · Conditioning → Compromised → Simulación:</strong> técnica de estaciones, luego encadenar estación + run, luego ensayos del formato completo.</p>'+
-    '<p class="info-p"><strong>Deload:</strong> −40% de volumen, misma estructura. No es opcional.</p>';
-  c.appendChild(gl);
+    '<p class="info-p"><strong>B · Fuerza:</strong> mantenimiento full-body, sesgo a tracción. Carga alta, pocas series.</p>'+
+    '<p class="info-p"><strong>C · Calidad:</strong> intervalos / tempo / ritmo de carrera. Siempre con calentamiento + drills.</p>'+
+    '<p class="info-p"><strong>D · Conditioning → Compromised → Simulación:</strong> técnica de estaciones, luego estación + run encadenados, luego ensayos del formato completo.</p>'+
+    '<p class="info-p"><strong>Deload:</strong> −40% de volumen, misma estructura. No es opcional.</p>');
+  gl.style.marginBottom='20px';
 }
 function zonesTableHtml(){
   if(!S.hrMax)return '<p class="info-p">Ingresá tu FC máxima para ver tus zonas en pulsaciones concretas.</p>';
