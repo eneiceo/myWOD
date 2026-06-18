@@ -132,25 +132,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;ove
 .pchip{font-family:'DM Mono',monospace;font-size:9px;padding:2px 7px;border-radius:4px;background:var(--surface2);border:1px solid var(--border);color:var(--muted);}
 .pchip.reps{color:var(--aerobic);border-color:rgba(63,182,255,.2);}
 .pchip.series{color:var(--text);}
-.ex-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0;}
-.w-val{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;color:var(--accent);}
-.w-unit{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;}
-.ex-actions{display:flex;border-top:1px solid var(--border);}
-.ex-action-btn{flex:1;min-height:40px;padding:8px 4px;text-align:center;font-size:9px;color:var(--muted);cursor:pointer;border-right:1px solid var(--border);transition:var(--transition);font-family:'DM Mono',monospace;letter-spacing:.5px;text-transform:uppercase;background:none;border-top:none;border-bottom:none;touch-action:manipulation;}
-.ex-action-btn:last-child{border-right:none;}
-.ex-action-btn:active{background:var(--surface2);color:var(--text);}
-.ex-action-btn.active-tab{color:var(--accent);background:rgba(255,210,0,.05);}
-.weight-editor{border-top:1px solid var(--border);padding:12px 14px;background:var(--surface2);display:none;}
-.weight-editor.open{display:block;}
-.editor-label{font-size:8px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px;}
-.weight-controls{display:flex;align-items:center;gap:8px;}
-.w-btn{width:44px;height:44px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition);font-family:'DM Mono',monospace;touch-action:manipulation;flex-shrink:0;}
-.w-btn:active{background:var(--border);transform:scale(.92);}
-.w-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--accent);font-family:'Bebas Neue',sans-serif;font-size:28px;text-align:center;padding:7px;outline:none;min-width:0;}
-.w-input:focus{border-color:var(--accent);}
-.step-sel{display:flex;gap:4px;margin-top:8px;}
-.step-btn{flex:1;min-height:34px;padding:5px 2px;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:10px;cursor:pointer;text-align:center;font-family:'DM Mono',monospace;transition:var(--transition);touch-action:manipulation;}
-.step-btn.active{background:var(--accent);color:#000;border-color:var(--accent);font-weight:700;}
+.pchip.weight{color:var(--accent);border-color:rgba(255,210,0,.3);}
 .ex-note{font-size:11px;color:var(--muted);font-style:italic;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);line-height:1.6;}
 
 /* FINISHER (conditioning / compromised / sim) */
@@ -169,92 +151,31 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;ove
 .hiit-rtime{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
 .hiit-note{font-size:10px;color:var(--muted);font-style:italic;line-height:1.6;padding:0 13px 12px;}
 
+/* PROTOCOLO · pasos de entrada en calor / vuelta a la calma */
+.proto-block{background:var(--surface);border:1px solid var(--border);border-left-width:3px;border-left-color:var(--border2);border-radius:var(--radius);padding:8px;display:flex;flex-direction:column;gap:4px;animation:fadeUp .25s ease both;}
+.proto-block[data-type="aerobic"]{border-left-color:var(--aerobic);}
+.proto-block[data-type="quality"]{border-left-color:var(--quality);}
+.proto-block[data-type="strength"]{border-left-color:var(--strength);}
+.proto-block[data-type="cond"]{border-left-color:var(--cond);}
+.proto-step{display:flex;align-items:flex-start;gap:8px;padding:8px 9px;background:var(--surface2);border-radius:6px;}
+.proto-num{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);min-width:16px;line-height:1.5;}
+.proto-block[data-type="aerobic"] .proto-num{color:var(--aerobic);}
+.proto-block[data-type="quality"] .proto-num{color:var(--quality);}
+.proto-block[data-type="strength"] .proto-num{color:var(--strength);}
+.proto-block[data-type="cond"] .proto-num{color:var(--cond);}
+.proto-body{flex:1;min-width:0;}
+.proto-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.3;}
+.proto-how{font-size:10px;color:var(--muted);line-height:1.5;margin-top:2px;}
+.proto-tag{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;margin-top:2px;}
+.proto-note{font-size:10px;color:var(--muted);font-style:italic;line-height:1.6;padding:3px 9px 2px;}
+
 /* STRENGTH BANNER */
 .strength-banner{background:var(--surface);border:1px solid var(--border);border-left:2.5px solid var(--strength);border-radius:0 8px 8px 0;padding:9px 12px;font-size:10px;color:var(--muted);line-height:1.6;margin-bottom:4px;}
 .strength-banner strong{color:var(--text);}
 
-/* SUPPORT CHECKLIST */
-.support-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
-.sup-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 13px;border-bottom:1px solid var(--border);}
-.sup-row:last-child{border-bottom:none;}
-.sup-label{font-size:12px;font-weight:600;}
-.sup-count{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-top:2px;}
-.sup-pips{display:flex;gap:6px;flex-shrink:0;}
-.sup-pip{width:26px;height:26px;border-radius:7px;border:1.5px solid var(--border2);background:var(--surface2);cursor:pointer;transition:var(--transition);touch-action:manipulation;}
-.sup-pip:active{transform:scale(.9);}
-.sup-pip.on{background:var(--aerobic);border-color:var(--aerobic);}
-
-/* LOG FORM */
-.log-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:13px;}
-.log-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px;}
-.log-field{display:flex;flex-direction:column;gap:4px;}
-.log-field label{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
-.log-field input{background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Mono',monospace;font-size:16px;text-align:center;padding:9px 6px;outline:none;width:100%;}
-.log-field input:focus{border-color:var(--accent);}
-.log-note{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;padding:9px;outline:none;resize:vertical;min-height:54px;margin-bottom:10px;}
-.log-note:focus{border-color:var(--accent);}
-.log-derived{font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);text-align:center;padding:8px;background:var(--surface2);border-radius:8px;margin-bottom:10px;}
-.log-derived .zok{color:var(--good);}
-.log-derived .zno{color:var(--quality);}
-.log-save{width:100%;min-height:46px;background:var(--accent);color:#000;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;touch-action:manipulation;transition:var(--transition);}
-.log-save:active{transform:scale(.98);filter:brightness(.92);}
-.log-saved{text-align:center;font-family:'DM Mono',monospace;font-size:10px;color:var(--good);margin-top:8px;}
-
-/* PROGRESS */
-.prog-header,.info-header{padding:calc(18px + var(--safe-top)) 16px 12px;background:rgba(10,10,10,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border);}
-.prog-title,.info-title{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;margin-bottom:2px;}
-.prog-subtitle{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;}
-.prog-stats-bar{display:flex;margin:10px 16px 0;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
-.prog-stat{flex:1;padding:11px 8px;text-align:center;border-right:1px solid var(--border);}
-.prog-stat:last-child{border-right:none;}
-.prog-stat-val{font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1;color:var(--accent);}
-.prog-stat-val .ps-unit{font-size:11px;color:var(--muted);}
-.prog-stat-lbl{font-size:8px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-top:3px;}
-.prog-body{padding:12px 16px;display:flex;flex-direction:column;gap:8px;}
-.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:13px;}
-.chart-title{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:10px;font-family:'DM Mono',monospace;}
-.chart-svg{overflow-x:auto;scrollbar-width:none;}
-.chart-svg::-webkit-scrollbar{display:none;}
-.chart-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px;}
-.chart-legend .leg{display:flex;align-items:center;gap:4px;font-size:8px;color:var(--muted);font-family:'DM Mono',monospace;}
-.chart-legend .leg i{width:8px;height:8px;border-radius:2px;display:inline-block;}
-.prog-ex-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;}
-.prog-ex-head{padding:11px 13px;display:flex;align-items:center;justify-content:space-between;}
-.prog-ex-session{font-size:8px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:2px;}
-.prog-ex-name{font-size:13px;font-weight:600;}
-.prog-ex-right{text-align:right;}
-.prog-ex-weight{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;color:var(--accent);}
-.prog-ex-weight .pw-unit{font-size:10px;color:var(--muted);}
-.prog-ex-change{font-family:'DM Mono',monospace;font-size:9px;margin-top:1px;}
-.change-up{color:var(--good);}.change-none{color:var(--muted);}
-.prog-history{display:none;border-top:1px solid var(--border);padding:12px 13px;background:var(--surface2);}
-.prog-history.open{display:block;}
-.hist-label{font-size:8px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:9px;}
-.hist-empty{font-size:10px;color:var(--muted);font-style:italic;padding:4px 0;}
-.hist-timeline{display:flex;flex-direction:column;}
-.hist-entry{display:flex;align-items:stretch;gap:10px;}
-.hist-line-col{display:flex;flex-direction:column;align-items:center;width:14px;}
-.hist-dot{width:9px;height:9px;border-radius:50%;border:2px solid var(--accent);background:var(--bg);flex-shrink:0;margin-top:3px;}
-.hist-dot.initial{border-color:var(--muted2);background:var(--muted2);}
-.hist-dot.latest{border-color:var(--accent);background:var(--accent);}
-.hist-line{flex:1;width:1px;background:var(--border);margin:2px 0;}
-.hist-entry:last-child .hist-line{display:none;}
-.hist-content{padding-bottom:12px;flex:1;}
-.hist-date{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);margin-bottom:2px;}
-.hist-weight-row{display:flex;align-items:baseline;gap:5px;flex-wrap:wrap;}
-.hist-w{font-family:'Bebas Neue',sans-serif;font-size:20px;line-height:1;color:var(--text);}
-.hist-w.latest{color:var(--accent);}
-.hist-w-unit{font-size:9px;color:var(--muted);}
-.hist-delta{font-family:'DM Mono',monospace;font-size:9px;}
-.test-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--muted2);border-radius:0 var(--radius) var(--radius) 0;padding:11px 13px;}
-.test-card.done{border-left-color:var(--accent);}
-.test-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
-.test-n{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;color:var(--accent);}
-.test-when{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);}
-.test-what{font-size:11px;color:var(--muted);line-height:1.5;}
-.test-done{font-family:'DM Mono',monospace;font-size:9px;color:var(--good);margin-top:5px;}
-
-/* INFO / PLAN */
+/* REFERENCIA (info) */
+.info-header{padding:calc(18px + var(--safe-top)) 16px 12px;background:rgba(10,10,10,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border);}
+.info-title{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;margin-bottom:2px;}
 .info-body{padding:12px 16px;}
 .info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;}
 .info-card-title{font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--accent);margin-bottom:9px;letter-spacing:.5px;}
@@ -288,7 +209,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;ove
 .st-sub b{color:var(--text);font-weight:500;}
 
 /* BOTTOM NAV */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,10,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);z-index:100;padding:0 0 calc(4px + var(--safe-bottom));}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,10,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(2,1fr);z-index:100;padding:0 0 calc(4px + var(--safe-bottom));}
 .nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:8px 4px;cursor:pointer;background:none;border:none;color:var(--muted);font-family:'DM Sans',sans-serif;transition:color .18s;min-height:50px;touch-action:manipulation;}
 .nav-btn.active{color:var(--accent);}
 .nav-icon svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
@@ -324,18 +245,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;ove
   <div class="exercises" id="exercises-container"></div>
 </div>
 
-<!-- PROGRESS -->
-<div id="view-progress" class="view">
-  <div class="prog-header">
-    <div class="prog-title">PROGRESO</div>
-    <div class="prog-subtitle">Registrá tus sesiones para ver la progresión por fases</div>
-  </div>
-  <div class="prog-body" id="prog-body"></div>
-</div>
-
-<!-- INFO / PLAN -->
+<!-- REFERENCIA -->
 <div id="view-info" class="view">
-  <div class="info-header"><div class="info-title">PLAN</div></div>
+  <div class="info-header"><div class="info-title">REFERENCIA</div></div>
   <div class="info-body" id="info-body"></div>
 </div>
 
@@ -344,13 +256,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;ove
     <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 12h4l3-8 4 16 3-8h2"/></svg></span>
     <span class="nav-label">Hoy</span>
   </button>
-  <button class="nav-btn" onclick="switchView('progress',this)">
-    <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 3 5-6"/></svg></span>
-    <span class="nav-label">Progreso</span>
-  </button>
   <button class="nav-btn" onclick="switchView('info',this)">
     <span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
-    <span class="nav-label">Plan</span>
+    <span class="nav-label">Referencia</span>
   </button>
 </div>
 
@@ -515,7 +423,7 @@ function buildFinisher(w){
   if(D.kind==='sim'){
     return {format:'SIMULACIÓN',duration:D.tag||'parcial',title:D.txt,
       rounds:(D.lines||[]).map(l=>({desc:l,time:''})),
-      note:'Específico de carrera. Las simulaciones grandes cuestan 5–7 días de recuperación — una a la vez.'};
+      note:'Específico de carrera. Las simulaciones grandes cuestan 5–7 días de recuperación — una a la vez. Pacing: salí controlado y fraccioná las wall balls desde el arranque; el run tras el sled push, suave para que vuelvan las piernas.'};
   }
   if(D.kind==='recovery'){
     return {format:'RECUPERACIÓN',duration:'activa',title:D.txt,
@@ -533,8 +441,8 @@ function buildFinisher(w){
 
 // Día A / C · Carreras
 const C_MAP={
-  int:{z:'Z4',name:'Intervalos',cue:'Tramos fuertes a esfuerzo ~5k (duro pero repetible, no sprint). 10\' de entrada en calor y vuelta a la calma.'},
-  tempo:{z:'Z3',name:'Tempo',cue:'Cómodamente duro, sostenible ~1 h. Siempre con calentamiento y enfriamiento.'},
+  int:{z:'Z4',name:'Intervalos',cue:'Tramos fuertes a esfuerzo ~5k: duro pero repetible, no sprint.'},
+  tempo:{z:'Z3',name:'Tempo',cue:'Cómodamente duro, sostenible ~1 h.'},
   umbral:{z:'Z4',name:'Umbral',cue:'Esfuerzo de umbral controlado. Repeticiones con recuperación corta.'},
   goal:{z:'Z3',name:'Ritmo de carrera',cue:'Ritmo objetivo de los 1 km de la carrera, practicado con piernas algo cansadas.'},
   openers:{z:'Z3',name:'Activación',cue:'Activación corta y filosa. Nada que fatigue. Despertar las piernas.'},
@@ -548,55 +456,124 @@ function runSession(w,dayKey){
 }
 
 // =====================================================================
+// PROTOCOLO DE SESIÓN · listado explicado (calor / movilidad / cool-down)
+// MOVES = catálogo de movimientos con su explicación (cómo se hace), para
+// no dar nada por sentado. sessionProtocol arma cada día con ids de MOVES.
+// Contenido del plan maestro HYROX: §9 fuerza, §10 movilidad, §11 técnica.
+// =====================================================================
+const MOVES={
+  // — Entrada en calor (cardio) —
+  walk_brisk:{name:'Caminata enérgica',tag:'3 min',how:'Caminá a paso vivo, brazos sueltos, para empezar a subir las pulsaciones y la temperatura corporal.'},
+  jog_progressive:{name:'Trote progresivo',tag:'10 min',how:'Trote que arranca MUY lento y va subiendo de a poco hasta un ritmo cómodo. Es para entrar en calor, no para cansarte.'},
+  jog_easy_in:{name:'Trote suave de entrada',tag:'5–8 min',how:'Trote tranquilo y relajado, respiración cómoda, para preparar el cuerpo antes del trabajo.'},
+  bike_easy:{name:'Aeróbico suave (bici o remo)',tag:'5 min',how:'Pedaleá o remá a intensidad suave durante unos minutos para entrar en temperatura sin fatigarte.'},
+  // — Movilidad dinámica —
+  leg_swings:{name:'Balanceos de pierna',tag:'10 c/lado',how:'Sostenido de una pared, balanceá una pierna relajada adelante y atrás; después de lado a lado. Sin forzar el rango.'},
+  hip9090:{name:'Cadera 90/90',tag:'8 c/lado',how:'Sentado en el piso, una pierna a 90° adelante y la otra a 90° al costado; girá de un lado al otro llevando las rodillas al piso.'},
+  ankle_dorsi:{name:'Movilidad de tobillo',tag:'10 c/lado',how:'En posición de estocada, llevá la rodilla por encima de los dedos del pie SIN despegar el talón del piso. Prepara sled push y sentadilla.'},
+  tspine_rot:{name:'Rotación torácica',tag:'8 c/lado',how:'En cuatro patas, una mano detrás de la nuca; rotá el codo hacia el techo abriendo el pecho y volvé. Para wall balls y overhead.'},
+  shoulder_pass:{name:'Movilidad de hombro',tag:'10 reps',how:'Con un palo o banda agarrado ancho, pasalo de adelante hacia atrás por encima de la cabeza con los brazos estirados.'},
+  // — Drills técnicos de carrera (§11) —
+  askips:{name:'A-skips',tag:'2 × 20 m',how:'Trote saltado exagerando la subida de rodilla a ~90° y el braceo, apoyando con el metatarso. Cadencia alta.'},
+  butt_kicks:{name:'Talón-cola',tag:'2 × 20 m',how:'Trote liviano y rápido llevando los talones hacia los glúteos, sin echar el torso hacia atrás.'},
+  a_march:{name:'Marcha técnica',tag:'2 × 20 m',how:'Caminando, subí la rodilla a 90° y apoyá el pie activo justo debajo de la cadera. Postura alta, cadencia ~170–180.'},
+  strides_accel:{name:'Strides de aceleración',tag:'2–3 ×',how:'Acelerá progresivo hasta ~80% en 60–80 m y desacelerá suave. Relajado y técnico, para abrir las piernas.'},
+  // — Strides de cierre (§11) —
+  strides_close_full:{name:'Strides / mini-cuestas',tag:'6–8 ×',how:'Repeticiones de 10–15 s casi a tope (en llano o cuesta corta) con recuperación caminando completa. Foco en técnica y potencia, NO en fundirte.'},
+  strides_close_deload:{name:'Strides / mini-cuestas',tag:'4 ×',how:'Repeticiones de 10–15 s casi a tope con recuperación caminando completa. Pocas, porque es semana de descarga.'},
+  // — Activación de fuerza —
+  rampup:{name:'Series de aproximación',tag:'ramp-up',how:'En el primer ejercicio pesado, hacé 2–3 series livianas subiendo la carga hasta el peso de trabajo. Activa el patrón sin fatigar.'},
+  rampup_light:{name:'Aproximación liviana',tag:'ramp-up',how:'Una sola serie liviana en el primer ejercicio para activar el patrón. Nada que fatigue: estás en taper.'},
+  // — Complementos de fuerza (§9) —
+  core_grip:{name:'Core + grip finisher',tag:'5–8 min',how:'Al cierre: 2–3 de core (plancha, dead bug, anti-rotación con banda) + farmer holds o colgarte de la barra (dead hang) para el agarre.'},
+  flush_z2:{name:'Flush aeróbico Z2',tag:'10–15 min',how:'Bici o remo MUY suave para sumar volumen aeróbico barato y ayudar a recuperar. Respiración cómoda todo el tiempo.'},
+  // — Conditioning / estaciones (§10, §12) —
+  station_mob:{name:'Movilidad de estaciones',tag:'5 min',how:'Tobillo (sled push, sentadilla), hombro y torácica (wall balls) y cadera (lunges). Movimientos controlados.'},
+  station_activate:{name:'Activación de estaciones',tag:'activación',how:'Practicá liviano, con poco peso, el patrón de cada estación que toca hoy para aceitar la técnica antes del trabajo.'},
+  run_1k_in:{name:'1 km de entrada',tag:'1 km',how:'Trote fácil de 1 km justo antes del primer bloque, para llegar lubricado al trabajo específico.'},
+  circuit_review:{name:'Repaso técnico del circuito',tag:'técnica',how:'Repasá liviano los movimientos del circuito de hoy con poca carga, priorizando hacerlos bien.'},
+  // — Vuelta a la calma —
+  jog_down:{name:'Trote regenerativo',tag:'5 min',how:'Trote muy suave aflojando, bajando el pulso de a poco, y después caminá hasta normalizar la respiración.'},
+  walk_down:{name:'Caminata de recuperación',tag:'5 min',how:'Caminá tranquilo unos minutos hasta que la respiración y el pulso vuelvan a la normalidad.'},
+  stretch_lower:{name:'Estiramiento de piernas',tag:'3–4 min',how:'Estirá suave gemelo, cuádriceps e isquiotibiales, ~20–30 s por músculo, sin rebotes ni dolor.'},
+  mob_post:{name:'Movilidad de lo trabajado',tag:'5 min',how:'Movilidad suave de las zonas que más usaste hoy (cadera, tobillo, hombros) para descargar.'},
+  breathing:{name:'Respiración y relax',tag:'3–5 min',how:'Respiración lenta y profunda + estiramiento muy suave para bajar revoluciones.'},
+};
+const HARD_C=['int','umbral','tempo','goal'];
+function sessionProtocol(w,dayKey,phase){
+  const empty={warmup:[],mobility:[],cooldown:[],cooldownNote:''};
+  if(w.race)return empty; // día de carrera: sin protocolo de entrenamiento
+
+  if(dayKey==='A')return {
+    warmup:['walk_brisk','jog_progressive'],
+    mobility:['leg_swings','hip9090','ankle_dorsi'],
+    cooldown:['jog_down','stretch_lower'],cooldownNote:'',
+  };
+
+  if(dayKey==='C'){
+    if(HARD_C.indexOf((w.C||{}).kind)>=0)return {
+      warmup:['jog_progressive'],
+      mobility:['leg_swings','askips','butt_kicks','a_march','strides_accel'],
+      cooldown:[w.deload?'strides_close_deload':'strides_close_full','jog_down','stretch_lower'],cooldownNote:'',
+    };
+    return {
+      warmup:['jog_easy_in'],
+      mobility:['leg_swings','strides_accel'],
+      cooldown:['jog_down','stretch_lower'],cooldownNote:'',
+    };
+  }
+
+  if(dayKey==='B')return {
+    warmup:['bike_easy'],
+    mobility:['hip9090','tspine_rot','shoulder_pass','ankle_dorsi',phase===3?'rampup_light':'rampup'],
+    cooldown:['core_grip','flush_z2'],
+    cooldownNote:'Mantené la sesión completa dentro de ~1:15 (fuerza ~50 min + complementos).',
+  };
+
+  // dayKey === 'D'
+  const kind=(w.D||{}).kind;
+  if(kind==='sim'||kind==='compromised'||kind==='minirox')return {
+    warmup:['jog_easy_in','run_1k_in'],
+    mobility:['station_mob','station_activate'],
+    cooldown:['jog_down','mob_post'],cooldownNote:'',
+  };
+  if(kind==='circuit')return {
+    warmup:['bike_easy'],
+    mobility:['station_mob','circuit_review'],
+    cooldown:['walk_down','stretch_lower'],cooldownNote:'',
+  };
+  // recovery / otros
+  return {
+    warmup:['walk_brisk'],
+    mobility:['leg_swings','hip9090'],
+    cooldown:['breathing'],cooldownNote:'',
+  };
+}
+
+// =====================================================================
 // HEART-RATE ZONES (desde FC máx ingresada)
 // =====================================================================
 function hrZones(h){
   const b=(lo,hi,name)=>({lo:Math.round(h*lo/100),hi:Math.round(h*hi/100),name:name});
   return {Z1:b(60,70,'Z1 · Recuperación'),Z2:b(70,80,'Z2 · Fácil aeróbico'),Z3:b(80,87,'Z3 · Tempo'),Z4:b(87,93,'Z4 · Umbral'),Z5:b(93,100,'Z5 · VO2 máx')};
 }
-function zoneFlag(hr,zoneKey){
-  if(!S.hrMax||!zoneKey)return '';
-  const z=hrZones(S.hrMax)[zoneKey];if(!z)return '';
-  return (hr>=z.lo&&hr<=z.hi)?' <span class="zok">✓ en '+zoneKey+'</span>':' <span class="zno">fuera de '+zoneKey+'</span>';
-}
-
 // =====================================================================
-// STATE
+// STATE  (solo posición + FC máx; sin tracking ni registro)
 // =====================================================================
-let S={week:1,day:'A',hrMax:null,step:2.5,weights:{},weightHistory:{},logs:{},support:{},openWeight:null,openProg:null};
+let S={week:1,day:'A',hrMax:null};
 
 function loadState(){
   try{
     const d=JSON.parse(localStorage.getItem('mywod_v8')||'{}');
-    ['week','day','hrMax','step','weights','weightHistory','logs','support'].forEach(k=>{if(d[k]!==undefined)S[k]=d[k];});
+    ['week','day','hrMax'].forEach(k=>{if(d[k]!==undefined)S[k]=d[k];});
     if(typeof S.week!=='number'||S.week<1||S.week>37)S.week=1;
     if(['A','B','C','D'].indexOf(S.day)<0)S.day='A';
   }catch(e){}
 }
 function saveState(){
-  try{localStorage.setItem('mywod_v8',JSON.stringify({week:S.week,day:S.day,hrMax:S.hrMax,step:S.step,weights:S.weights,weightHistory:S.weightHistory,logs:S.logs,support:S.support}));}catch(e){}
+  try{localStorage.setItem('mywod_v8',JSON.stringify({week:S.week,day:S.day,hrMax:S.hrMax}));}catch(e){}
 }
 function round1(x){return Math.round(x*10)/10;}
-function wKey(phase,id){return phase+'-'+id;}
-function getW(phase,id,def){const k=wKey(phase,id);return S.weights[k]!==undefined?S.weights[k]:def;}
-function setW(phase,id,val){
-  const k=wKey(phase,id),prev=S.weights[k];
-  S.weights[k]=val;
-  if(!S.weightHistory[k])S.weightHistory[k]=[];
-  const today=new Date().toLocaleDateString('es-AR',{day:'2-digit',month:'short'});
-  if(prev!==val)S.weightHistory[k].push({v:val,date:'Sem '+S.week+' · '+today});
-  saveState();
-}
-
-// =====================================================================
-// LOG FIELDS por tipo de sesión
-// =====================================================================
-const LOG_FIELDS={
-  run:[{k:'duration',label:'Duración (min)'},{k:'distance',label:'Distancia (km)',step:'0.1'},{k:'avgHr',label:'FC media (lpm)'},{k:'rpe',label:'Esfuerzo RPE 1–10'}],
-  cond:[{k:'time',label:'Tiempo (min)'},{k:'rounds',label:'Rondas hechas'},{k:'avgHr',label:'FC media (lpm)'},{k:'rpe',label:'Esfuerzo RPE 1–10'}],
-  strength:[{k:'rpe',label:'Esfuerzo RPE 1–10'}],
-};
-function paceStr(min,km){if(!km)return '—';const p=min/km,m=Math.floor(p),s=Math.round((p-m)*60);return m+':'+String(s).padStart(2,'0');}
 
 // =====================================================================
 // RENDER HEADER
@@ -621,7 +598,7 @@ function renderHeader(){
     btn.className='week-btn'+(n===S.week?' active':'')+(w.deload?' deload':'')+(w.test?' test':'')+(w.race?' race':'');
     const mark=w.race?'🏁':w.test?'★':w.deload?'↓':'';
     btn.innerHTML='S'+n+(mark?'<span class="wmark">'+mark+'</span>':'');
-    btn.onclick=()=>{S.week=n;S.openWeight=null;saveState();renderHeader();renderSession();};
+    btn.onclick=()=>{S.week=n;saveState();renderHeader();renderSession();};
     ws.appendChild(btn);
   }
   const dr=document.getElementById('day-row');dr.innerHTML='';
@@ -629,7 +606,7 @@ function renderHeader(){
     const pill=document.createElement('div');
     pill.className='day-pill '+dm.type+(dm.key===S.day?' active':'');
     pill.innerHTML='<div class="dl">'+dm.key+'</div><div class="dt">'+dm.short+'</div>';
-    pill.onclick=()=>{S.day=dm.key;S.openWeight=null;saveState();renderSession();renderHeader();};
+    pill.onclick=()=>{S.day=dm.key;saveState();renderSession();renderHeader();};
     dr.appendChild(pill);
   });
 }
@@ -654,225 +631,84 @@ function renderSession(){
   document.getElementById('block-banner').innerHTML='<strong>'+w.block+'</strong> · '+PHASES[phase].focus+' '+flags;
 
   const cont=document.getElementById('exercises-container');cont.innerHTML='';
-  if(dayKey==='B')renderStrength(cont,phase,n);
-  else if(dayKey==='A'||dayKey==='C')renderRun(cont,runSession(w,dayKey),n,dayKey);
-  else renderCond(cont,buildFinisher(w),n);
-  renderSupport(cont,n);
+  const proto=sessionProtocol(w,dayKey,phase);
+  renderSteps(cont,'Entrada en calor',proto.warmup,meta.type);
+  renderSteps(cont,'Movilidad',proto.mobility,meta.type);
+  if(dayKey==='B')renderStrength(cont,phase);
+  else if(dayKey==='A'||dayKey==='C')renderRun(cont,runSession(w,dayKey));
+  else renderCond(cont,buildFinisher(w));
+  renderSteps(cont,'Vuelta a la calma',proto.cooldown,meta.type,proto.cooldownNote);
+  if(w.test&&CONTROL_TESTS[n]){const t=CONTROL_TESTS[n];
+    renderSteps(cont,'Test de control',[{name:'Test '+t.n+' · '+t.when,how:t.what}],meta.type);}
 }
 
-function renderRun(cont,sess,n,dayKey){
+// Bloque de pasos del listado: cada paso = {name, how, tag} o un id de MOVES.
+function renderSteps(cont,label,steps,accentType,note){
+  if(!steps||!steps.length)return;
+  cont.appendChild(sectionLabel(label));
+  const block=document.createElement('div');block.className='proto-block';block.dataset.type=accentType||'';
+  block.innerHTML=steps.map((s,i)=>{
+    const m=typeof s==='string'?MOVES[s]:s;if(!m)return '';
+    return '<div class="proto-step"><span class="proto-num">'+String(i+1).padStart(2,'0')+'</span>'+
+      '<div class="proto-body"><div class="proto-name">'+m.name+'</div>'+(m.how?'<div class="proto-how">'+m.how+'</div>':'')+'</div>'+
+      (m.tag?'<span class="proto-tag">'+m.tag+'</span>':'')+'</div>';
+  }).join('')+(note?'<div class="proto-note">'+note+'</div>':'');
+  cont.appendChild(block);
+}
+
+function renderRun(cont,sess){
   const z=S.hrMax?hrZones(S.hrMax)[sess.zoneKey]:null;
-  cont.appendChild(sectionLabel('Prescripción de hoy'));
+  cont.appendChild(sectionLabel('Trabajo'));
   const card=document.createElement('div');card.className='run-card';card.dataset.type=sess.type;
   const zoneHtml=z
     ?'Objetivo '+z.name+' · <b>'+z.lo+'–'+z.hi+' lpm</b>'
     :'Objetivo '+sess.zoneKey+' — <span class="run-zone-cfg" onclick="goPlan()">configurá tu FC máx ↗</span>';
-  const drills=dayKey==='C'?'<div class="run-cue"><b>Drills antes de los intervalos:</b> A-skips, talón-cola, marcha técnica (2 × 20 m). Cadencia objetivo ~170–180 pasos/min.</div>':'';
   card.innerHTML='<div class="run-presc">'+sess.prescription+'</div>'+
     '<div class="run-zone">'+zoneHtml+'</div>'+
     '<div class="run-cue">'+sess.cue+'</div>'+
-    (sess.note?'<div class="run-cue">'+sess.note+'</div>':'')+drills;
+    (sess.note?'<div class="run-cue">'+sess.note+'</div>':'');
   cont.appendChild(card);
-  cont.appendChild(sectionLabel('Registrar sesión'));
-  cont.appendChild(logForm('run',n,dayKey,sess.zoneKey));
 }
 
-function renderCond(cont,fin,n){
-  cont.appendChild(sectionLabel('Sesión de hoy'));
+function renderCond(cont,fin){
+  cont.appendChild(sectionLabel('Trabajo'));
   const hc=document.createElement('div');hc.className='hiit-card'+(fin.race?' race':'');
   hc.innerHTML='<div class="hiit-head"><span class="hiit-badge">'+fin.format+'</span><span class="hiit-dur">'+fin.duration+'</span></div>'+
     '<div class="hiit-title">'+fin.title+'</div>'+
     '<div class="hiit-rounds">'+fin.rounds.map((r,i)=>'<div class="hiit-round"><span class="hiit-rnum">'+String(i+1).padStart(2,'0')+'</span><span class="hiit-rdesc">'+r.desc+'</span><span class="hiit-rtime">'+(r.time||'')+'</span></div>').join('')+'</div>'+
     (fin.note?'<div class="hiit-note">'+fin.note+'</div>':'');
   cont.appendChild(hc);
-  if(!fin.race){
-    cont.appendChild(sectionLabel('Registrar sesión'));
-    cont.appendChild(logForm('cond',n,S.day,fin.race?'':'Z4'));
-  }
 }
 
-function renderStrength(cont,phase,n){
+function renderStrength(cont,phase){
   const list=strengthDay(phase);
   const banner=document.createElement('div');banner.className='strength-banner';
   banner.innerHTML='<strong>Full-body de mantenimiento, sesgo a tracción.</strong> '+strengthFocus(phase)+' El upper también se entrena en las estaciones; los carries pesados son trabajo de grip.';
   cont.appendChild(banner);
-  cont.appendChild(sectionLabel('Ejercicios — peso de trabajo'));
+  cont.appendChild(sectionLabel('Trabajo'));
   list.forEach((ex,idx)=>{
-    const defW=round1(ex.weight),curW=getW(phase,ex.id,defW),isOpen=S.openWeight===idx;
-    const url=msUrl(ex.id),lib=LIBRARY[ex.id];
+    const w=round1(ex.weight),lib=LIBRARY[ex.id],wChip=w>0?w+' kg':'peso corporal';
     const card=document.createElement('div');card.className='ex-card';card.dataset.type='strength';
     card.innerHTML=
       '<div class="ex-main">'+
         '<div class="ex-num">'+String(idx+1).padStart(2,'0')+'</div>'+
         '<div class="ex-info">'+
           '<div class="ex-name">'+ex.name+'</div>'+
-          '<div class="ex-params"><span class="pchip series">'+ex.sets+' series</span><span class="pchip reps">'+ex.reps+' reps</span><span class="pchip">'+ex.rest+'</span></div>'+
+          '<div class="ex-params"><span class="pchip series">'+ex.sets+' series</span><span class="pchip reps">'+ex.reps+' reps</span><span class="pchip">'+ex.rest+'</span><span class="pchip weight">'+wChip+'</span></div>'+
           (lib?'<div class="ex-muscles">'+lib.muscles+'</div>':'')+
+          '<div class="ex-note">'+ex.note+'</div>'+
         '</div>'+
-        '<div class="ex-right"><div class="w-val" id="wval-'+idx+'">'+(curW>0?curW:'—')+'</div><div class="w-unit">'+(curW>0?'kg':'corporal')+'</div></div>'+
-      '</div>'+
-      '<div class="ex-actions"><button class="ex-action-btn'+(isOpen?' active-tab':'')+'" onclick="toggleW('+idx+')">✏️ Peso</button>'+
-        (url?'<button class="ex-action-btn" onclick="window.open(\''+url+'\',\'_blank\')">▶ Ver en M&amp;S</button>':'')+'</div>'+
-      '<div class="weight-editor'+(isOpen?' open':'')+'" id="weditor-'+idx+'">'+
-        '<div class="editor-label">Peso de trabajo</div>'+
-        '<div class="weight-controls"><button class="w-btn" onclick="adjW('+idx+',-1)">−</button>'+
-          '<input class="w-input" id="winp-'+idx+'" type="number" inputmode="decimal" value="'+curW+'" step="0.5" min="0" onchange="updW('+idx+')">'+
-          '<button class="w-btn" onclick="adjW('+idx+',1)">+</button></div>'+
-        '<div class="step-sel">'+[1,2.5,5,10].map(st=>'<div class="step-btn'+(S.step===st?' active':'')+'" onclick="setStep('+st+')">±'+st+'</div>').join('')+'</div>'+
-        '<div class="ex-note">'+ex.note+'</div>'+
       '</div>';
     cont.appendChild(card);
   });
-  cont.appendChild(sectionLabel('Registrar sesión'));
-  cont.appendChild(logForm('strength',n,'B',''));
 }
 
-function logForm(kind,n,dayKey,zoneKey){
-  const log=S.logs[n+'-'+dayKey]||{};
-  const wrap=document.createElement('div');wrap.className='log-card';
-  const inputs=LOG_FIELDS[kind].map(f=>
-    '<div class="log-field"><label>'+f.label+'</label><input id="lf-'+f.k+'" type="number" inputmode="decimal" step="'+(f.step||'1')+'" value="'+(log[f.k]!=null?log[f.k]:'')+'" placeholder="—"></div>').join('');
-  let summary='';
-  if(kind==='run'&&log.duration&&log.distance)summary='<div class="log-derived">'+paceStr(log.duration,log.distance)+' /km'+(log.avgHr?' · FC '+log.avgHr+' lpm'+zoneFlag(log.avgHr,zoneKey):'')+'</div>';
-  else if(kind==='cond'&&log.avgHr)summary='<div class="log-derived">FC media '+log.avgHr+' lpm'+zoneFlag(log.avgHr,zoneKey)+'</div>';
-  wrap.innerHTML='<div class="log-grid">'+inputs+'</div>'+
-    '<textarea id="lf-note" class="log-note" placeholder="Notas: cómo te sentiste, clima, sensaciones...">'+(log.note||'')+'</textarea>'+
-    summary+
-    '<button class="log-save" onclick="saveLog('+n+',\''+dayKey+'\',\''+kind+'\',\''+(zoneKey||'')+'\')">Guardar registro</button>'+
-    (log.savedAt?'<div class="log-saved">✓ Registrado · '+log.savedAt+'</div>':'');
-  return wrap;
-}
-function saveLog(n,dayKey,kind){
-  const entry={kind:kind};
-  LOG_FIELDS[kind].forEach(f=>{const el=document.getElementById('lf-'+f.k);const v=el?el.value.trim():'';if(v!=='')entry[f.k]=parseFloat(v);});
-  const note=document.getElementById('lf-note');if(note&&note.value.trim())entry.note=note.value.trim();
-  entry.savedAt=new Date().toLocaleDateString('es-AR',{day:'2-digit',month:'short'});
-  S.logs[n+'-'+dayKey]=entry;saveState();renderSession();
-}
+function selectPhase(p){S.week=PHASES[p].weeks[0];saveState();renderHeader();renderSession();}
 
 // =====================================================================
-// CONTROLS (peso · fuerza)
+// REFERENCIA VIEW
 // =====================================================================
-function curExList(){return strengthDay(phaseOf(S.week));}
-function toggleW(idx){S.openWeight=S.openWeight===idx?null:idx;renderSession();}
-function adjW(idx,dir){
-  const inp=document.getElementById('winp-'+idx);
-  const nv=Math.max(0,round1((parseFloat(inp.value)||0)+dir*S.step));
-  inp.value=nv;const ex=curExList()[idx];setW(phaseOf(S.week),ex.id,nv);
-  const d=document.getElementById('wval-'+idx);if(d)d.textContent=nv>0?nv:'—';
-}
-function updW(idx){
-  const inp=document.getElementById('winp-'+idx);
-  const nv=Math.max(0,parseFloat(inp.value)||0);
-  const ex=curExList()[idx];setW(phaseOf(S.week),ex.id,nv);
-  const d=document.getElementById('wval-'+idx);if(d)d.textContent=nv>0?nv:'—';
-}
-function setStep(st){S.step=st;document.querySelectorAll('.step-btn').forEach(b=>b.classList.toggle('active',parseFloat(b.textContent.replace('±',''))===st));}
-function selectPhase(p){S.week=PHASES[p].weeks[0];S.openWeight=null;saveState();renderHeader();renderSession();}
-
-// Checklist de soporte (week-scoped): se reinicia solo al cambiar de semana.
-function renderSupport(cont,n){
-  const wk=S.support[n]||{};
-  cont.appendChild(sectionLabel('Soporte de la semana'));
-  const card=document.createElement('div');card.className='support-card';
-  card.innerHTML=SUPPORT.map(s=>{
-    const done=wk[s.key]||0;
-    const pips=Array.from({length:s.target},(_,i)=>'<span class="sup-pip'+(i<done?' on':'')+'" onclick="toggleSupport(\''+s.key+'\','+i+')"></span>').join('');
-    return '<div class="sup-row"><div class="sup-info"><div class="sup-label">'+s.label+'</div><div class="sup-count">'+done+'/'+s.target+' esta semana</div></div><div class="sup-pips">'+pips+'</div></div>';
-  }).join('');
-  cont.appendChild(card);
-}
-function toggleSupport(key,i){
-  if(!S.support[S.week])S.support[S.week]={};
-  const cur=S.support[S.week][key]||0;
-  // tap en un pip: si ya estaba lleno hasta ahí, baja a i; si no, sube a i+1.
-  S.support[S.week][key]=(cur===i+1)?i:i+1;
-  saveState();renderSession();
-}
-
-// =====================================================================
-// PROGRESS VIEW
-// =====================================================================
-function renderProgress(){
-  const cont=document.getElementById('prog-body');cont.innerHTML='';
-  let totalKm=0,sessions=0;
-  Object.keys(S.logs).forEach(k=>{const l=S.logs[k];sessions++;if(l.distance)totalKm+=l.distance;});
-  const sb=document.createElement('div');sb.className='prog-stats-bar';
-  sb.innerHTML='<div class="prog-stat"><div class="prog-stat-val">'+Math.round(totalKm)+'<span class="ps-unit">km</span></div><div class="prog-stat-lbl">Volumen total</div></div>'+
-    '<div class="prog-stat"><div class="prog-stat-val">'+sessions+'</div><div class="prog-stat-lbl">Sesiones</div></div>'+
-    '<div class="prog-stat"><div class="prog-stat-val">S'+S.week+'<span class="ps-unit">/37</span></div><div class="prog-stat-lbl">Semana actual</div></div>';
-  cont.appendChild(sb);
-
-  cont.appendChild(chartCard('Volumen de running semanal (km)',volumeChartSvg(),volumeLegend()));
-  const pace=paceSeries();
-  if(pace.length>=2)cont.appendChild(chartCard('Tendencia de ritmo · '+paceStr(pace[pace.length-1].pace,1)+' /km último',paceChartSvg(pace),''));
-
-  cont.appendChild(sectionLabel('Fuerza · peso de trabajo'));
-  let anyStrength=false;
-  for(let p=0;p<=3;p++){
-    strengthDay(p).forEach(ex=>{
-      const key=wKey(p,ex.id),hist=S.weightHistory[key];
-      if(!hist||!hist.length)return;anyStrength=true;
-      const cur=hist[hist.length-1].v,change=round1(cur-round1(ex.weight)),open=S.openProg===key;
-      const card=document.createElement('div');card.className='prog-ex-card';
-      card.innerHTML='<div class="prog-ex-head" onclick="toggleProg(\''+key+'\')">'+
-        '<div><div class="prog-ex-session">Fase '+p+' · '+PHASES[p].name+'</div><div class="prog-ex-name">'+(msName(ex.id)||ex.name)+'</div></div>'+
-        '<div class="prog-ex-right"><div class="prog-ex-weight">'+(cur>0?cur:'—')+'<span class="pw-unit"> '+(cur>0?'kg':'')+'</span></div>'+
-          '<div class="prog-ex-change '+(change>0?'change-up':'change-none')+'">'+(change>0?'+'+change+' kg':'—')+'</div></div></div>'+
-        '<div class="prog-history'+(open?' open':'')+'"><div class="hist-label">Historial de peso</div>'+buildTimeline(ex,key)+'</div>';
-      cont.appendChild(card);
-    });
-  }
-  if(!anyStrength){const d=document.createElement('div');d.className='hist-empty';d.style.padding='2px 0 8px';d.textContent='Ajustá los pesos en los días de Fuerza para registrar tu progresión acá.';cont.appendChild(d);}
-
-  cont.appendChild(sectionLabel('Tests de control'));
-  [12,24,33].forEach(wn=>{
-    const t=CONTROL_TESTS[wn],done=Object.keys(S.logs).some(k=>k.indexOf(wn+'-')===0);
-    const card=document.createElement('div');card.className='test-card'+(done?' done':'');
-    card.innerHTML='<div class="test-h"><span class="test-n">TEST '+t.n+'</span><span class="test-when">'+t.when+'</span></div>'+
-      '<div class="test-what">'+t.what+'</div>'+(done?'<div class="test-done">✓ Semana '+wn+' con registro</div>':'');
-    cont.appendChild(card);
-  });
-}
-function chartCard(title,svg,legend){
-  const d=document.createElement('div');d.className='chart-card';
-  d.innerHTML='<div class="chart-title">'+title+'</div><div class="chart-svg">'+svg+'</div>'+(legend?'<div class="chart-legend">'+legend+'</div>':'');
-  return d;
-}
-function volumeChartSvg(){
-  const data=[];for(let n=1;n<=37;n++){let km=0;['A','C','D'].forEach(d=>{const l=S.logs[n+'-'+d];if(l&&l.distance)km+=l.distance;});data.push({km:km,phase:phaseOf(n)});}
-  const max=Math.max(1,...data.map(d=>d.km)),BW=8,GAP=1.4,H=64,W=Math.round(data.length*(BW+GAP));
-  const bars=data.map((d,i)=>{const h=d.km>0?Math.max(2,d.km/max*H):1;const x=(i*(BW+GAP)).toFixed(1);const col=d.km>0?'var('+PHASES[d.phase].color+')':'var(--border)';return '<rect x="'+x+'" y="'+(H-h).toFixed(1)+'" width="'+BW+'" height="'+h.toFixed(1)+'" rx="1.5" fill="'+col+'"/>';}).join('');
-  return '<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'+bars+'</svg>';
-}
-function volumeLegend(){return [0,1,2,3].map(p=>'<span class="leg"><i style="background:var('+PHASES[p].color+')"></i>F'+p+' '+PHASES[p].name+'</span>').join('');}
-function paceSeries(){const arr=[];for(let n=1;n<=37;n++){['A','C','D'].forEach(d=>{const l=S.logs[n+'-'+d];if(l&&l.distance&&l.duration)arr.push({pace:l.duration/l.distance});});}return arr;}
-function paceChartSvg(data){
-  const H=64,W=Math.max(80,data.length*22),paces=data.map(d=>d.pace),min=Math.min(...paces),max=Math.max(...paces),rng=(max-min)||1;
-  const pts=data.map((d,i)=>{const x=data.length>1?i/(data.length-1)*(W-10)+5:W/2;const y=H-8-((d.pace-min)/rng)*(H-16);return [x,y];});
-  const line=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
-  const dots=pts.map(p=>'<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="2.5" fill="var(--accent)"/>').join('');
-  return '<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'"><path d="'+line+'" fill="none" stroke="var(--accent)" stroke-width="1.5"/>'+dots+'</svg>';
-}
-function buildTimeline(ex,key){
-  const hist=S.weightHistory[key]||[];
-  const full=[{v:round1(ex.weight),date:'Valor inicial'}].concat(hist);
-  if(full.length===1)return '<div class="hist-empty">Ajustá el peso para registrar cambios.</div>';
-  return '<div class="hist-timeline">'+full.map((h,i)=>{
-    const delta=(i>0&&h.v>0&&full[i-1].v>0)?round1(h.v-full[i-1].v):null;
-    return '<div class="hist-entry"><div class="hist-line-col"><div class="hist-dot '+(i===0?'initial':'')+' '+(i===full.length-1?'latest':'')+'"></div>'+(i<full.length-1?'<div class="hist-line"></div>':'')+'</div>'+
-      '<div class="hist-content"><div class="hist-date">'+h.date+'</div><div class="hist-weight-row">'+
-        '<div class="hist-w '+(i===full.length-1?'latest':'')+'">'+(h.v>0?h.v:'—')+'</div><div class="hist-w-unit">'+(h.v>0?'kg':'')+'</div>'+
-        (delta!==null?'<span class="hist-delta" style="color:'+(delta>0?'var(--good)':'var(--quality)')+'">'+(delta>0?'+':'')+delta+' kg</span>':'')+
-      '</div></div></div>';
-  }).join('')+'</div>';
-}
-function toggleProg(key){S.openProg=S.openProg===key?null:key;renderProgress();}
-
-// =====================================================================
-// PLAN VIEW
-// =====================================================================
-function renderPlan(){
+function renderRef(){
   const c=document.getElementById('info-body');c.innerHTML='';
   // FC zones
   const hr=document.createElement('div');hr.className='info-card';
@@ -888,79 +724,11 @@ function renderPlan(){
     '<p class="info-p" style="margin-top:8px">Objetivo: <strong>HYROX Open · marzo 2027</strong>. Estrategia: empujar el running (el limitante) y mantener la fuerza. Bloques de 3 semanas de carga + 1 deload.</p>';
   c.appendChild(macro);
   // Stations
-  const st=document.createElement('div');st.className='info-card';
+  const st=document.createElement('div');st.className='info-card';st.style.marginBottom='20px';
   st.innerHTML='<div class="info-card-title">Las 8 estaciones (pesos Open)</div><div class="st-table">'+
     STATIONS.map(s=>'<div class="st-row"><div class="st-n">'+s.n+'</div><div class="st-info"><div class="st-name">'+s.name+'</div><div class="st-spec">'+s.spec+(s.h!=='—'?' · H '+s.h+' / M '+s.m:'')+'</div><div class="st-sub"><b>Gym:</b> '+s.sub+'</div></div></div>').join('')+
     '</div><p class="info-p" style="margin-top:8px">Orden fijo en toda carrera, con 1 km de run antes de cada estación. Pesos temporada 2025/26 (incluyen el trineo).</p>';
   c.appendChild(st);
-  // Tests
-  const ts=document.createElement('div');ts.className='info-card';
-  ts.innerHTML='<div class="info-card-title">Tests de control</div>'+[12,24,33].map(wn=>{const t=CONTROL_TESTS[wn];return '<p class="info-p"><strong>Test '+t.n+' ('+t.when+'):</strong> '+t.what+'</p>';}).join('');
-  c.appendChild(ts);
-
-  const card=(title,html)=>{const d=document.createElement('div');d.className='info-card';d.innerHTML='<div class="info-card-title">'+title+'</div>'+html;c.appendChild(d);return d;};
-
-  // Ritmos objetivo (§3) — va junto a zonas; reutiliza el markup de macro-row
-  const RITMOS=[
-    ['Z2 · Fácil','Podés hablar sin agitarte (~70–75% FC máx)','trote lento'],
-    ['Tempo','Cómodamente duro, sostenible ~1 h','medio maratón'],
-    ['Intervalos','Duro pero repetible (~esfuerzo de 5k)','—'],
-    ['Goal split','Ritmo objetivo de los 1 km de la carrera','~6:00–6:30/km'],
-  ];
-  card('Ritmos objetivo (provisionales)',
-    RITMOS.map(r=>'<div class="macro-row"><div class="macro-l"><div class="macro-ph">'+r[0]+'</div><div class="macro-fo">'+r[1]+'</div></div><div class="macro-wk">'+r[2]+'</div></div>').join('')+
-    '<p class="info-p" style="margin-top:8px">Punto de partida: 5 km en 35–40 min. <strong>Se recalibran con cada test de control.</strong></p>');
-
-  // Prevención y movilidad (§10) — liga con el checklist de soporte
-  card('Prevención y movilidad',
-    '<p class="info-p">El mayor riesgo del plan es lesionarte al subir el volumen de running. Reglas:</p>'+
-    '<p class="info-p"><strong>Volumen +10% máx por semana.</strong> Las tablas ya lo respetan; no te adelantes.</p>'+
-    '<p class="info-p"><strong>Regla de las molestias:</strong> dolor que persiste 3 días o empeora al correr → bajá carga, no lo aguantes.</p>'+
-    SUPPORT.map(s=>'<p class="info-p"><strong>'+s.label+' ('+s.target+'×/sem):</strong> '+s.detail+'</p>').join(''));
-
-  // Técnica de carrera (§11)
-  card('Técnica de carrera (economía)',
-    '<p class="info-p"><strong>Drills</strong> antes de los intervalos: A-skips, talón-cola, marcha técnica (2 × 20 m).</p>'+
-    '<p class="info-p"><strong>Cadencia:</strong> ~170–180 pasos/min (corregí con metrónomo o playlist).</p>'+
-    '<p class="info-p"><strong>Strides:</strong> 4–6 × 100 m suaves al final de un rodaje fácil, 1–2×/semana.</p>');
-
-  // Pacing y ejecución (§12)
-  card('Pacing y ejecución de carrera',
-    '<p class="info-p">El error #1 del primerizo en Open es salir rápido y morir en la segunda mitad.</p>'+
-    '<p class="info-p"><strong>Salida:</strong> primeros 2–3 km controlados, sensación de "podría ir más rápido".</p>'+
-    '<p class="info-p"><strong>Wall Balls:</strong> fraccioná desde el arranque (series de 10–15). Fallar reps cuesta carísimo.</p>'+
-    '<p class="info-p"><strong>Run post Sled Push:</strong> arrancá corto y suave, dejá que vuelvan las piernas.</p>'+
-    '<p class="info-p"><strong>Roxzone:</strong> la transición cuenta en tu tiempo. Movete con propósito.</p>'+
-    '<p class="info-p"><strong>Respiración:</strong> bajá pulsaciones en los primeros metros saliendo de cada estación.</p>');
-
-  // Combustible (§13)
-  card('Combustible e hidratación',
-    '<p class="info-p"><strong>Día a día:</strong> carbohidratos alrededor de las sesiones duras/largas, proteína repartida. No sostengas el plan en déficit agresivo.</p>'+
-    '<p class="info-p"><strong>Sesiones &gt; ~75 min:</strong> ensayá hidratación y sumá carbohidrato durante (gel o bebida).</p>'+
-    '<p class="info-p"><strong>Día de carrera:</strong> nada nuevo — exactamente lo que probaste en las simulaciones.</p>');
-
-  // Autorregulación (§14)
-  card('Autorregulación y contingencia',
-    '<p class="info-p"><strong>Perdiste 1–3 días:</strong> seguí donde ibas, no comprimas todo.</p>'+
-    '<p class="info-p"><strong>Perdiste una semana:</strong> repetí la última semana cumplida, no saltes adelante.</p>'+
-    '<p class="info-p"><strong>Enfermo:</strong> del cuello para arriba (mocos) → suave permitido; del cuello para abajo (fiebre/pecho) → descanso total y retomá un escalón abajo.</p>'+
-    '<p class="info-p"><strong>Fatiga acumulada</strong> (sueño malo, pulso en reposo alto, ánimo/rendimiento bajos): adelantá el deload. Mejor perder 3 días que 3 semanas.</p>');
-
-  // Logística (§15)
-  card('Logística',
-    '<p class="info-p"><strong>Inscripción:</strong> anotate temprano, los Open se llenan. Confirmá fecha y sede de marzo.</p>'+
-    '<p class="info-p"><strong>Calzado:</strong> buen grip para el sled. Probalo en entrenamiento, no lo estrenes en carrera.</p>'+
-    '<p class="info-p"><strong>Condiciones:</strong> pabellón caluroso/húmedo — hacé alguna sim sin ventilador y ajustá hidratación.</p>'+
-    '<p class="info-p"><strong>División:</strong> Open (sin clasificación ni time cap). Confirmá los pesos vigentes al inscribirte.</p>');
-
-  // Glossary (último)
-  const gl=card('Tipos de sesión',
-    '<p class="info-p"><strong>A · Long Z2:</strong> ritmo conversacional, construye el motor. Lento = correcto.</p>'+
-    '<p class="info-p"><strong>B · Fuerza:</strong> mantenimiento full-body, sesgo a tracción. Carga alta, pocas series.</p>'+
-    '<p class="info-p"><strong>C · Calidad:</strong> intervalos / tempo / ritmo de carrera. Siempre con calentamiento + drills.</p>'+
-    '<p class="info-p"><strong>D · Conditioning → Compromised → Simulación:</strong> técnica de estaciones, luego estación + run encadenados, luego ensayos del formato completo.</p>'+
-    '<p class="info-p"><strong>Deload:</strong> −40% de volumen, misma estructura. No es opcional.</p>');
-  gl.style.marginBottom='20px';
 }
 function zonesTableHtml(){
   if(!S.hrMax)return '<p class="info-p">Ingresá tu FC máxima para ver tus zonas en pulsaciones concretas.</p>';
@@ -968,7 +736,7 @@ function zonesTableHtml(){
   return '<div class="zones">'+['Z1','Z2','Z3','Z4','Z5'].map(k=>'<div class="zrow'+(k==='Z2'?' z2':'')+'"><span class="zname">'+z[k].name+'</span><span class="zband">'+z[k].lo+'–'+z[k].hi+' lpm</span></div>').join('')+
     '</div><p class="info-p" style="margin-top:8px">La <strong>Z2</strong> es tu objetivo en las carreras largas: conversacional, podés hablar sin agitarte.</p>';
 }
-function setHrMax(){const v=parseInt(document.getElementById('hrmax-inp').value)||0;S.hrMax=v>0?v:null;saveState();renderPlan();}
+function setHrMax(){const v=parseInt(document.getElementById('hrmax-inp').value)||0;S.hrMax=v>0?v:null;saveState();renderRef();}
 
 // =====================================================================
 // VIEW SWITCHING
@@ -978,10 +746,9 @@ function switchView(view,btn){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('view-'+view).classList.add('active');
   btn.classList.add('active');
-  if(view==='progress')renderProgress();
-  if(view==='info')renderPlan();
+  if(view==='info')renderRef();
 }
-function goPlan(){switchView('info',document.querySelectorAll('.nav-btn')[2]);}
+function goPlan(){switchView('info',document.querySelectorAll('.nav-btn')[1]);}
 
 // INIT
 loadState();renderHeader();renderSession();
