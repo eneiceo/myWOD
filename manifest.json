@@ -1,7 +1,7 @@
 {
-  "name": "MYWOD — HYROX Training",
+  "name": "MYWOD — Gimnasio",
   "short_name": "MYWOD",
-  "description": "Preparación HYROX Open: running, fuerza y estaciones por fases, con registro de sesiones y zonas de FC",
+  "description": "Rutina de gimnasio por meses: 4 días fijos (piernas, superior, potencia, cuerpo completo) + día sorpresa opcional, con fuerza y circuitos.",
   "start_url": "/mywod/",
   "scope": "/mywod/",
   "display": "standalone",
