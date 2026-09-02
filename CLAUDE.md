@@ -14,7 +14,7 @@ The program is organized **by months**. Each month is 4 weeks with a fixed weekl
 - **Día D** — Cuerpo completo + circuito largo
 - **Día E** — Día sorpresa (opcional)
 
-Every day pairs a **strength** part (heavy lifts with rest, plus supersets) with a **circuit** part (continuous conditioning). Today only **Mes 1** is loaded (4 weeks: Base → Más pesado/menos reps → Más volumen → Descarga), but the data structure is built to add more months later. The app is read-only guidance: it shows the prescription per month/week/day and remembers your position; it does not log workouts.
+Each day (A–D) follows a fixed order: **entrada en calor** (a constant warm-up) → **fuerza principal** (heavy lift, 2–3 min rest) → **fuerza secundaria** (secondary lift, 1–2 min rest) → **superserie(s)** (one or two) → **zona media** (core rounds) → **circuito** (or a run on Day B). Day E is a single standalone WOD (no warm-up section). Today only **Mes 1** is loaded (4 weeks: Base → Más pesado/menos reps → Más volumen → Descarga), but the data structure is built to add more months later. The app is read-only guidance: it shows the prescription per month/week/day and remembers your position; it does not log workouts.
 
 ## Development
 
@@ -58,18 +58,20 @@ S = { month, week, day }  // month: 1-based month number; week: week number with
 
 - `PROGRAM` — the whole plan: `PROGRAM.months` is an array of months; each month has `{n, name, weeks}`; each week has `{n, theme, note, deload?, days}`; `days` maps `A`–`E` to an ordered array of **blocks**. `currentMonth()` / `currentWeek()` resolve the selected position.
 - **Block constructors** keep the data compact:
-  - `heavy(name, scheme, rest, note)` → `{k:'heavy', ...}` — a heavy strength lift (e.g. `'5×3'`, rest `'2–3 min'`).
-  - `ss(rounds, moves, note)` → `{k:'super', ...}` — a superset (N rounds, list of move strings).
+  - `heavy(name, scheme, role, note)` → `{k:'heavy', ...}` — a strength lift. `role` is `'principal'` (rest 2–3 min) or `'secundaria'` (rest 1–2 min); rest is derived from `role` at render time, not stored. `scheme` is a free string (`'5×3'`, `'4 × máx'`).
+  - `ss(rounds, moves, label)` → `{k:'super', ...}` — a superset (N rounds, list of move strings, optional `label` like `'Superserie 1'`).
+  - `core(rounds, moves)` → `{k:'core', ...}` — a zona-media (core) block; same shape as a superset, rendered with the "Zona media" label.
   - `run(presc, cue)` → `{k:'run', ...}` — a running prescription.
   - `circ({fmt, dur, title, scheme, steps, note, name})` → `{k:'circ', ...}` — a circuit. `fmt` keys into `FMT`.
+- `WARMUP` — the constant `{dur, steps}` warm-up rendered at the top of every non-optional day (A–D).
 - `FMT` — circuit-format metadata: `FOR_TIME`, `AMRAP`, `EMOM`, `CHIPPER`, `CONTROL`, each `{name, tag}`.
-- `DAY_META` — the fixed role, color `type`, badge, and title for each day A–E; `DAY_ORDER` is `['A','B','C','D','E']`. `ACCENT` maps each day `type` to its hex color (used for inline accent styling of superset/circuit cards).
-- `GLOSARIO` — the exercise catalog: `{name, desc}` pairs shown in the Referencia view.
+- `DAY_META` — the fixed role, color `type`, badge, and title for each day A–E; `DAY_ORDER` is `['A','B','C','D','E']`. `ACCENT` maps each day `type` to its hex color (used for inline accent styling of superset/core/circuit cards).
+- `GLOSARIO` — the exercise catalog, grouped by category: an array of `{cat, items:[{name, desc}]}` shown in the Referencia view.
 
 ### Rendering
 
 - `renderHeader()` — draws month tabs (from `PROGRAM.months`, plus a locked "próximo" placeholder), the week strip (deload weeks marked `↓`), and the A–E day pills.
-- `renderSession()` — reads the selected week/day, sets the title/badge/banner, then iterates the day's blocks. It prepends a section label when the block **group** changes (`groupOf()` → Fuerza / Fuerza · superserie / Correr / Circuito) and dispatches to `renderHeavy` / `renderSuper` / `renderRun` / `renderCirc`.
+- `renderSession()` — reads the selected week/day, sets the title/badge/banner, renders the warm-up (for non-optional days), then iterates the day's blocks with a running number. It prepends a section label when the block **group** changes (`groupOf()` → Fuerza principal / Fuerza secundaria / Superseries / Zona media / Correr / Circuito) and dispatches to `renderHeavy` / `renderSuper` (also handles `core`) / `renderRun` / `renderCirc`.
 - `renderRef()` — builds the Referencia cards (cómo leer, formatos de circuito, estructura de la semana, glosario, progreso).
 
 ### Color coding (by day)
@@ -79,14 +81,14 @@ Each day role has a color, applied via CSS classes and JS `ACCENT` hexes:
 
 ### Service Worker ([sw.js](sw.js))
 
-Cache-first strategy with network fallback. Cache name is currently `'mywod-v11'` — **bump this version whenever cached assets change** (icons, manifest, index.html) so users get the update.
+Cache-first strategy with network fallback. Cache name is currently `'mywod-v12'` — **bump this version whenever cached assets change** (icons, manifest, index.html) so users get the update.
 
 ## Patterns to follow
 
 - **Add a new month:** push a `{n, name, weeks:[...]}` object onto `PROGRAM.months`. The month tabs render automatically. Keep the week/day/block shapes consistent.
-- **Edit prescriptions:** edit the relevant `days` arrays using the block constructors (`heavy`, `ss`, `run`, `circ`). Don't hand-write block objects unless adding a new field.
+- **Edit prescriptions:** edit the relevant `days` arrays using the block constructors (`heavy`, `ss`, `core`, `run`, `circ`). Keep the per-day order (principal → secundaria → superserie(s) → zona media → circuito/run). Don't hand-write block objects unless adding a new field.
+- **New exercise explanation:** add a `{name, desc}` entry under the right category in `GLOSARIO`.
 - **New circuit format:** add an entry to `FMT` and reference its key as `fmt` in a `circ(...)` block.
-- **New exercise explanation:** add a `{name, desc}` entry to `GLOSARIO` (it feeds the Referencia glossary).
 - State mutations: always `saveState()` immediately after, then the relevant `render*()`.
 - When changing the `localStorage` schema, bump the key (e.g. `'mywod_v9'` → `'mywod_v10'`) and adapt `loadState()`.
 - When modifying cached files, bump `CACHE` in [sw.js](sw.js).
