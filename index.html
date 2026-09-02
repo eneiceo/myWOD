@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>MYWOD · HYROX</title>
+<title>MYWOD · GIMNASIO</title>
 
 <!-- PWA -->
 <link rel="manifest" href="manifest.json">
@@ -19,13 +19,14 @@
 :root {
   --bg:#0a0a0a; --surface:#141414; --surface2:#1c1c1c;
   --border:#2a2a2a; --border2:#383838;
-  --accent:#ffd200;            /* HYROX signal yellow */
+  --accent:#ffd200;
   --text:#f2f2f2; --muted:#6a6a6a; --muted2:#3a3a3a;
-  /* color-coding por tipo de sesión */
-  --aerobic:#3fb6ff;           /* A · carrera larga Z2 */
-  --strength:#ffd200;          /* B · fuerza */
-  --quality:#ff5a3c;           /* C · calidad / intervalos */
-  --cond:#b47fff;              /* D · conditioning / compromised / sim */
+  /* color-coding por día */
+  --strength:#ffd200;          /* A · piernas pesado */
+  --aerobic:#3fb6ff;           /* B · superior + correr */
+  --quality:#ff5a3c;           /* C · potencia + saltos */
+  --cond:#b47fff;              /* D · cuerpo completo + circuito largo */
+  --surprise:#4cff88;          /* E · sorpresa */
   --good:#4cff88;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -49,26 +50,24 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;ove
 .athlete-badge{display:flex;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:100px;padding:5px 11px;}
 .athlete-badge .as{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);white-space:nowrap;letter-spacing:.5px;}
 
-/* PHASE TABS — segmented control */
+/* MONTH TABS — segmented control */
 .phase-tabs{display:flex;margin:0 16px 8px;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
 .phase-tab{flex:1;height:38px;padding:0 4px;background:transparent;border:none;border-right:1px solid var(--border);cursor:pointer;text-align:center;transition:var(--transition);touch-action:manipulation;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;}
 .phase-tab:last-child{border-right:none;}
 .phase-tab .pn{font-family:'Bebas Neue',sans-serif;font-size:15px;line-height:1;color:var(--muted);letter-spacing:1px;}
-.phase-tab .pname{font-size:8px;color:var(--muted2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:74px;text-transform:uppercase;letter-spacing:.5px;}
+.phase-tab .pname{font-size:8px;color:var(--muted2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:90px;text-transform:uppercase;letter-spacing:.5px;}
 .phase-tab.active{background:var(--accent);}
 .phase-tab.active .pn{color:#000;}
 .phase-tab.active .pname{color:rgba(0,0,0,.6);}
+.phase-tab.locked{opacity:.4;}
 
 /* WEEK STRIP */
 .week-strip{display:flex;gap:4px;overflow-x:auto;padding:0 16px 8px;scrollbar-width:none;}
 .week-strip::-webkit-scrollbar{display:none;}
-.week-btn{flex-shrink:0;height:34px;min-width:42px;padding:0 7px;background:var(--surface);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:2px;touch-action:manipulation;}
+.week-btn{flex-shrink:0;height:34px;min-width:52px;padding:0 9px;background:var(--surface);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:3px;touch-action:manipulation;}
 .week-btn .wmark{font-size:9px;}
 .week-btn.deload{border-style:dashed;color:var(--muted2);}
-.week-btn.test{border-color:rgba(255,210,0,.4);color:var(--accent);}
-.week-btn.race{border-color:var(--good);color:var(--good);}
 .week-btn.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:700;}
-.week-btn.active.race{background:var(--good);border-color:var(--good);}
 
 /* DAY PILLS */
 .day-row{display:flex;gap:5px;overflow-x:auto;padding:0 16px 10px;scrollbar-width:none;}
@@ -76,33 +75,34 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;ove
 .day-pill{flex-shrink:0;height:36px;padding:0 13px;background:var(--surface);border:1px solid var(--border);border-radius:100px;cursor:pointer;transition:var(--transition);touch-action:manipulation;display:flex;align-items:center;gap:7px;}
 .day-pill .dl{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);font-weight:500;}
 .day-pill .dt{font-size:11px;font-weight:600;white-space:nowrap;}
-.day-pill.aerobic .dt{color:var(--aerobic);}
 .day-pill.strength .dt{color:var(--strength);}
+.day-pill.aerobic .dt{color:var(--aerobic);}
 .day-pill.quality .dt{color:var(--quality);}
 .day-pill.cond .dt{color:var(--cond);}
+.day-pill.surprise .dt{color:var(--surprise);}
 .day-pill.active{border-width:1.5px;}
-.day-pill.active.aerobic{border-color:var(--aerobic);background:rgba(63,182,255,.1);}
 .day-pill.active.strength{border-color:var(--strength);background:rgba(255,210,0,.08);}
+.day-pill.active.aerobic{border-color:var(--aerobic);background:rgba(63,182,255,.1);}
 .day-pill.active.quality{border-color:var(--quality);background:rgba(255,90,60,.1);}
 .day-pill.active.cond{border-color:var(--cond);background:rgba(180,127,255,.1);}
+.day-pill.active.surprise{border-color:var(--surprise);background:rgba(76,255,136,.1);}
 .day-pill.active .dl{color:var(--text);}
+.day-pill .opt{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted2);}
 
 /* SESSION TOP */
 .session-top{padding:14px 16px 0;}
-.session-title-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.session-title-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
 .session-title{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;}
 .session-badge{font-size:8px;text-transform:uppercase;letter-spacing:2px;padding:3px 9px;border-radius:100px;font-weight:600;}
-.session-badge.aerobic{background:rgba(63,182,255,.12);color:var(--aerobic);}
 .session-badge.strength{background:rgba(255,210,0,.12);color:var(--strength);}
+.session-badge.aerobic{background:rgba(63,182,255,.12);color:var(--aerobic);}
 .session-badge.quality{background:rgba(255,90,60,.12);color:var(--quality);}
 .session-badge.cond{background:rgba(180,127,255,.12);color:var(--cond);}
+.session-badge.surprise{background:rgba(76,255,136,.12);color:var(--surprise);}
 .session-meta{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;display:flex;gap:10px;flex-wrap:wrap;}
 .block-banner{margin:10px 16px 0;padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-left:2.5px solid var(--accent);border-radius:0 8px 8px 0;font-size:10px;color:var(--muted);line-height:1.6;}
 .block-banner strong{color:var(--text);}
-.bflag{display:inline-block;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.5px;padding:1px 6px;border-radius:100px;margin-left:5px;vertical-align:middle;}
-.bflag.deload{background:rgba(106,106,106,.15);color:var(--muted);border:1px solid var(--border2);}
-.bflag.test{background:rgba(255,210,0,.12);color:var(--accent);border:1px solid rgba(255,210,0,.3);}
-.bflag.race{background:rgba(76,255,136,.12);color:var(--good);border:1px solid rgba(76,255,136,.3);}
+.bflag{display:inline-block;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.5px;padding:1px 6px;border-radius:100px;margin-left:5px;vertical-align:middle;background:rgba(106,106,106,.15);color:var(--muted);border:1px solid var(--border2);}
 
 /* SECTION LABEL */
 .section-label{font-size:8px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:4px 0;border-bottom:1px solid var(--border);margin-bottom:8px;font-family:'DM Mono',monospace;}
@@ -110,103 +110,64 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;ove
 .exercises{padding:12px 16px;display:flex;flex-direction:column;gap:8px;}
 
 /* RUN CARD */
-.run-card{background:var(--surface);border:1px solid var(--border);border-left-width:3px;border-radius:var(--radius);padding:14px;animation:fadeUp .25s ease both;}
-.run-card[data-type="aerobic"]{border-left-color:var(--aerobic);}
-.run-card[data-type="quality"]{border-left-color:var(--quality);}
+.run-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--aerobic);border-radius:var(--radius);padding:14px;animation:fadeUp .25s ease both;}
 .run-presc{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1.05;letter-spacing:.5px;margin-bottom:8px;}
-.run-zone{font-family:'DM Mono',monospace;font-size:11px;color:var(--text);margin-bottom:8px;padding:7px 10px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
-.run-zone b{color:var(--accent);}
-.run-zone-cfg{color:var(--aerobic);cursor:pointer;text-decoration:underline;}
-.run-cue{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:5px;}
-.run-cue:last-child{margin-bottom:0;}
+.run-cue{font-size:11px;color:var(--muted);line-height:1.6;}
 
-/* EXERCISE CARDS (strength) */
+/* EXERCISE CARDS (fuerza pesada) */
 .ex-card{background:var(--surface);border:1px solid var(--border);border-left-width:3px;border-left-color:var(--strength);border-radius:var(--radius);overflow:hidden;animation:fadeUp .25s ease both;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 .ex-main{padding:12px 14px;display:flex;align-items:flex-start;gap:10px;}
 .ex-num{font-family:'Bebas Neue',sans-serif;font-size:18px;line-height:1.2;color:var(--border2);min-width:20px;}
 .ex-info{flex:1;min-width:0;}
-.ex-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.3;}
-.ex-muscles{font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:5px;}
+.ex-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.3;}
 .ex-params{display:flex;gap:4px;flex-wrap:wrap;}
 .pchip{font-family:'DM Mono',monospace;font-size:9px;padding:2px 7px;border-radius:4px;background:var(--surface2);border:1px solid var(--border);color:var(--muted);}
-.pchip.reps{color:var(--aerobic);border-color:rgba(63,182,255,.2);}
-.pchip.series{color:var(--text);}
-.pchip.weight{color:var(--accent);border-color:rgba(255,210,0,.3);}
+.pchip.scheme{color:var(--accent);border-color:rgba(255,210,0,.3);}
+.pchip.int{color:var(--text);}
 .ex-note{font-size:11px;color:var(--muted);font-style:italic;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);line-height:1.6;}
 
-/* FINISHER (conditioning / compromised / sim) */
-.hiit-card{background:linear-gradient(135deg,rgba(180,127,255,.07),rgba(180,127,255,.02));border:1px solid rgba(180,127,255,.25);border-radius:var(--radius);overflow:hidden;animation:fadeUp .25s ease both;}
-.hiit-card.race{background:linear-gradient(135deg,rgba(76,255,136,.08),rgba(76,255,136,.02));border-color:rgba(76,255,136,.3);}
-.hiit-head{padding:11px 13px 0;display:flex;align-items:center;justify-content:space-between;}
+/* SUPERSET CARD */
+.ss-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--good);border-radius:var(--radius);overflow:hidden;animation:fadeUp .25s ease both;}
+.ss-head{display:flex;align-items:center;gap:8px;padding:11px 14px 0;}
+.ss-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--good);}
+.ss-rounds{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);}
+.ss-moves{padding:8px 14px 12px;display:flex;flex-direction:column;gap:5px;}
+.ss-move{display:flex;align-items:baseline;gap:8px;padding:7px 9px;background:var(--surface2);border-radius:6px;}
+.ss-mdot{font-family:'DM Mono',monospace;font-size:9px;color:var(--good);}
+.ss-mname{font-size:12px;color:var(--text);line-height:1.4;}
+.ss-note{font-size:10px;color:var(--muted);font-style:italic;line-height:1.6;padding:0 14px 12px;}
+
+/* CIRCUIT CARD */
+.hiit-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--cond);border-radius:var(--radius);overflow:hidden;animation:fadeUp .25s ease both;}
+.hiit-head{padding:11px 13px 0;display:flex;align-items:center;justify-content:space-between;gap:8px;}
 .hiit-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--cond);background:rgba(180,127,255,.1);padding:3px 9px;border-radius:100px;border:1px solid rgba(180,127,255,.25);}
-.hiit-card.race .hiit-badge{color:var(--good);background:rgba(76,255,136,.1);border-color:rgba(76,255,136,.25);}
-.hiit-dur{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
-.hiit-title{font-size:14px;font-weight:600;padding:8px 13px 3px;line-height:1.3;}
+.hiit-dur{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;text-align:right;}
+.hiit-title{font-size:14px;font-weight:600;padding:8px 13px 3px;line-height:1.35;}
+.hiit-scheme{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--accent);padding:2px 13px 4px;}
 .hiit-rounds{padding:6px 13px 12px;display:flex;flex-direction:column;gap:4px;}
-.hiit-round{display:flex;align-items:center;gap:8px;padding:7px 9px;background:rgba(0,0,0,.3);border-radius:6px;}
+.hiit-round{display:flex;align-items:center;gap:8px;padding:7px 9px;background:var(--surface2);border-radius:6px;}
 .hiit-rnum{font-family:'DM Mono',monospace;font-size:9px;color:var(--cond);min-width:16px;}
-.hiit-card.race .hiit-rnum{color:var(--good);}
 .hiit-rdesc{font-size:11px;flex:1;color:var(--text);line-height:1.4;}
-.hiit-rtime{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
 .hiit-note{font-size:10px;color:var(--muted);font-style:italic;line-height:1.6;padding:0 13px 12px;}
-
-/* PROTOCOLO · pasos de entrada en calor / vuelta a la calma */
-.proto-block{background:var(--surface);border:1px solid var(--border);border-left-width:3px;border-left-color:var(--border2);border-radius:var(--radius);padding:8px;display:flex;flex-direction:column;gap:4px;animation:fadeUp .25s ease both;}
-.proto-block[data-type="aerobic"]{border-left-color:var(--aerobic);}
-.proto-block[data-type="quality"]{border-left-color:var(--quality);}
-.proto-block[data-type="strength"]{border-left-color:var(--strength);}
-.proto-block[data-type="cond"]{border-left-color:var(--cond);}
-.proto-step{display:flex;align-items:flex-start;gap:8px;padding:8px 9px;background:var(--surface2);border-radius:6px;}
-.proto-num{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);min-width:16px;line-height:1.5;}
-.proto-block[data-type="aerobic"] .proto-num{color:var(--aerobic);}
-.proto-block[data-type="quality"] .proto-num{color:var(--quality);}
-.proto-block[data-type="strength"] .proto-num{color:var(--strength);}
-.proto-block[data-type="cond"] .proto-num{color:var(--cond);}
-.proto-body{flex:1;min-width:0;}
-.proto-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.3;}
-.proto-how{font-size:10px;color:var(--muted);line-height:1.5;margin-top:2px;}
-.proto-tag{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;margin-top:2px;}
-.proto-note{font-size:10px;color:var(--muted);font-style:italic;line-height:1.6;padding:3px 9px 2px;}
-
-/* STRENGTH BANNER */
-.strength-banner{background:var(--surface);border:1px solid var(--border);border-left:2.5px solid var(--strength);border-radius:0 8px 8px 0;padding:9px 12px;font-size:10px;color:var(--muted);line-height:1.6;margin-bottom:4px;}
-.strength-banner strong{color:var(--text);}
 
 /* REFERENCIA (info) */
 .info-header{padding:calc(18px + var(--safe-top)) 16px 12px;background:rgba(10,10,10,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border);}
 .info-title{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;margin-bottom:2px;}
-.info-body{padding:12px 16px;}
+.info-body{padding:12px 16px 24px;}
 .info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;}
 .info-card-title{font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--accent);margin-bottom:9px;letter-spacing:.5px;}
-.info-p{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:6px;}
+.info-p{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:8px;}
 .info-p:last-child{margin-bottom:0;}
-.info-p strong{color:var(--text);font-weight:500;}
-.hr-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
-.hr-row input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--accent);font-family:'Bebas Neue',sans-serif;font-size:24px;text-align:center;padding:8px;outline:none;min-width:0;}
-.hr-row input:focus{border-color:var(--accent);}
-.hr-row button{min-height:46px;padding:0 18px;background:var(--accent);color:#000;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;touch-action:manipulation;}
-.zones{display:flex;flex-direction:column;gap:4px;}
-.zrow{display:flex;align-items:center;justify-content:space-between;padding:8px 11px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;}
-.zrow.z2{border-color:var(--aerobic);background:rgba(63,182,255,.07);}
-.zname{font-size:11px;color:var(--text);}
-.zrow.z2 .zname{color:var(--aerobic);font-weight:600;}
-.zband{font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);}
-.macro-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
-.macro-row:last-child{border-bottom:none;}
-.macro-l{display:flex;flex-direction:column;gap:2px;}
-.macro-ph{font-size:12px;font-weight:600;}
-.macro-fo{font-size:10px;color:var(--muted);line-height:1.4;}
-.macro-wk{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);white-space:nowrap;}
-.st-table{display:flex;flex-direction:column;gap:5px;}
-.st-row{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);}
-.st-row:last-child{border-bottom:none;}
-.st-n{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--cond);min-width:18px;}
-.st-info{flex:1;min-width:0;}
-.st-name{font-size:12px;font-weight:600;}
-.st-spec{font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);margin:2px 0;}
-.st-sub{font-size:10px;color:var(--muted);line-height:1.5;}
-.st-sub b{color:var(--text);font-weight:500;}
+.info-p strong{color:var(--text);font-weight:600;}
+.fmt-row{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-bottom:1px solid var(--border);}
+.fmt-row:last-child{border-bottom:none;}
+.fmt-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.5px;}
+.fmt-desc{font-size:11px;color:var(--muted);line-height:1.6;}
+.gloss-row{padding:9px 0;border-bottom:1px solid var(--border);}
+.gloss-row:last-child{border-bottom:none;}
+.gloss-name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.gloss-desc{font-size:11px;color:var(--muted);line-height:1.6;}
 
 /* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,10,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(2,1fr);z-index:100;padding:0 0 calc(4px + var(--safe-bottom));}
@@ -223,23 +184,18 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;ove
   <div class="app-header">
     <div class="header-row">
       <div class="logo">MY<span>WOD</span></div>
-      <div class="athlete-badge"><div class="as">HYROX OPEN · MAR '27</div></div>
+      <div class="athlete-badge"><div class="as">GIMNASIO · 4 DÍAS + 1</div></div>
     </div>
-    <div class="phase-tabs" id="phase-tabs">
-      <div class="phase-tab" onclick="selectPhase(0)"><div class="pn">F0</div><div class="pname">Base</div></div>
-      <div class="phase-tab" onclick="selectPhase(1)"><div class="pn">F1</div><div class="pname">Build</div></div>
-      <div class="phase-tab" onclick="selectPhase(2)"><div class="pn">F2</div><div class="pname">Específica</div></div>
-      <div class="phase-tab" onclick="selectPhase(3)"><div class="pn">F3</div><div class="pname">Peak</div></div>
-    </div>
+    <div class="phase-tabs" id="month-tabs"></div>
     <div class="week-strip" id="week-strip"></div>
     <div class="day-row" id="day-row"></div>
   </div>
   <div class="session-top">
     <div class="session-title-row">
       <div class="session-title" id="sess-title">Día A</div>
-      <div class="session-badge aerobic" id="sess-badge">CARRERA</div>
+      <div class="session-badge strength" id="sess-badge">PIERNAS</div>
     </div>
-    <div class="session-meta"><span id="sess-dur">Fase 0</span><span id="sess-focus">Semana 1/37</span></div>
+    <div class="session-meta"><span id="sess-month">Mes 1</span><span id="sess-week">Semana 1/4</span></div>
   </div>
   <div class="block-banner" id="block-banner"></div>
   <div class="exercises" id="exercises-container"></div>
@@ -264,479 +220,328 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;ove
 
 <script>
 // =====================================================================
-// EXERCISE LIBRARY (fuerza + estaciones HYROX)
+// META DE DÍAS (roles fijos) + colores
 // =====================================================================
-const LIBRARY = {
-  'squat':{url:'https://www.muscleandstrength.com/exercises/squat.html',msName:'Barbell Back Squat',muscles:'Cuádriceps · Glúteos · Isquiotibiales · Core'},
-  'deadlift':{url:'https://www.muscleandstrength.com/exercises/deadlifts.html',msName:'Deadlift',muscles:'Isquiotibiales · Glúteos · Erectores · Trapecio · Core'},
-  'romanian-deadlift':{url:'https://www.muscleandstrength.com/exercises/romanian-deadlift.html',msName:'Romanian Deadlift',muscles:'Isquiotibiales · Glúteos · Erectores'},
-  'weighted-pullup':{url:'https://www.muscleandstrength.com/exercises/weighted-pull-up.html',msName:'Weighted Pull Up',muscles:'Dorsal ancho · Romboides · Bíceps · Core'},
-  'overhead-press':{url:'https://www.muscleandstrength.com/exercises/standing-barbell-shoulder-press.html',msName:'Standing Barbell Shoulder Press',muscles:'Deltoides · Tríceps · Trapecio · Core'},
-  'walking-lunge':{url:'https://www.muscleandstrength.com/exercises/dumbbell-walking-lunge.html',msName:'Dumbbell Walking Lunge',muscles:'Cuádriceps · Glúteos · Isquiotibiales · Core'},
-  'bulgarian-split-squat':{url:'https://www.muscleandstrength.com/exercises/dumbbell-bulgarian-split-squat.html',msName:'Bulgarian Split Squat',muscles:'Cuádriceps · Glúteos · Aductores'},
-  'leg-press':{url:'https://www.muscleandstrength.com/exercises/45-degree-leg-press.html',msName:'Leg Press',muscles:'Cuádriceps · Glúteos · Isquiotibiales'},
-  'farmers-carry':{url:'https://www.muscleandstrength.com/exercises/farmers-walk.html',msName:'Farmers Walk',muscles:'Trapecio · Antebrazos · Core · Piernas'},
-  'wall-ball':{url:'https://www.muscleandstrength.com/exercises/wall-ball.html',msName:'Wall Ball',muscles:'Cuádriceps · Glúteos · Hombros · Core'},
-  'plank':{url:'https://www.muscleandstrength.com/exercises/hover.html',msName:'Plank',muscles:'Core · Transverso abdominal · Glúteos'},
+const DAY_META = {
+  A:{type:'strength',short:'Piernas',   badge:'PIERNAS',  title:'Piernas pesado + circuito corto'},
+  B:{type:'aerobic', short:'Superior',  badge:'SUPERIOR', title:'Tren superior + correr'},
+  C:{type:'quality', short:'Potencia',  badge:'POTENCIA', title:'Potencia + saltos'},
+  D:{type:'cond',    short:'Cuerpo',    badge:'CUERPO',   title:'Cuerpo completo + circuito largo'},
+  E:{type:'surprise',short:'Sorpresa',  badge:'SORPRESA', title:'Día sorpresa (opcional)',optional:true},
 };
-function msUrl(id){return LIBRARY[id]?LIBRARY[id].url:null;}
-function msName(id){return LIBRARY[id]?LIBRARY[id].msName:null;}
+const DAY_ORDER = ['A','B','C','D','E'];
+const ACCENT = {strength:'#ffd200',aerobic:'#3fb6ff',quality:'#ff5a3c',cond:'#b47fff',surprise:'#4cff88'};
 
-// =====================================================================
-// PLAN DATA — HYROX Open (37 semanas, 4 fases)
-// =====================================================================
-const PHASES = {
-  0:{name:'Base',weeks:[1,12],color:'--aerobic',focus:'Motor aeróbico · mantener fuerza · técnica liviana'},
-  1:{name:'Build',weeks:[13,24],color:'--quality',focus:'Volumen + compromised running · estaciones a peso'},
-  2:{name:'Específica',weeks:[25,34],color:'--cond',focus:'Simulaciones en orden · pacing · transiciones'},
-  3:{name:'Peak + Taper',weeks:[35,37],color:'--accent',focus:'Afinar · bajar volumen · llegar fresco'},
+// Formatos de circuito
+const FMT = {
+  FOR_TIME:{name:'Lo más rápido posible',   tag:'POR TIEMPO'},
+  AMRAP:   {name:'Mayor cantidad de vueltas',tag:'AMRAP'},
+  EMOM:    {name:'Por minuto',              tag:'EMOM'},
+  CHIPPER: {name:'Lista corrida',           tag:'CHIPPER'},
+  CONTROL: {name:'Circuito controlado',     tag:'CONTROLADO'},
 };
-function phaseOf(n){for(const p in PHASES){const w=PHASES[p].weeks;if(n>=w[0]&&n<=w[1])return +p;}return 0;}
 
-// Circuito técnica estable (Día D · Fase 0)
-const CIRCUIT = ['Wall balls × 15','Sandbag / DB lunges × 20 m','Farmers carry × 40 m','Remo × 250 m','Burpee broad jump × 10'];
-
-// Las 8 estaciones (pesos Open 2025/26) + sustitución en gym comercial
-const STATIONS = [
-  {n:1,name:'SkiErg',spec:'1000 m',h:'—',m:'—',sub:'Remo + dorsales si no hay'},
-  {n:2,name:'Sled Push',spec:'4 × 12,5 m',h:'152 kg',m:'102 kg',sub:'Prensa pesada / cinta inclinada empujando'},
-  {n:3,name:'Sled Pull',spec:'4 × 12,5 m',h:'103 kg',m:'78 kg',sub:'Remo pesado en cable + dorsales'},
-  {n:4,name:'Burpee Broad Jump',spec:'80 m',h:'peso corporal',m:'peso corporal',sub:'Igual en cualquier lado'},
-  {n:5,name:'Rowing',spec:'1000 m',h:'—',m:'—',sub:'Remo (casi todos los gym lo tienen)'},
-  {n:6,name:'Farmers Carry',spec:'200 m',h:'2 × 24 kg',m:'2 × 16 kg',sub:'Mancuernas / kettlebells'},
-  {n:7,name:'Sandbag Lunges',spec:'100 m',h:'20 kg',m:'10 kg',sub:'Barra / DB / chaleco'},
-  {n:8,name:'Wall Balls',spec:'100 reps',h:'6 kg (3 m)',m:'4 kg (2,7 m)',sub:'Pelota medicinal o thrusters DB'},
+// =====================================================================
+// GLOSARIO DE EJERCICIOS
+// =====================================================================
+const GLOSARIO = [
+  {name:'Sentadilla con barra', desc:'Barra apoyada en la espalda. Bajás hasta que los muslos queden al menos paralelos al piso y subís.'},
+  {name:'Peso muerto rumano', desc:'Con la barra por delante, bajás el peso manteniendo las piernas casi rectas (una rodilla apenas flexionada), empujando la cola hacia atrás. La barra baja hasta la mitad de la canilla, no toca el piso. Trabaja la parte de atrás de la pierna.'},
+  {name:'Sentadilla búlgara', desc:'Un pie atrás apoyado sobre un cajón o banco; hacés la sentadilla con la pierna de adelante. Una pierna por vez.'},
+  {name:'Peso muerto (clásico)', desc:'La barra en el piso, la levantás con la espalda firme hasta quedar parado, y la bajás controlada hasta el piso.'},
+  {name:'Press militar', desc:'Parado, empujás la barra desde los hombros hacia arriba hasta estirar los brazos.'},
+  {name:'Press de banca con mancuernas', desc:'Acostado en el banco, empujás las dos mancuernas hacia arriba.'},
+  {name:'Dominadas', desc:'Colgado de la barra, tirás hasta pasar el mentón por encima.'},
+  {name:'Remo con barra', desc:'Inclinado hacia adelante con la espalda firme, tirás la barra hacia el abdomen.'},
+  {name:'Fondos', desc:'En paralelas, bajás y subís el cuerpo con la fuerza de los brazos. Si preferís, se reemplazan por flexiones de brazos en el piso con algo de peso encima.'},
+  {name:'Cargada de potencia (power clean)', desc:'Levantás la barra del piso y la subís de un envión hasta los hombros, cayendo con las rodillas un poco flexionadas. Es explosivo: pocas repeticiones, buena técnica, descanso completo.'},
+  {name:'Thrusters con mancuernas', desc:'Hacés una sentadilla con las mancuernas apoyadas en los hombros y, al subir, las empujás arriba de la cabeza. Todo en un solo movimiento.'},
+  {name:'Wall ball', desc:'Tirás una pelota pesada contra la pared apuntando a un blanco alto, acompañando con una sentadilla. La agarrás cuando baja y repetís.'},
+  {name:'Toes-to-bar', desc:'Colgado de la barra, llevás los pies a tocar la barra.'},
+  {name:'Saltos al cajón', desc:'Saltás con los dos pies arriba del cajón y bajás.'},
+  {name:'Saltos con soga dobles', desc:'Cada salto, la soga pasa dos veces por debajo de los pies.'},
+  {name:'Sentadillas libres', desc:'Sentadilla sin peso, solo con el cuerpo.'},
+  {name:'Flexiones de brazos', desc:'Las clásicas, en el piso.'},
+  {name:'Abdominales', desc:'Sentado o acostado, subís el tronco.'},
+  {name:'Correr', desc:'Cuando dice "400 metros" es una vuelta a la pista o lo que te marque el reloj/la app; "800 metros" son dos vueltas.'},
 ];
 
-const CONTROL_TESTS = {
-  12:{n:1,when:'Fin semana 12',what:'5 km cronometrado a fondo → nuevo punto de partida'},
-  24:{n:2,when:'Fin semana 24',what:'5 km + mini-rox de 4 estaciones → ¿mejoró el split bajo fatiga?'},
-  33:{n:3,when:'Semana 33',what:'Simulación completa cronometrada → tiempo objetivo y plan de pacing'},
+// =====================================================================
+// PLAN — constructores de bloques (compactos)
+// =====================================================================
+function heavy(name,scheme,rest,note){return {k:'heavy',name,scheme,rest,note};}
+function ss(rounds,moves,note){return {k:'super',rounds,moves,note};}
+function run(presc,cue){return {k:'run',presc,cue};}
+function circ(o){return Object.assign({k:'circ'},o);}
+// circ opts: {fmt, dur, title, scheme, steps, note, name}
+
+// =====================================================================
+// PROGRAMA — estructurado por meses (hoy: Mes 1)
+// =====================================================================
+const PROGRAM = {
+  months:[
+    {
+      n:1, name:'Mes 1',
+      weeks:[
+        { n:1, theme:'Base', note:'Semana de arranque. Pesos "pesados" pero cómodos: dejá una o dos repeticiones en reserva en cada serie para agarrar la técnica.',
+          days:{
+            A:[ heavy('Sentadilla con barra','5×3','2–3 min','Pesado pero cómodo, dejando reps en reserva.'),
+                ss(3,['Peso muerto rumano — 8','Sentadilla búlgara — 10 por pierna']),
+                circ({fmt:'FOR_TIME',dur:'~8 min',title:'Wall ball + Toes-to-bar',scheme:'21-15-9',note:'Anotá el tiempo.'}) ],
+            B:[ heavy('Press militar','5×5','2–3 min'),
+                ss(4,['Dominadas — al máximo','Press de banca con mancuernas — 10']),
+                run('5 × 400 m fuerte','90 seg de pausa entre cada uno.') ],
+            C:[ heavy('Cargada de potencia','6×2','completo','Explosivo, técnica prolija, descanso completo.'),
+                circ({fmt:'EMOM',dur:'18 min · 6 vueltas',title:'Rotando 3 ejercicios',steps:['Min 1 — 40 saltos con soga dobles','Min 2 — 10 toes-to-bar','Min 3 — 12 saltos al cajón']}) ],
+            D:[ heavy('Peso muerto','4×4','2–3 min','Pesado, espalda firme.'),
+                ss(3,['Fondos — 12','Remo con barra — 10']),
+                circ({fmt:'AMRAP',dur:'15 min',title:'Rondas de 3 ejercicios',steps:['10 thrusters con mancuernas','15 saltos al cajón','20 saltos con soga dobles'],note:'Anotá las vueltas.'}) ],
+            E:[ circ({fmt:'AMRAP',dur:'20 min',name:'"Cindy"',title:'Rondas de 3 ejercicios',steps:['5 dominadas','10 flexiones','15 sentadillas libres'],note:'Guardá el número: es tu referencia del mes.'}) ],
+          }},
+        { n:2, theme:'Más pesado, menos reps', note:'En la fuerza subís el peso y bajás las repeticiones respecto de la Semana 1. Los circuitos cambian de formato y aparecen movimientos nuevos.',
+          days:{
+            A:[ heavy('Sentadilla con barra','6×2','2–3 min','Más pesado que la semana pasada.'),
+                ss(3,['Peso muerto rumano — 8','Sentadilla búlgara — 10 por pierna']),
+                circ({fmt:'AMRAP',dur:'8 min',title:'Rondas de 3 ejercicios',steps:['10 wall ball','8 toes-to-bar','10 saltos al cajón']}) ],
+            B:[ heavy('Press militar','6×3','2–3 min','Más pesado.'),
+                ss(4,['Dominadas — al máximo','Press de banca con mancuernas — 8']),
+                run('4 × 800 m','2 min de pausa. El doble de distancia que la semana pasada, así que administrá el ritmo.') ],
+            C:[ heavy('Cargada de potencia','6×2','completo','Subí la carga respecto de la Semana 1.'),
+                circ({fmt:'FOR_TIME',dur:'5 vueltas',title:'Rondas de 3 ejercicios',steps:['30 saltos con soga dobles','8 toes-to-bar','10 saltos al cajón'],note:'Anotá el tiempo.'}) ],
+            D:[ heavy('Peso muerto','5×3','2–3 min','Más pesado.'),
+                ss(3,['Fondos — 12','Remo con barra — 10']),
+                circ({fmt:'CHIPPER',dur:'una sola vez',title:'De arriba hacia abajo, lo más rápido posible',steps:['50 saltos con soga dobles','40 sentadillas libres','30 wall ball','20 saltos al cajón','10 thrusters con mancuernas'],note:'Anotá el tiempo.'}) ],
+            E:[ circ({fmt:'FOR_TIME',dur:'50-40-30-20-10',name:'"Annie"',title:'Saltos con soga dobles + abdominales',scheme:'50-40-30-20-10',note:'Primero 50 de cada uno, después 40, y así hasta 10.'}) ],
+          }},
+        { n:3, theme:'Más volumen', note:'Baja un poco el peso respecto de la Semana 2, pero hacés más series y más repeticiones: es la semana de mayor trabajo total. Vas a terminar cansado; es esperable.',
+          days:{
+            A:[ heavy('Sentadilla con barra','5×5','2–3 min','Moderado, más repeticiones.'),
+                ss(4,['Peso muerto rumano — 8','Sentadilla búlgara — 10 por pierna']),
+                circ({fmt:'FOR_TIME',dur:'más largo',title:'Wall ball + Toes-to-bar',scheme:'21-18-15-12-9',note:'Es más largo que la Semana 1. Anotá el tiempo.'}) ],
+            B:[ heavy('Press militar','4×8','2–3 min','Moderado, más repeticiones.'),
+                ss(4,['Dominadas — al máximo','Press de banca con mancuernas — 12']),
+                run('6 × 400 m fuerte','90 seg de pausa. Una serie más que la Semana 1.') ],
+            C:[ heavy('Cargada de potencia','5×3','completo'),
+                circ({fmt:'EMOM',dur:'21 min · 7 vueltas',title:'Rotando 3 ejercicios',steps:['Min 1 — 40 saltos con soga dobles','Min 2 — 12 toes-to-bar','Min 3 — 14 saltos al cajón']}) ],
+            D:[ heavy('Peso muerto','4×6','2–3 min','Moderado, más repeticiones.'),
+                ss(3,['Fondos — 15','Remo con barra — 12']),
+                circ({fmt:'AMRAP',dur:'18 min',title:'Rondas de 3 ejercicios',steps:['10 thrusters con mancuernas','15 saltos al cajón','20 saltos con soga dobles']}) ],
+            E:[ circ({fmt:'FOR_TIME',dur:'3 vueltas',name:'Triplete de carrera',title:'Rondas de 3 ejercicios',steps:['400 m corriendo','15 wall ball','12 dominadas']}) ],
+          }},
+        { n:4, theme:'Descarga', deload:true, note:'Semana de recuperación. Bajás el peso y el volumen a propósito para que el cuerpo asimile todo lo anterior y arranques el mes siguiente más fuerte. No fuerces: terminá cada sesión con energía de sobra, no fundido.',
+          days:{
+            A:[ heavy('Sentadilla con barra','3×3','2–3 min','Liviano-moderado, cómodo.'),
+                ss(2,['Peso muerto rumano — 8','Sentadilla búlgara — 8 por pierna']),
+                circ({fmt:'CONTROL',dur:'3 vueltas',title:'Sin correr contrarreloj',steps:['10 wall ball','8 saltos al cajón']}) ],
+            B:[ heavy('Press militar','3×5','2–3 min','Moderado.'),
+                ss(3,['Dominadas cómodas (sin llegar al máximo)','Press de banca con mancuernas — 10']),
+                run('3 × 400 m a ritmo cómodo','Pausa amplia.') ],
+            C:[ heavy('Cargada de potencia','4×2','completo','Liviano, foco en técnica prolija.'),
+                circ({fmt:'EMOM',dur:'12 min · 6 vueltas',title:'Rotando 2 ejercicios',steps:['Min 1 — 30 saltos con soga dobles','Min 2 — 8 toes-to-bar']}) ],
+            D:[ heavy('Peso muerto','3×3','2–3 min','Moderado.'),
+                ss(2,['Fondos — 10','Remo con barra — 10']),
+                circ({fmt:'AMRAP',dur:'10 min · tranquilo',title:'Rondas de 3 ejercicios',steps:['8 thrusters con mancuernas','10 saltos al cajón','15 saltos con soga dobles']}) ],
+            E:[ circ({fmt:'CONTROL',dur:'suave',name:'Aeróbico suave',title:'Trote cómodo de 30 min + práctica de saltos con soga',steps:['Trote cómodo — 30 min','Práctica de saltos con soga (técnica, sin apuro)']}) ],
+          }},
+      ]
+    }
+  ]
 };
 
-// Trabajo de soporte (§10–§11): checklist semanal recurrente. target = veces/semana.
-const SUPPORT = [
-  {key:'prehab',  label:'Prehab tobillo/pie/gemelo', target:2, detail:'10 min: elevaciones de talón (recta + rodilla flexionada), excéntricos de Aquiles, fortalecimiento de pie/arco, tibial anterior. Es lo que más protege la rampa de running.'},
-  {key:'mobility',label:'Movilidad de estaciones',    target:3, detail:'8–10 min: dorsiflexión de tobillo (sled push / sentadilla), hombro + torácica (wall balls), cadera (lunges).'},
-  {key:'strides', label:'Strides 4–6 × 100 m',         target:2, detail:'Al final de un rodaje fácil, suaves y técnicos. Cadencia ~170–180 pasos/min.'},
-];
-
-// Tabla semanal: lo variable por semana. Lo estable por fase se genera por función.
-const WEEK_TABLE = [
-  /* 1 */ {block:'Bloque 1 · Adaptación',A:'30 min',C:{kind:'int',txt:"6 × (1' fuerte / 2' suave)"},D:{kind:'circuit',txt:'Circuito técnica × 3',rounds:3}},
-  /* 2 */ {block:'Bloque 1 · Adaptación',A:'35 min',C:{kind:'int',txt:"7 × (1' fuerte / 2' suave)"},D:{kind:'circuit',txt:'Circuito técnica × 3',rounds:3}},
-  /* 3 */ {block:'Bloque 1 · Adaptación',A:'40 min',C:{kind:'int',txt:"8 × (1' fuerte / 2' suave)"},D:{kind:'circuit',txt:'Circuito técnica × 4',rounds:4}},
-  /* 4 */ {block:'Bloque 1 · Adaptación',deload:true,A:'25 min',C:{kind:'int',txt:"4 × (1' fuerte / 2' suave)"},D:{kind:'circuit',txt:'Circuito liviano × 2',rounds:2}},
-  /* 5 */ {block:'Bloque 2 · Desarrollo',A:'42 min',C:{kind:'int',txt:"5 × (2' fuerte / 2' suave)"},D:{kind:'circuit',txt:'Circuito × 3 + 400 m al cierre',rounds:3,run:400}},
-  /* 6 */ {block:'Bloque 2 · Desarrollo',A:'46 min',C:{kind:'int',txt:"6 × (2' fuerte / 2' suave)"},D:{kind:'circuit',txt:'Circuito × 4 + 400 m al cierre',rounds:4,run:400}},
-  /* 7 */ {block:'Bloque 2 · Desarrollo',A:'50 min',C:{kind:'int',txt:"5 × (3' fuerte / 2' suave)"},D:{kind:'circuit',txt:'Circuito × 4 + 600 m al cierre',rounds:4,run:600}},
-  /* 8 */ {block:'Bloque 2 · Desarrollo',deload:true,A:'30 min',C:{kind:'int',txt:"4 × (2' fuerte / 2' suave)"},D:{kind:'circuit',txt:'Circuito × 2 + 400 m al cierre',rounds:2,run:400}},
-  /* 9 */ {block:'Bloque 3 · Hacia compromised',A:'52 min',C:{kind:'tempo',txt:"2 × 8' tempo (3' trote entre)"},D:{kind:'compromised',txt:'4 rondas: estación + 400 m run',rounds:4,run:400}},
-  /* 10 */{block:'Bloque 3 · Hacia compromised',A:'56 min',C:{kind:'tempo',txt:"3 × 8' tempo (3' trote entre)"},D:{kind:'compromised',txt:'4 rondas: estación + 500 m run',rounds:4,run:500}},
-  /* 11 */{block:'Bloque 3 · Hacia compromised',A:'60 min',C:{kind:'tempo',txt:"2 × 12' tempo (4' trote entre)"},D:{kind:'compromised',txt:'5 rondas: estación + 500 m run',rounds:5,run:500}},
-  /* 12 */{block:'Bloque 3 · Hacia compromised',deload:true,test:1,A:'35 min',C:{kind:'tempo',txt:"2 × 6' tempo"},D:{kind:'compromised',txt:'3 rondas: estación + 400 m run',rounds:3,run:400}},
-  /* 13 */{block:'Bloque 1.1 · Build',A:'55 min',C:{kind:'umbral',txt:'5 × 800 m umbral (R 90")'},D:{kind:'compromised',txt:'3 rondas: [15 wall balls + 200 m farmers] + 600 m',rounds:3,run:600}},
-  /* 14 */{block:'Bloque 1.1 · Build',A:'60 min',C:{kind:'umbral',txt:'6 × 800 m umbral'},D:{kind:'compromised',txt:'3 rondas: estación + 600 m run',rounds:3,run:600}},
-  /* 15 */{block:'Bloque 1.1 · Build',A:'65 min',C:{kind:'umbral',txt:'4 × 1000 m umbral'},D:{kind:'compromised',txt:'4 rondas: estación + 600 m run',rounds:4,run:600}},
-  /* 16 */{block:'Bloque 1.1 · Build',deload:true,A:'40 min',C:{kind:'umbral',txt:'4 × 600 m'},D:{kind:'compromised',txt:'2 rondas: estación + 400 m run',rounds:2,run:400}},
-  /* 17 */{block:'Bloque 1.2 · Build',A:'65 min',C:{kind:'umbral',txt:'5 × 1000 m umbral'},D:{kind:'compromised',txt:'4 rondas: estación (más peso) + 700 m',rounds:4,run:700}},
-  /* 18 */{block:'Bloque 1.2 · Build',A:'70 min',C:{kind:'umbral',txt:'6 × 1000 m umbral'},D:{kind:'compromised',txt:'4 rondas: estación + 800 m run',rounds:4,run:800}},
-  /* 19 */{block:'Bloque 1.2 · Build',A:'70 min',C:{kind:'tempo',txt:'3 × 1600 m tempo'},D:{kind:'compromised',txt:'5 rondas: estación + 800 m run',rounds:5,run:800}},
-  /* 20 */{block:'Bloque 1.2 · Build',deload:true,A:'45 min',C:{kind:'umbral',txt:'4 × 800 m'},D:{kind:'compromised',txt:'3 rondas: estación + 500 m run',rounds:3,run:500}},
-  /* 21 */{block:'Bloque 1.3 · Build',A:'72 min',C:{kind:'goal',txt:'4 × 1 km @ goal split'},D:{kind:'compromised',txt:'5 rondas: estación + 800 m run',rounds:5,run:800}},
-  /* 22 */{block:'Bloque 1.3 · Build',A:'75 min',C:{kind:'goal',txt:'6 × 800 m rápido'},D:{kind:'minirox',txt:'Mini-rox: 4 estaciones en orden + 1 km entre cada una',stations:4}},
-  /* 23 */{block:'Bloque 1.3 · Build',A:'75 min',C:{kind:'tempo',txt:'2 × 2 km tempo'},D:{kind:'minirox',txt:'Mini-rox 4 estaciones (peso de carrera)',stations:4}},
-  /* 24 */{block:'Bloque 1.3 · Build',deload:true,test:2,A:'45 min',C:{kind:'goal',txt:'3 × 1 km @ goal'},D:{kind:'compromised',txt:'3 rondas: estación + 600 m run',rounds:3,run:600}},
-  /* 25 */{block:'Específica · Parcial delantera',A:'65 min',C:{kind:'goal',txt:'5 × 1 km @ goal'},D:{kind:'sim',txt:'Parcial — mitad delantera',tag:'parcial',lines:['Run + SkiErg','Run + Sled Push','Run + Sled Pull','Run + Burpee Broad Jump']}},
-  /* 26 */{block:'Específica · Parcial trasera',A:'65 min',C:{kind:'goal',txt:'6 × 1 km @ goal'},D:{kind:'sim',txt:'Parcial — mitad trasera',tag:'parcial',lines:['Run + Rowing','Run + Farmers Carry','Run + Sandbag Lunges','Run + Wall Balls']}},
-  /* 27 */{block:'Específica · Media simulación',A:'55 min',C:{kind:'goal',txt:'4 × 1 km rápido'},D:{kind:'sim',txt:'MEDIA SIMULACIÓN',tag:'½ sim',lines:['4 runs (1 km) + 4 estaciones continuas','A ritmo de carrera']}},
-  /* 28 */{block:'Específica · Deload',deload:true,A:'40 min',C:{kind:'recovery',txt:'Trote suave + strides'},D:{kind:'recovery',txt:'Movilidad / recuperación (post media-sim)',lines:['Movilidad y caminata suave']}},
-  /* 29 */{block:'Específica · Parcial 6',A:'65 min',C:{kind:'goal',txt:'4 × 1 km @ goal + 2 rápidos'},D:{kind:'sim',txt:'Parcial — 6 estaciones en orden',tag:'parcial',lines:['6 estaciones en orden de carrera','1 km run antes de cada una']}},
-  /* 30 */{block:'Específica · Compromised largo',A:'70 min',C:{kind:'tempo',txt:'2 × 2 km tempo + 4 × 400'},D:{kind:'compromised',txt:'Compromised largo: 6 rondas estación + 800 m',rounds:6,run:800}},
-  /* 31 */{block:'Específica · Simulación ¾',A:'55 min',C:{kind:'goal',txt:'5 × 1 km @ goal'},D:{kind:'sim',txt:'SIMULACIÓN 3/4',tag:'¾ sim',lines:['6 runs (1 km) + 6 estaciones continuas']}},
-  /* 32 */{block:'Específica · Deload',deload:true,A:'40 min',C:{kind:'recovery',txt:'Trote suave + strides'},D:{kind:'recovery',txt:'Recuperación activa',lines:['Movilidad, caminata, bici suave']}},
-  /* 33 */{block:'Específica · Simulación completa',test:3,A:'50 min',C:{kind:'recovery',txt:'Activación corta'},D:{kind:'sim',txt:'SIMULACIÓN COMPLETA — ensayo general',tag:'full sim',lines:['8 runs (1 km) + 8 estaciones, cronometrada','Es tu mejor predictor de tiempo']}},
-  /* 34 */{block:'Específica · Recuperación',A:'45 min',C:{kind:'goal',txt:'3 × 1 km @ goal'},D:{kind:'recovery',txt:'Recuperación del full sim (5–7 días)',lines:['Trabajo liviano, movilidad']}},
-  /* 35 */{block:'Peak',A:'50 min',C:{kind:'goal',txt:'5 × 1 km @ goal (afilado)'},D:{kind:'minirox',txt:'Mini-sim 3 estaciones en orden',stations:3}},
-  /* 36 */{block:'Taper',A:'35 min',C:{kind:'goal',txt:'4 × 600 m @ goal'},D:{kind:'circuit',txt:'Circuito corto técnico + 2 km run',rounds:2,run:2000}},
-  /* 37 */{block:'Semana de carrera',race:true,A:'25 min suave',C:{kind:'openers',txt:"Openers: 10' trote + 3 × 100 m + 2 estaciones cortas",note:'2–3 días antes de la carrera'},D:{kind:'race',txt:'HYROX OPEN — día de carrera'}},
-];
-function getWeek(n){return Object.assign({n:n,phase:phaseOf(n)}, WEEK_TABLE[n-1]);}
-
-function fmtDist(m){return m>=1000?(m%1000===0?(m/1000)+' km':(m/1000).toFixed(1)+' km'):m+' m';}
-
-// Día B · Fuerza — evoluciona por fase
-// Día B · Fuerza — plantilla §9: full-body de mantenimiento, sesgo a tracción.
-// Los 5 patrones son fijos en las 4 fases (key de peso phase-exId consistente);
-// solo cambian carga/reps/nota por fase (PB[phase]).
-const STRENGTH_TEMPLATE = [
-  {id:'squat',          slot:'Pierna',           name:'Sentadilla',        alt:'alterná con peso muerto semana a semana'},
-  {id:'weighted-pullup',slot:'Tracción pesada',  name:'Dominadas con lastre', alt:'o remo pesado / jalón — alimenta SkiErg, Row y Sled Pull'},
-  {id:'overhead-press', slot:'Empuje',           name:'Press militar',     alt:'o push press — para Wall Balls y Burpees'},
-  {id:'romanian-deadlift',slot:'Cadena posterior',name:'Peso muerto rumano', alt:'o hip thrust — sprint y postura bajo fatiga'},
-  {id:'farmers-carry',  slot:'Carry + core',     name:'Farmers carry pesado', alt:'grip específico de carrera, no relleno — cerrá con core'},
-];
-// Parámetros por fase y por slot: [sets, reps, rest, weight, foco].
-const STRENGTH_PB = {
-  // F0 · mantenimiento, técnica limpia, carga moderada-alta
-  0:{squat:[4,'5',"2'30\"",80],'weighted-pullup':[4,'6',"2'",0],'overhead-press':[3,'8','90"',35],'romanian-deadlift':[3,'8',"2'",65],'farmers-carry':[3,'40 m','60"',24],
-     foco:'Mantenimiento: ya sos fuerte, mantenemos. Técnica limpia, descansos completos.'},
-  // F1 · más pesado + resistencia de fuerza + patrón de sled
-  1:{squat:[4,'5',"3'",90],'weighted-pullup':[4,'6',"2'30\"",6],'overhead-press':[4,'6',"2'",40],'romanian-deadlift':[3,'6',"2'30\"",80],'farmers-carry':[3,'200 m','90"',28],
-     foco:'Suma resistencia de fuerza y patrón de sled (sustituto: prensa pesada / giant set de piernas). Estaciones cerca del peso de carrera.'},
-  // F2 · volumen reducido (1–2 pesados) + práctica de estaciones a peso de carrera
-  2:{squat:[3,'4',"3'",95],'weighted-pullup':[3,'5',"2'30\"",8],'overhead-press':[2,'6',"2'",40],'romanian-deadlift':[2,'5',"3'",85],'farmers-carry':[3,'200 m','90"',24],
-     foco:'Volumen reducido, intensidad mantenida. Prioridad: piernas frescas para correr. Practicá estaciones al peso real.'},
-  // F3 · liviano, llegar fresco (nada pesado)
-  3:{squat:[2,'5','90"',40],'weighted-pullup':[2,'5','90"',0],'overhead-press':[2,'6','90"',25],'romanian-deadlift':[2,'6','90"',40],'farmers-carry':[2,'40 m','60"',16],
-     foco:'Nada pesado. Solo activar el patrón, sin fatigar las piernas. Llegá fresco a la carrera.'},
-};
-function strengthDay(phase){
-  const pb=STRENGTH_PB[phase]||STRENGTH_PB[0];
-  return STRENGTH_TEMPLATE.map(t=>{
-    const p=pb[t.id];
-    return {id:t.id,name:t.name,sets:p[0],reps:p[1],rest:p[2],weight:p[3],note:`${t.slot} · ${t.alt}.`};
-  });
-}
-function strengthFocus(phase){return (STRENGTH_PB[phase]||STRENGTH_PB[0]).foco;}
-
-// Día D · Conditioning / Compromised / Simulación
-function buildFinisher(w){
-  const D=w.D;
-  if(D.kind==='circuit'){
-    const rounds=CIRCUIT.map(m=>({desc:m,time:''}));
-    if(D.run)rounds.push({desc:'Correr '+fmtDist(D.run)+' suave al cierre',time:'cierre'});
-    return {format:'CIRCUITO × '+D.rounds,duration:'técnica liviana',title:D.txt,rounds:rounds,
-      note:'Carga liviana, técnica limpia. Aprendé el patrón de las estaciones antes que la carga.'};
-  }
-  if(D.kind==='compromised'){
-    return {format:D.rounds+' RONDAS',duration:'compromised running',title:D.txt,rounds:[
-      {desc:'1 estación HYROX a peso (rotá entre las 8)',time:'estación'},
-      {desc:fmtDist(D.run)+' run a ritmo cómodo',time:'run'},
-    ],note:'Encadenar estación + run sin recuperación completa. Lo más específico de HYROX.'};
-  }
-  if(D.kind==='minirox'){
-    return {format:'MINI-ROX',duration:'orden de carrera',title:D.txt,
-      rounds:STATIONS.slice(0,D.stations||4).map(st=>({desc:st.name+' ('+st.spec+')',time:'+1 km antes'})),
-      note:'Estaciones en orden de carrera, con 1 km de run antes de cada una. Nunca juntes dos sin el run del medio.'};
-  }
-  if(D.kind==='sim'){
-    return {format:'SIMULACIÓN',duration:D.tag||'parcial',title:D.txt,
-      rounds:(D.lines||[]).map(l=>({desc:l,time:''})),
-      note:'Específico de carrera. Las simulaciones grandes cuestan 5–7 días de recuperación — una a la vez. Pacing: salí controlado y fraccioná las wall balls desde el arranque; el run tras el sled push, suave para que vuelvan las piernas.'};
-  }
-  if(D.kind==='recovery'){
-    return {format:'RECUPERACIÓN',duration:'activa',title:D.txt,
-      rounds:(D.lines||['Movilidad, caminata, bici suave']).map(l=>({desc:l,time:''})),
-      note:'Dejá que el cuerpo absorba la carga. El descanso es parte del plan.'};
-  }
-  if(D.kind==='race'){
-    return {format:'🏁 CARRERA',duration:'día clave',title:D.txt,race:true,rounds:[
-      {desc:'Nada nuevo. Confiá en el trabajo hecho.',time:''},
-      {desc:'8 × 1 km run + las 8 estaciones en orden',time:'formato'},
-    ],note:'Comé y dormí bien. Ensayá la hidratación que ya probaste. Repasá el mapa del venue.'};
-  }
-  return {format:'SESIÓN',duration:'',title:D.txt||'Conditioning',rounds:[],note:''};
-}
-
-// Día A / C · Carreras
-const C_MAP={
-  int:{z:'Z4',name:'Intervalos',cue:'Tramos fuertes a esfuerzo ~5k: duro pero repetible, no sprint.'},
-  tempo:{z:'Z3',name:'Tempo',cue:'Cómodamente duro, sostenible ~1 h.'},
-  umbral:{z:'Z4',name:'Umbral',cue:'Esfuerzo de umbral controlado. Repeticiones con recuperación corta.'},
-  goal:{z:'Z3',name:'Ritmo de carrera',cue:'Ritmo objetivo de los 1 km de la carrera, practicado con piernas algo cansadas.'},
-  openers:{z:'Z3',name:'Activación',cue:'Activación corta y filosa. Nada que fatigue. Despertar las piernas.'},
-  recovery:{z:'Z2',name:'Recuperación',cue:'Suave y relajado. Strides para mantener la mecánica sin acumular fatiga.'},
-};
-function runSession(w,dayKey){
-  if(dayKey==='A')return {type:'aerobic',title:'Carrera larga · Zona 2',prescription:w.A,zoneKey:'Z2',
-    cue:'Ritmo conversacional: tenés que poder hablar sin quedarte sin aire. Lento al principio = correcto. La clave es el tiempo en zona, no la velocidad.',note:'',logType:'run'};
-  const c=w.C,m=C_MAP[c.kind]||C_MAP.int;
-  return {type:'quality',title:'Calidad · '+m.name,prescription:c.txt,zoneKey:m.z,cue:m.cue,note:c.note||'',logType:'run'};
-}
-
 // =====================================================================
-// PROTOCOLO DE SESIÓN · listado explicado (calor / movilidad / cool-down)
-// MOVES = catálogo de movimientos con su explicación (cómo se hace), para
-// no dar nada por sentado. sessionProtocol arma cada día con ids de MOVES.
-// Contenido del plan maestro HYROX: §9 fuerza, §10 movilidad, §11 técnica.
+// STATE (solo posición: mes / semana / día)
 // =====================================================================
-const MOVES={
-  // — Entrada en calor (cardio) —
-  walk_brisk:{name:'Caminata enérgica',tag:'3 min',how:'Caminá a paso vivo, brazos sueltos, para empezar a subir las pulsaciones y la temperatura corporal.'},
-  jog_progressive:{name:'Trote progresivo',tag:'10 min',how:'Trote que arranca MUY lento y va subiendo de a poco hasta un ritmo cómodo. Es para entrar en calor, no para cansarte.'},
-  jog_easy_in:{name:'Trote suave de entrada',tag:'5–8 min',how:'Trote tranquilo y relajado, respiración cómoda, para preparar el cuerpo antes del trabajo.'},
-  bike_easy:{name:'Aeróbico suave (bici o remo)',tag:'5 min',how:'Pedaleá o remá a intensidad suave durante unos minutos para entrar en temperatura sin fatigarte.'},
-  // — Movilidad dinámica —
-  leg_swings:{name:'Balanceos de pierna',tag:'10 c/lado',how:'Sostenido de una pared, balanceá una pierna relajada adelante y atrás; después de lado a lado. Sin forzar el rango.'},
-  hip9090:{name:'Cadera 90/90',tag:'8 c/lado',how:'Sentado en el piso, una pierna a 90° adelante y la otra a 90° al costado; girá de un lado al otro llevando las rodillas al piso.'},
-  ankle_dorsi:{name:'Movilidad de tobillo',tag:'10 c/lado',how:'En posición de estocada, llevá la rodilla por encima de los dedos del pie SIN despegar el talón del piso. Prepara sled push y sentadilla.'},
-  tspine_rot:{name:'Rotación torácica',tag:'8 c/lado',how:'En cuatro patas, una mano detrás de la nuca; rotá el codo hacia el techo abriendo el pecho y volvé. Para wall balls y overhead.'},
-  shoulder_pass:{name:'Movilidad de hombro',tag:'10 reps',how:'Con un palo o banda agarrado ancho, pasalo de adelante hacia atrás por encima de la cabeza con los brazos estirados.'},
-  // — Drills técnicos de carrera (§11) —
-  askips:{name:'A-skips',tag:'2 × 20 m',how:'Trote saltado exagerando la subida de rodilla a ~90° y el braceo, apoyando con el metatarso. Cadencia alta.'},
-  butt_kicks:{name:'Talón-cola',tag:'2 × 20 m',how:'Trote liviano y rápido llevando los talones hacia los glúteos, sin echar el torso hacia atrás.'},
-  a_march:{name:'Marcha técnica',tag:'2 × 20 m',how:'Caminando, subí la rodilla a 90° y apoyá el pie activo justo debajo de la cadera. Postura alta, cadencia ~170–180.'},
-  strides_accel:{name:'Strides de aceleración',tag:'2–3 ×',how:'Acelerá progresivo hasta ~80% en 60–80 m y desacelerá suave. Relajado y técnico, para abrir las piernas.'},
-  // — Strides de cierre (§11) —
-  strides_close_full:{name:'Strides / mini-cuestas',tag:'6–8 ×',how:'Repeticiones de 10–15 s casi a tope (en llano o cuesta corta) con recuperación caminando completa. Foco en técnica y potencia, NO en fundirte.'},
-  strides_close_deload:{name:'Strides / mini-cuestas',tag:'4 ×',how:'Repeticiones de 10–15 s casi a tope con recuperación caminando completa. Pocas, porque es semana de descarga.'},
-  // — Activación de fuerza —
-  rampup:{name:'Series de aproximación',tag:'ramp-up',how:'En el primer ejercicio pesado, hacé 2–3 series livianas subiendo la carga hasta el peso de trabajo. Activa el patrón sin fatigar.'},
-  rampup_light:{name:'Aproximación liviana',tag:'ramp-up',how:'Una sola serie liviana en el primer ejercicio para activar el patrón. Nada que fatigue: estás en taper.'},
-  // — Complementos de fuerza (§9) —
-  core_grip:{name:'Core + grip finisher',tag:'5–8 min',how:'Al cierre: 2–3 de core (plancha, dead bug, anti-rotación con banda) + farmer holds o colgarte de la barra (dead hang) para el agarre.'},
-  flush_z2:{name:'Flush aeróbico Z2',tag:'10–15 min',how:'Bici o remo MUY suave para sumar volumen aeróbico barato y ayudar a recuperar. Respiración cómoda todo el tiempo.'},
-  // — Conditioning / estaciones (§10, §12) —
-  station_mob:{name:'Movilidad de estaciones',tag:'5 min',how:'Tobillo (sled push, sentadilla), hombro y torácica (wall balls) y cadera (lunges). Movimientos controlados.'},
-  station_activate:{name:'Activación de estaciones',tag:'activación',how:'Practicá liviano, con poco peso, el patrón de cada estación que toca hoy para aceitar la técnica antes del trabajo.'},
-  run_1k_in:{name:'1 km de entrada',tag:'1 km',how:'Trote fácil de 1 km justo antes del primer bloque, para llegar lubricado al trabajo específico.'},
-  circuit_review:{name:'Repaso técnico del circuito',tag:'técnica',how:'Repasá liviano los movimientos del circuito de hoy con poca carga, priorizando hacerlos bien.'},
-  // — Vuelta a la calma —
-  jog_down:{name:'Trote regenerativo',tag:'5 min',how:'Trote muy suave aflojando, bajando el pulso de a poco, y después caminá hasta normalizar la respiración.'},
-  walk_down:{name:'Caminata de recuperación',tag:'5 min',how:'Caminá tranquilo unos minutos hasta que la respiración y el pulso vuelvan a la normalidad.'},
-  stretch_lower:{name:'Estiramiento de piernas',tag:'3–4 min',how:'Estirá suave gemelo, cuádriceps e isquiotibiales, ~20–30 s por músculo, sin rebotes ni dolor.'},
-  mob_post:{name:'Movilidad de lo trabajado',tag:'5 min',how:'Movilidad suave de las zonas que más usaste hoy (cadera, tobillo, hombros) para descargar.'},
-  breathing:{name:'Respiración y relax',tag:'3–5 min',how:'Respiración lenta y profunda + estiramiento muy suave para bajar revoluciones.'},
-};
-const HARD_C=['int','umbral','tempo','goal'];
-function sessionProtocol(w,dayKey,phase){
-  const empty={warmup:[],mobility:[],cooldown:[],cooldownNote:''};
-  if(w.race)return empty; // día de carrera: sin protocolo de entrenamiento
-
-  if(dayKey==='A')return {
-    warmup:['walk_brisk','jog_progressive'],
-    mobility:['leg_swings','hip9090','ankle_dorsi'],
-    cooldown:['jog_down','stretch_lower'],cooldownNote:'',
-  };
-
-  if(dayKey==='C'){
-    if(HARD_C.indexOf((w.C||{}).kind)>=0)return {
-      warmup:['jog_progressive'],
-      mobility:['leg_swings','askips','butt_kicks','a_march','strides_accel'],
-      cooldown:[w.deload?'strides_close_deload':'strides_close_full','jog_down','stretch_lower'],cooldownNote:'',
-    };
-    return {
-      warmup:['jog_easy_in'],
-      mobility:['leg_swings','strides_accel'],
-      cooldown:['jog_down','stretch_lower'],cooldownNote:'',
-    };
-  }
-
-  if(dayKey==='B')return {
-    warmup:['bike_easy'],
-    mobility:['hip9090','tspine_rot','shoulder_pass','ankle_dorsi',phase===3?'rampup_light':'rampup'],
-    cooldown:['core_grip','flush_z2'],
-    cooldownNote:'Mantené la sesión completa dentro de ~1:15 (fuerza ~50 min + complementos).',
-  };
-
-  // dayKey === 'D'
-  const kind=(w.D||{}).kind;
-  if(kind==='sim'||kind==='compromised'||kind==='minirox')return {
-    warmup:['jog_easy_in','run_1k_in'],
-    mobility:['station_mob','station_activate'],
-    cooldown:['jog_down','mob_post'],cooldownNote:'',
-  };
-  if(kind==='circuit')return {
-    warmup:['bike_easy'],
-    mobility:['station_mob','circuit_review'],
-    cooldown:['walk_down','stretch_lower'],cooldownNote:'',
-  };
-  // recovery / otros
-  return {
-    warmup:['walk_brisk'],
-    mobility:['leg_swings','hip9090'],
-    cooldown:['breathing'],cooldownNote:'',
-  };
-}
-
-// =====================================================================
-// HEART-RATE ZONES (desde FC máx ingresada)
-// =====================================================================
-function hrZones(h){
-  const b=(lo,hi,name)=>({lo:Math.round(h*lo/100),hi:Math.round(h*hi/100),name:name});
-  return {Z1:b(60,70,'Z1 · Recuperación'),Z2:b(70,80,'Z2 · Fácil aeróbico'),Z3:b(80,87,'Z3 · Tempo'),Z4:b(87,93,'Z4 · Umbral'),Z5:b(93,100,'Z5 · VO2 máx')};
-}
-// =====================================================================
-// STATE  (solo posición + FC máx; sin tracking ni registro)
-// =====================================================================
-let S={week:1,day:'A',hrMax:null};
+let S={month:1,week:1,day:'A'};
+function currentMonth(){return PROGRAM.months.find(m=>m.n===S.month)||PROGRAM.months[0];}
+function currentWeek(){const m=currentMonth();return m.weeks.find(w=>w.n===S.week)||m.weeks[0];}
 
 function loadState(){
   try{
-    const d=JSON.parse(localStorage.getItem('mywod_v8')||'{}');
-    ['week','day','hrMax'].forEach(k=>{if(d[k]!==undefined)S[k]=d[k];});
-    if(typeof S.week!=='number'||S.week<1||S.week>37)S.week=1;
-    if(['A','B','C','D'].indexOf(S.day)<0)S.day='A';
+    const d=JSON.parse(localStorage.getItem('mywod_v9')||'{}');
+    ['month','week','day'].forEach(k=>{if(d[k]!==undefined)S[k]=d[k];});
   }catch(e){}
+  const m=PROGRAM.months.find(x=>x.n===S.month);
+  if(!m)S.month=PROGRAM.months[0].n;
+  if(!currentMonth().weeks.find(w=>w.n===S.week))S.week=currentMonth().weeks[0].n;
+  if(DAY_ORDER.indexOf(S.day)<0)S.day='A';
 }
 function saveState(){
-  try{localStorage.setItem('mywod_v8',JSON.stringify({week:S.week,day:S.day,hrMax:S.hrMax}));}catch(e){}
+  try{localStorage.setItem('mywod_v9',JSON.stringify({month:S.month,week:S.week,day:S.day}));}catch(e){}
 }
-function round1(x){return Math.round(x*10)/10;}
 
 // =====================================================================
 // RENDER HEADER
 // =====================================================================
-function dayMeta(phase){
-  const dLabel=phase===0?'Conditioning':phase===1?'Compromised':phase===2?'Simulación':'Sim / Carrera';
-  return [
-    {key:'A',type:'aerobic',short:'Long Z2',badge:'CARRERA'},
-    {key:'B',type:'strength',short:'Fuerza',badge:'FUERZA'},
-    {key:'C',type:'quality',short:'Calidad',badge:'CALIDAD'},
-    {key:'D',type:'cond',short:dLabel,badge:'HYROX'},
-  ];
-}
 function renderHeader(){
-  const phase=phaseOf(S.week);
-  document.querySelectorAll('.phase-tab').forEach((el,i)=>el.classList.toggle('active',i===phase));
-  const rng=PHASES[phase].weeks;
+  // Month tabs
+  const mt=document.getElementById('month-tabs');mt.innerHTML='';
+  PROGRAM.months.forEach(m=>{
+    const el=document.createElement('div');
+    el.className='phase-tab'+(m.n===S.month?' active':'');
+    el.innerHTML='<div class="pn">M'+m.n+'</div><div class="pname">'+m.name+'</div>';
+    el.onclick=()=>{S.month=m.n;S.week=m.weeks[0].n;saveState();renderHeader();renderSession();};
+    mt.appendChild(el);
+  });
+  // Placeholder "próximamente" para dar la idea de que hay más meses
+  const soon=document.createElement('div');
+  soon.className='phase-tab locked';
+  soon.innerHTML='<div class="pn">M2</div><div class="pname">Próximo</div>';
+  soon.onclick=()=>{};
+  mt.appendChild(soon);
+
+  // Week strip
   const ws=document.getElementById('week-strip');ws.innerHTML='';
-  for(let n=rng[0];n<=rng[1];n++){
-    const w=getWeek(n);
+  currentMonth().weeks.forEach(w=>{
     const btn=document.createElement('div');
-    btn.className='week-btn'+(n===S.week?' active':'')+(w.deload?' deload':'')+(w.test?' test':'')+(w.race?' race':'');
-    const mark=w.race?'🏁':w.test?'★':w.deload?'↓':'';
-    btn.innerHTML='S'+n+(mark?'<span class="wmark">'+mark+'</span>':'');
-    btn.onclick=()=>{S.week=n;saveState();renderHeader();renderSession();};
+    btn.className='week-btn'+(w.n===S.week?' active':'')+(w.deload?' deload':'');
+    btn.innerHTML='S'+w.n+(w.deload?'<span class="wmark">↓</span>':'');
+    btn.onclick=()=>{S.week=w.n;saveState();renderHeader();renderSession();};
     ws.appendChild(btn);
-  }
+  });
+
+  // Day pills
   const dr=document.getElementById('day-row');dr.innerHTML='';
-  dayMeta(phase).forEach(dm=>{
+  DAY_ORDER.forEach(k=>{
+    const dm=DAY_META[k];
     const pill=document.createElement('div');
-    pill.className='day-pill '+dm.type+(dm.key===S.day?' active':'');
-    pill.innerHTML='<div class="dl">'+dm.key+'</div><div class="dt">'+dm.short+'</div>';
-    pill.onclick=()=>{S.day=dm.key;saveState();renderSession();renderHeader();};
+    pill.className='day-pill '+dm.type+(k===S.day?' active':'');
+    pill.innerHTML='<div class="dl">'+k+'</div><div class="dt">'+dm.short+'</div>'+(dm.optional?'<div class="opt">opc</div>':'');
+    pill.onclick=()=>{S.day=k;saveState();renderSession();renderHeader();};
     dr.appendChild(pill);
   });
 }
 
 // =====================================================================
-// RENDER SESSION (dispatch por tipo de día)
+// RENDER SESSION
 // =====================================================================
 function sectionLabel(t){const d=document.createElement('div');d.className='section-label';d.textContent=t;return d;}
 
 function renderSession(){
-  const n=S.week,w=getWeek(n),phase=w.phase,dayKey=S.day;
-  const meta=dayMeta(phase).find(d=>d.key===dayKey);
-  document.getElementById('sess-title').textContent='Día '+dayKey+' · '+meta.short;
+  const w=currentWeek(),dm=DAY_META[S.day];
+  document.getElementById('sess-title').textContent='Día '+S.day+' · '+dm.short;
   const badge=document.getElementById('sess-badge');
-  badge.textContent=meta.badge;badge.className='session-badge '+meta.type;
-  document.getElementById('sess-dur').textContent='Fase '+phase+' · '+PHASES[phase].name;
-  document.getElementById('sess-focus').textContent='Semana '+n+'/37';
+  badge.textContent=dm.badge;badge.className='session-badge '+dm.type;
+  document.getElementById('sess-month').textContent=currentMonth().name+' · '+w.theme;
+  document.getElementById('sess-week').textContent='Semana '+w.n+'/'+currentMonth().weeks.length;
   let flags='';
-  if(w.deload)flags+='<span class="bflag deload">DELOAD −40%</span>';
-  if(w.test)flags+='<span class="bflag test">TEST '+w.test+'</span>';
-  if(w.race)flags+='<span class="bflag race">DÍA DE CARRERA</span>';
-  document.getElementById('block-banner').innerHTML='<strong>'+w.block+'</strong> · '+PHASES[phase].focus+' '+flags;
+  if(w.deload)flags+='<span class="bflag">SEMANA LIVIANA</span>';
+  if(dm.optional)flags+='<span class="bflag">OPCIONAL</span>';
+  document.getElementById('block-banner').innerHTML='<strong>'+dm.title+'</strong> · '+w.note+' '+flags;
 
   const cont=document.getElementById('exercises-container');cont.innerHTML='';
-  const proto=sessionProtocol(w,dayKey,phase);
-  renderSteps(cont,'Entrada en calor',proto.warmup,meta.type);
-  renderSteps(cont,'Movilidad',proto.mobility,meta.type);
-  if(dayKey==='B')renderStrength(cont,phase);
-  else if(dayKey==='A'||dayKey==='C')renderRun(cont,runSession(w,dayKey));
-  else renderCond(cont,buildFinisher(w));
-  renderSteps(cont,'Vuelta a la calma',proto.cooldown,meta.type,proto.cooldownNote);
-  if(w.test&&CONTROL_TESTS[n]){const t=CONTROL_TESTS[n];
-    renderSteps(cont,'Test de control',[{name:'Test '+t.n+' · '+t.when,how:t.what}],meta.type);}
+  const blocks=(w.days[S.day]||[]);
+  const accent=ACCENT[dm.type];
+  let lastGroup=null,idx=0;
+  blocks.forEach(b=>{
+    const group=groupOf(b);
+    if(group!==lastGroup){cont.appendChild(sectionLabel(group));lastGroup=group;idx=0;}
+    idx++;
+    if(b.k==='heavy')renderHeavy(cont,b,idx,dm.type);
+    else if(b.k==='super')renderSuper(cont,b,accent);
+    else if(b.k==='run')renderRun(cont,b);
+    else if(b.k==='circ')renderCirc(cont,b,accent);
+  });
+}
+function groupOf(b){
+  if(b.k==='heavy')return 'Fuerza';
+  if(b.k==='super')return 'Fuerza · superserie';
+  if(b.k==='run')return 'Correr';
+  return 'Circuito';
 }
 
-// Bloque de pasos del listado: cada paso = {name, how, tag} o un id de MOVES.
-function renderSteps(cont,label,steps,accentType,note){
-  if(!steps||!steps.length)return;
-  cont.appendChild(sectionLabel(label));
-  const block=document.createElement('div');block.className='proto-block';block.dataset.type=accentType||'';
-  block.innerHTML=steps.map((s,i)=>{
-    const m=typeof s==='string'?MOVES[s]:s;if(!m)return '';
-    return '<div class="proto-step"><span class="proto-num">'+String(i+1).padStart(2,'0')+'</span>'+
-      '<div class="proto-body"><div class="proto-name">'+m.name+'</div>'+(m.how?'<div class="proto-how">'+m.how+'</div>':'')+'</div>'+
-      (m.tag?'<span class="proto-tag">'+m.tag+'</span>':'')+'</div>';
-  }).join('')+(note?'<div class="proto-note">'+note+'</div>':'');
-  cont.appendChild(block);
-}
-
-function renderRun(cont,sess){
-  const z=S.hrMax?hrZones(S.hrMax)[sess.zoneKey]:null;
-  cont.appendChild(sectionLabel('Trabajo'));
-  const card=document.createElement('div');card.className='run-card';card.dataset.type=sess.type;
-  const zoneHtml=z
-    ?'Objetivo '+z.name+' · <b>'+z.lo+'–'+z.hi+' lpm</b>'
-    :'Objetivo '+sess.zoneKey+' — <span class="run-zone-cfg" onclick="goPlan()">configurá tu FC máx ↗</span>';
-  card.innerHTML='<div class="run-presc">'+sess.prescription+'</div>'+
-    '<div class="run-zone">'+zoneHtml+'</div>'+
-    '<div class="run-cue">'+sess.cue+'</div>'+
-    (sess.note?'<div class="run-cue">'+sess.note+'</div>':'');
+function renderHeavy(cont,b,idx,type){
+  const card=document.createElement('div');card.className='ex-card';card.dataset.type=type;
+  card.style.borderLeftColor=ACCENT[type];
+  card.innerHTML=
+    '<div class="ex-main">'+
+      '<div class="ex-num">'+String(idx).padStart(2,'0')+'</div>'+
+      '<div class="ex-info">'+
+        '<div class="ex-name">'+b.name+'</div>'+
+        '<div class="ex-params"><span class="pchip scheme">'+b.scheme+'</span><span class="pchip">descanso '+b.rest+'</span></div>'+
+        (b.note?'<div class="ex-note">'+b.note+'</div>':'')+
+      '</div>'+
+    '</div>';
   cont.appendChild(card);
 }
 
-function renderCond(cont,fin){
-  cont.appendChild(sectionLabel('Trabajo'));
-  const hc=document.createElement('div');hc.className='hiit-card'+(fin.race?' race':'');
-  hc.innerHTML='<div class="hiit-head"><span class="hiit-badge">'+fin.format+'</span><span class="hiit-dur">'+fin.duration+'</span></div>'+
-    '<div class="hiit-title">'+fin.title+'</div>'+
-    '<div class="hiit-rounds">'+fin.rounds.map((r,i)=>'<div class="hiit-round"><span class="hiit-rnum">'+String(i+1).padStart(2,'0')+'</span><span class="hiit-rdesc">'+r.desc+'</span><span class="hiit-rtime">'+(r.time||'')+'</span></div>').join('')+'</div>'+
-    (fin.note?'<div class="hiit-note">'+fin.note+'</div>':'');
-  cont.appendChild(hc);
+function renderSuper(cont,b,accent){
+  const card=document.createElement('div');card.className='ss-card';card.style.borderLeftColor=accent;
+  card.innerHTML=
+    '<div class="ss-head"><span class="ss-badge" style="color:'+accent+'">Superserie</span><span class="ss-rounds">×'+b.rounds+' vueltas · sin descanso en el medio</span></div>'+
+    '<div class="ss-moves">'+b.moves.map(m=>'<div class="ss-move"><span class="ss-mdot" style="color:'+accent+'">▸</span><span class="ss-mname">'+m+'</span></div>').join('')+'</div>'+
+    (b.note?'<div class="ss-note">'+b.note+'</div>':'');
+  cont.appendChild(card);
 }
 
-function renderStrength(cont,phase){
-  const list=strengthDay(phase);
-  const banner=document.createElement('div');banner.className='strength-banner';
-  banner.innerHTML='<strong>Full-body de mantenimiento, sesgo a tracción.</strong> '+strengthFocus(phase)+' El upper también se entrena en las estaciones; los carries pesados son trabajo de grip.';
-  cont.appendChild(banner);
-  cont.appendChild(sectionLabel('Trabajo'));
-  list.forEach((ex,idx)=>{
-    const w=round1(ex.weight),lib=LIBRARY[ex.id],wChip=w>0?w+' kg':'peso corporal';
-    const card=document.createElement('div');card.className='ex-card';card.dataset.type='strength';
-    card.innerHTML=
-      '<div class="ex-main">'+
-        '<div class="ex-num">'+String(idx+1).padStart(2,'0')+'</div>'+
-        '<div class="ex-info">'+
-          '<div class="ex-name">'+ex.name+'</div>'+
-          '<div class="ex-params"><span class="pchip series">'+ex.sets+' series</span><span class="pchip reps">'+ex.reps+' reps</span><span class="pchip">'+ex.rest+'</span><span class="pchip weight">'+wChip+'</span></div>'+
-          (lib?'<div class="ex-muscles">'+lib.muscles+'</div>':'')+
-          '<div class="ex-note">'+ex.note+'</div>'+
-        '</div>'+
-      '</div>';
-    cont.appendChild(card);
-  });
+function renderRun(cont,b){
+  const card=document.createElement('div');card.className='run-card';
+  card.innerHTML='<div class="run-presc">'+b.presc+'</div>'+(b.cue?'<div class="run-cue">'+b.cue+'</div>':'');
+  cont.appendChild(card);
 }
 
-function selectPhase(p){S.week=PHASES[p].weeks[0];saveState();renderHeader();renderSession();}
+function renderCirc(cont,b,accent){
+  const f=FMT[b.fmt]||{name:b.fmt,tag:b.fmt};
+  const card=document.createElement('div');card.className='hiit-card';card.style.borderLeftColor=accent;
+  const title=b.name?('<span style="color:'+accent+'">'+b.name+'</span> · '+b.title):b.title;
+  let html='<div class="hiit-head"><span class="hiit-badge" style="color:'+accent+';background:transparent;border-color:'+accent+'">'+f.tag+'</span><span class="hiit-dur">'+(b.dur||'')+'</span></div>'+
+    '<div class="hiit-title">'+title+'</div>';
+  html+='<div class="hiit-note" style="padding-top:2px;font-style:normal;color:'+accent+'">'+f.name+'</div>';
+  if(b.scheme)html+='<div class="hiit-scheme">'+b.scheme+'</div>';
+  if(b.steps&&b.steps.length)html+='<div class="hiit-rounds">'+b.steps.map((s,i)=>'<div class="hiit-round"><span class="hiit-rnum" style="color:'+accent+'">'+String(i+1).padStart(2,'0')+'</span><span class="hiit-rdesc">'+s+'</span></div>').join('')+'</div>';
+  if(b.note)html+='<div class="hiit-note">'+b.note+'</div>';
+  card.innerHTML=html;
+  cont.appendChild(card);
+}
 
 // =====================================================================
 // REFERENCIA VIEW
 // =====================================================================
 function renderRef(){
   const c=document.getElementById('info-body');c.innerHTML='';
-  // FC zones
-  const hr=document.createElement('div');hr.className='info-card';
-  hr.innerHTML='<div class="info-card-title">Zonas de frecuencia cardíaca</div>'+
-    '<div class="hr-row"><input id="hrmax-inp" type="number" inputmode="numeric" placeholder="FC máx (ej. 186)" value="'+(S.hrMax||'')+'"><button onclick="setHrMax()">Calcular</button></div>'+
-    '<p class="info-p" style="margin-bottom:10px">Estimación rápida: <strong>220 − edad</strong>. Mejor aún, usá la FC máx real que veas en tu reloj en un esfuerzo a fondo.</p>'+
-    zonesTableHtml();
-  c.appendChild(hr);
-  // Macro
-  const macro=document.createElement('div');macro.className='info-card';
-  let mrows='';for(let p=0;p<=3;p++){const ph=PHASES[p];mrows+='<div class="macro-row"><div class="macro-l"><div class="macro-ph">F'+p+' · '+ph.name+'</div><div class="macro-fo">'+ph.focus+'</div></div><div class="macro-wk">Sem '+ph.weeks[0]+'–'+ph.weeks[1]+'</div></div>';}
-  macro.innerHTML='<div class="info-card-title">Periodización · 37 semanas</div>'+mrows+
-    '<p class="info-p" style="margin-top:8px">Objetivo: <strong>HYROX Open · marzo 2027</strong>. Estrategia: empujar el running (el limitante) y mantener la fuerza. Bloques de 3 semanas de carga + 1 deload.</p>';
-  c.appendChild(macro);
-  // Stations
-  const st=document.createElement('div');st.className='info-card';st.style.marginBottom='20px';
-  st.innerHTML='<div class="info-card-title">Las 8 estaciones (pesos Open)</div><div class="st-table">'+
-    STATIONS.map(s=>'<div class="st-row"><div class="st-n">'+s.n+'</div><div class="st-info"><div class="st-name">'+s.name+'</div><div class="st-spec">'+s.spec+(s.h!=='—'?' · H '+s.h+' / M '+s.m:'')+'</div><div class="st-sub"><b>Gym:</b> '+s.sub+'</div></div></div>').join('')+
-    '</div><p class="info-p" style="margin-top:8px">Orden fijo en toda carrera, con 1 km de run antes de cada estación. Pesos temporada 2025/26 (incluyen el trineo).</p>';
-  c.appendChild(st);
+
+  // Cómo leer
+  const read=document.createElement('div');read.className='info-card';
+  read.innerHTML='<div class="info-card-title">Cómo leer esto</div>'+
+    '<p class="info-p"><strong>"5×3", "4×8", etc.</strong> El primer número son las series (las veces que repetís el ejercicio, con descanso en el medio). El segundo son las repeticiones dentro de cada serie. Ejemplo: "5×3" = 5 series de 3 repeticiones.</p>'+
+    '<p class="info-p"><strong>Superserie.</strong> Dos ejercicios que hacés uno atrás del otro sin descanso; recién descansás cuando terminaste los dos, y ahí volvés a empezar la vuelta.</p>'+
+    '<p class="info-p"><strong>Descanso.</strong> En la fuerza pesada, descansá 2 a 3 minutos entre series (es lo que te permite cargar pesado). En superseries y circuitos, el descanso es corto o no hay.</p>'+
+    '<p class="info-p"><strong>Cada sesión dura entre 60 y 70 minutos.</strong> Si te vas de tiempo, recortá el descanso o una serie, nunca el peso.</p>';
+  c.appendChild(read);
+
+  // Formatos de circuito
+  const fmt=document.createElement('div');fmt.className='info-card';
+  fmt.innerHTML='<div class="info-card-title">Formatos de circuito</div>'+
+    fmtRow('POR TIEMPO','Lo más rápido posible: hacés todo el trabajo indicado lo más rápido que puedas y anotás cuánto tardaste.')+
+    fmtRow('AMRAP','Mayor cantidad de vueltas (en X minutos): repetís la misma ronda una y otra vez durante el tiempo marcado, y contás cuántas vueltas completaste.')+
+    fmtRow('EMOM','Por minuto: cada minuto arranca un ejercicio distinto. Terminás las repeticiones y lo que te sobra del minuto es tu descanso, hasta que empieza el siguiente.')+
+    fmtRow('CHIPPER','Lista corrida: una lista larga de ejercicios que hacés una sola vez, de arriba hacia abajo, lo más rápido posible.')+
+    fmtRow('CONTROLADO','Circuito sin correr contrarreloj: hacés las vueltas a ritmo tranquilo, priorizando la técnica.');
+  c.appendChild(fmt);
+
+  // Estructura de la semana
+  const wk=document.createElement('div');wk.className='info-card';
+  wk.innerHTML='<div class="info-card-title">Estructura de la semana</div>'+
+    '<p class="info-p">Son 4 días fijos con roles distintos, más un 5º opcional que sumás si te da el cuerpo. Los roles no cambian; lo que va adentro cambia todas las semanas.</p>'+
+    DAY_ORDER.map(k=>'<p class="info-p"><strong>Día '+k+' — '+DAY_META[k].title+'</strong></p>').join('')+
+    '<p class="info-p" style="margin-top:6px">Cada día tiene una parte de fuerza (levantar pesado, con descanso) y una parte de circuito (trabajo continuo, más agitado).</p>';
+  c.appendChild(wk);
+
+  // Glosario
+  const gl=document.createElement('div');gl.className='info-card';
+  gl.innerHTML='<div class="info-card-title">Glosario de ejercicios</div>'+
+    GLOSARIO.map(g=>'<div class="gloss-row"><div class="gloss-name">'+g.name+'</div><div class="gloss-desc">'+g.desc+'</div></div>').join('');
+  c.appendChild(gl);
+
+  // Progreso
+  const pr=document.createElement('div');pr.className='info-card';pr.style.marginBottom='20px';
+  pr.innerHTML='<div class="info-card-title">Para medir si vas mejorando</div>'+
+    '<p class="info-p">Anotá de vez en cuando:</p>'+
+    '<p class="info-p">• El peso máximo que movés en <strong>sentadilla, peso muerto y press militar</strong>.</p>'+
+    '<p class="info-p">• El resultado de <strong>"Cindy"</strong> (Día E de la Semana 1). Es tu referencia: cuando la repitas el mes que viene, vas a ver si hiciste más vueltas.</p>'+
+    '<p class="info-p">Si esos números suben con el tiempo, estás mejor. Si no, ajustamos.</p>';
+  c.appendChild(pr);
 }
-function zonesTableHtml(){
-  if(!S.hrMax)return '<p class="info-p">Ingresá tu FC máxima para ver tus zonas en pulsaciones concretas.</p>';
-  const z=hrZones(S.hrMax);
-  return '<div class="zones">'+['Z1','Z2','Z3','Z4','Z5'].map(k=>'<div class="zrow'+(k==='Z2'?' z2':'')+'"><span class="zname">'+z[k].name+'</span><span class="zband">'+z[k].lo+'–'+z[k].hi+' lpm</span></div>').join('')+
-    '</div><p class="info-p" style="margin-top:8px">La <strong>Z2</strong> es tu objetivo en las carreras largas: conversacional, podés hablar sin agitarte.</p>';
-}
-function setHrMax(){const v=parseInt(document.getElementById('hrmax-inp').value)||0;S.hrMax=v>0?v:null;saveState();renderRef();}
+function fmtRow(tag,desc){return '<div class="fmt-row"><div class="fmt-tag">'+tag+'</div><div class="fmt-desc">'+desc+'</div></div>';}
 
 // =====================================================================
 // VIEW SWITCHING
@@ -748,7 +553,6 @@ function switchView(view,btn){
   btn.classList.add('active');
   if(view==='info')renderRef();
 }
-function goPlan(){switchView('info',document.querySelectorAll('.nav-btn')[1]);}
 
 // INIT
 loadState();renderHeader();renderSession();

@@ -1,6 +1,6 @@
 # MYWOD — Training App
 
-App de entrenamiento personalizada PPL (Push / Pull / Legs) con seguimiento de pesos, progresión y biblioteca de ejercicios linkada a Muscle & Strength.
+App de entrenamiento de gimnasio organizada por meses: 4 días fijos con roles distintos (piernas pesado, tren superior + correr, potencia + saltos, cuerpo completo + circuito largo) más un 5º día sorpresa opcional. Cada día combina fuerza pesada + un circuito, y el contenido rota cada semana.
 
 ## Cómo subirla a GitHub Pages (5 pasos)
 
@@ -51,10 +51,11 @@ git push -u origin main
 
 ## Características
 - ✅ Funciona offline (Service Worker)
-- ✅ Guarda pesos y progresión en el navegador (localStorage)
-- ✅ 5 días de rutina PPL + Día 6 de test RM (semanas 6, 12, 18)
-- ✅ 3 bloques de 6 semanas (Acumulación → Intensificación → Definición)
-- ✅ Links a fichas de ejercicios en Muscle & Strength
+- ✅ Guarda tu posición (mes / semana / día) en el navegador (localStorage)
+- ✅ Mes de 4 semanas: Base → Más pesado/menos reps → Más volumen → Descarga
+- ✅ 4 días fijos (A/B/C/D) + Día E sorpresa opcional, con color por día
+- ✅ Vista Referencia: cómo leer series×reps, formatos de circuito y glosario de ejercicios
+- ✅ Estructura preparada para sumar más meses
 - ✅ Ícono personalizado en pantalla de inicio
 
 ## Estructura de archivos
