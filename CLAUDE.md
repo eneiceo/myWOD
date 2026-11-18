@@ -84,7 +84,7 @@ S = { month, week, day }  // day: 'A'..'F'
 
 ### Service Worker ([sw.js](sw.js))
 
-Cache-first with network fallback. Cache name is currently `'mywod-v24'` — **bump it whenever cached assets change**.
+Cache-first with network fallback. Cache name is currently `'mywod-v25'` — **bump it whenever cached assets change**.
 
 ## Patterns to follow
 
