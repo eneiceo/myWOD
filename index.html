@@ -142,6 +142,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;ove
 .ex-params{display:flex;gap:4px;flex-wrap:wrap;}
 .pchip{font-family:'DM Mono',monospace;font-size:9px;padding:2px 7px;border-radius:4px;background:var(--surface2);border:1px solid var(--border);color:var(--muted);}
 .pchip.scheme{color:var(--accent);border-color:rgba(255,210,0,.3);}
+.pchip.kg{color:var(--text);}
 .ex-note{font-size:11px;color:var(--muted);font-style:italic;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);line-height:1.6;}
 
 /* SUPERSET / ZONA MEDIA CARD */
@@ -251,7 +252,7 @@ const DAY_META = {
      title:'Calistenia: control y zona media',
      note:'En casa, con colchoneta: 30-40 min, nunca al fallo y dejando siempre 1 o 2 repeticiones en reserva. Va después de piernas pesado, así que no carga lumbar ni piernas y deja el tren superior fresco para el miércoles. Si amanecés molido, hacé sólo la movilidad y listo.'},
   F:{type:'calis',    short:'Movilidad',badge:'CALISTENIA', dow:'Jueves', ownWarmup:true,
-     title:'Calistenia: movilidad y piernas',
+     title:'Calistenia: movilidad y zona media',
      note:'En casa, con colchoneta: 30-40 min, nunca al fallo. Prepara tobillo, cadera y hombro justo para el clean and jerk y el snatch del viernes. Si amanecés molido, hacé sólo la movilidad y listo.'},
 };
 const DAY_ORDER = ['A','B','C','D','E','F'];
@@ -311,7 +312,7 @@ const GLOSARIO = [
     {name:'Aperturas con mancuernas', desc:'Acostado en el banco, con los brazos casi estirados y los codos apenas flexionados, abrís los brazos hacia los costados y los volvés a juntar arriba del pecho. Movimiento amplio y controlado, sin peso excesivo.'},
     {name:'Extensión de tríceps', desc:'Con una mancuerna sostenida con las dos manos por detrás de la cabeza, estirás los codos subiendo el peso, y bajás controlado. Trabaja la parte de atrás del brazo.'},
     {name:'Fondos', desc:'En paralelas, bajás y subís el cuerpo con la fuerza de los brazos. Si preferís, se reemplazan por flexiones de brazos con algo de peso encima.'},
-    {name:'Flexiones de brazos', desc:'Las clásicas, en el piso.'},
+    {name:'Flexiones de brazos', desc:'Las clásicas, en el piso. Si te molestan las muñecas, apoyate sobre los puños cerrados encima de la colchoneta: la muñeca queda derecha y deja de doler. Si no llegás a las repeticiones, apoyá las rodillas.'},
   ]},
   {cat:'Tracción (espalda y bíceps)', items:[
     {name:'Dominadas', desc:'Colgado de la barra, tirás hasta pasar el mentón por encima.'},
@@ -346,6 +347,9 @@ const GLOSARIO = [
     {name:'Bicho muerto (dead bug)', desc:'Boca arriba, brazos apuntando al techo y rodillas dobladas; estirás un brazo y la pierna contraria sin tocar el piso, y volvés. Alternás.'},
     {name:'Rueda abdominal', desc:'De rodillas, con la rueda (o una barra con discos) en las manos, rodás hacia adelante estirando el cuerpo todo lo que aguantes sin que se hunda la cintura, y volvés. Si te cuesta, acortá el recorrido.'},
     {name:'Plancha con toque de hombro', desc:'En posición de flexión con los brazos estirados, despegás una mano y tocás el hombro contrario sin que la cadera rote. Alternás; cada toque cuenta como una repetición.'},
+    {name:'Elevaciones de piernas acostado', desc:'Boca arriba, con las manos debajo de la cola, subís las piernas estiradas hasta la vertical y bajás lento sin tocar el piso. La zona lumbar queda pegada a la colchoneta: si se despega, doblá las rodillas.'},
+    {name:'Abdominales bicicleta', desc:'Boca arriba, manos detrás de la cabeza sin tirar del cuello; llevás un codo hacia la rodilla contraria mientras estirás la otra pierna, y alternás como pedaleando. Trabaja los oblicuos.'},
+    {name:'Espinales', desc:'Boca abajo en la colchoneta, brazos al costado del cuerpo o estirados adelante; despegás pecho y piernas del piso apretando glúteos, aguantás 1 segundo y bajás. Subís sólo hasta alinear el cuerpo, sin arquear de más: es para la espalda baja, no contra ella.'},
     {name:'Caminata del granjero', desc:'Agarrás una mancuerna pesada en cada mano y caminás la distancia indicada manteniendo el tronco firme.'},
   ]},
   {cat:'Calistenia y movilidad', items:[
@@ -359,9 +363,9 @@ const GLOSARIO = [
     {name:'Sentadilla profunda con brazos arriba', desc:'Sentadilla lo más profunda que puedas con los brazos estirados por encima de la cabeza y el tronco derecho, sin que las manos se vayan hacia adelante. Es preparación directa para el snatch del viernes. Si tenés a mano una toalla o un palo de escoba, sostenelo tenso entre las manos: te marca mucho mejor la posición.'},
     {name:'Cadera 90/90', desc:'Sentado en el piso, una pierna a 90° adelante y la otra a 90° al costado; girás de un lado al otro llevando las rodillas al piso. Abre la cadera en los dos sentidos.'},
     {name:'Deslizamientos de brazos en la pared', desc:'De espaldas a la pared, con la zona baja de la espalda, los codos y las muñecas apoyados, deslizás los brazos hacia arriba y hacia abajo sin despegar ningún punto. Abre el hombro para todo lo que va por encima de la cabeza.'},
-    {name:'Gato-camello', desc:'En cuatro patas sobre la colchoneta, alternás entre arquear la espalda hacia arriba (como un gato) y hundirla llevando la mirada al techo, lento y sin forzar. Afloja la columna después del día de piernas pesado.'},
+    {name:'Rodillas al pecho', desc:'Boca arriba, abrazás las dos rodillas contra el pecho y te mecés suave de lado a lado. Afloja la espalda baja después del día de piernas pesado, sin apoyar las manos.'},
     {name:'Movilidad de tobillo en estocada', desc:'En posición de estocada, llevás la rodilla por encima de los dedos del pie SIN despegar el talón del piso, y volvés. Es lo que te permite sentarte bien abajo en la sentadilla.'},
-    {name:'Rotaciones torácicas en cuatro patas', desc:'En cuatro patas, una mano detrás de la nuca; rotás el codo hacia el techo abriendo el pecho y volvés. Suelta la espalda alta para los movimientos por encima de la cabeza.'},
+    {name:'Libro abierto', desc:'Acostado de costado con las rodillas dobladas y los brazos estirados adelante, juntos; abrís el brazo de arriba hacia el otro lado siguiéndolo con la mirada, hasta abrir el pecho, y volvés. Suelta la espalda alta para los movimientos por encima de la cabeza, sin cargar las muñecas.'},
     {name:'Sentadilla profunda sostenida', desc:'Te sentás en la sentadilla más profunda que puedas, con los talones en el piso, y te quedás ahí empujando las rodillas hacia afuera con los codos. Prepara cadera y tobillo.'},
     {name:'Postura del niño con rotación', desc:'De rodillas, sentado sobre los talones y los brazos estirados adelante; pasás un brazo por debajo del otro rotando el tronco, aguantás y cambiás. Afloja hombro y espalda alta.'},
   ]},
@@ -374,7 +378,8 @@ const GLOSARIO = [
 // =====================================================================
 // PLAN — constructores de bloques (compactos)
 // =====================================================================
-function heavy(name,scheme,role,note){return {k:'heavy',name,scheme,role:role||'principal',note};}
+// kg (opcional): peso sugerido de la serie de trabajo, en número (87.5 → "87,5 kg").
+function heavy(name,scheme,role,note,kg){return {k:'heavy',name,scheme,role:role||'principal',note,kg};}
 function ss(rounds,moves,label){return {k:'super',rounds,moves,label:label||'Superserie'};}
 function core(rounds,moves){return {k:'core',rounds,moves};}
 function iso(rounds,moves){return {k:'iso',rounds,moves};}
@@ -670,6 +675,107 @@ const PROGRAM = {
           }},
       ]
     },
+    {
+      // Mes 4 — hipertrofia. Más series y repeticiones con menos peso que el
+      // bloque de fuerza. Los kg salen de los pesos de trabajo al cierre del
+      // Mes 3: en los principales, ~65-75 % del máximo estimado; en los
+      // accesorios, S1 = el peso que venías usando, S2 un escalón más con menos
+      // reps, S3 un escalón menos con más reps y S4 descarga.
+      n:4, name:'Mes 4',
+      weeks:[
+        { n:1, theme:'Acumulación', note:'Mes de hipertrofia: más series y más repeticiones con menos peso que en el bloque de fuerza. Los kg son sugeridos a partir de tus pesos actuales (en mancuernas, por mano). Bajá controlado (2-3 seg) y dejá 2 repeticiones en reserva. Si te sobran más de 3, subí un escalón; si no llegás a las reps, bajá uno.',
+          days:{
+            A:[ heavy('Sentadilla con barra','4×10','principal','Moderado, bajada lenta y controlada.',87.5),
+                heavy('Peso muerto','3×8','principal','Va después de la sentadilla: técnica impecable, la espalda nunca se redondea.',77.5),
+                ss(3,['Sentadilla búlgara — 10 por pierna · 12,5 kg','Subidas al cajón — 10 por pierna · 12,5 kg'],'Superserie'),
+                iso(3,['Curl femoral — 12 · 55 kg','Elevaciones de gemelos — 15 · 60 kg']),
+                core(3,['Rueda abdominal — 12','Plancha lateral — 40 seg por lado']),
+                circ({fmt:'AMRAP',dur:'8 min',title:'Rondas de 3 ejercicios',steps:['10 wall ball','10 saltos al cajón','10 balanceos con pesa rusa'],note:'Corto a propósito: este mes el trabajo fuerte está en las series. Anotá las vueltas.'}) ],
+            B:[ heavy('Press militar','4×10','principal','Moderado, sin arquear la cintura.',40),
+                heavy('Remo con barra','4×10','secundaria','Tronco firme, tirá hacia el abdomen.',52.5),
+                ss(3,['Press de banca con barra — 10 · 52,5 kg','Jalón al pecho — 12 · 60 kg'],'Superserie'),
+                iso(3,['Elevaciones laterales — 12 · 15 kg','Curl de bíceps — 12 · 25 kg','Extensión de tríceps — 12 · 22,5 kg']),
+                core(3,['Giros rusos — 24','Aguante hueco — 40 seg']),
+                run('5 × 400 m fuerte','90 seg de pausa.') ],
+            C:[ heavy('Clean and jerk','5×2','principal','Este mes los olímpicos no suben: se pulen. Explosivo y prolijo.',55),
+                heavy('Snatch','4×3','secundaria','Técnico.',45),
+                ss(3,['Push press — 10 · 42,5 kg','Remo con mancuerna a un brazo — 10 por lado · 27,5 kg'],'Superserie'),
+                iso(3,['Encogimientos — 15 · 27,5 kg','Face pull — 15 · 45 kg']),
+                core(3,['Caminata del granjero — 40 m · 27,5 kg','V-ups — 15']),
+                circ({fmt:'AMRAP',dur:'10 min',title:'Rondas de 3 ejercicios',steps:['8 thrusters con mancuernas','10 saltos al cajón','20 saltos con soga dobles'],note:'Anotá las vueltas.'}) ],
+            D:[ circ({fmt:'AMRAP',dur:'20 min',name:'"Cindy"',title:'Rondas de 3 ejercicios',steps:['5 dominadas','10 flexiones','15 sentadillas libres'],note:'Cuarta vez: compará con los meses 1 a 3.'}) ],
+          }},
+        { n:2, theme:'Más carga', note:'Sube un escalón el peso y bajan un poco las repeticiones, siempre en rango de hipertrofia. Seguí dejando 1 o 2 repeticiones en reserva.',
+          days:{
+            A:[ heavy('Sentadilla con barra','5×8','principal','Un escalón más que la Semana 1.',95),
+                heavy('Peso muerto','4×6','principal','Pesado pero prolijo. Si venís fundido de la sentadilla, sacá una serie antes que bajar el peso.',85),
+                ss(3,['Zancadas inversas — 8 por pierna · 20 kg','Sentadilla goblet — 10 · 27,5 kg'],'Superserie'),
+                iso(3,['Curl femoral — 10 · 60 kg','Elevaciones de gemelos — 12 · 65 kg']),
+                core(3,['Elevaciones de piernas colgado — 15','Plancha — 50 seg']),
+                circ({fmt:'FOR_TIME',dur:'corto e intenso',title:'Wall ball + Burpees',scheme:'15-12-9',note:'Anotá el tiempo.'}) ],
+            B:[ heavy('Press militar','5×8','principal','Un escalón más.',45),
+                heavy('Dominadas','4 × máx','secundaria','4 series al máximo.'),
+                ss(3,['Press de banca con barra — 8 · 57,5 kg','Remo Pendlay — 8 · 57,5 kg'],'Superserie'),
+                iso(3,['Elevaciones laterales — 12 · 15 kg','Curl de bíceps — 10 · 27,5 kg','Extensión de tríceps — 10 · 25 kg']),
+                core(3,['Rueda abdominal — 12','Plancha lateral — 40 seg por lado']),
+                run('4 × 800 m','2 min de pausa.') ],
+            C:[ heavy('Clean and jerk','6×2','principal','Un poco más de carga, descanso completo.',57.5),
+                heavy('Snatch','5×2','secundaria','Si se pone fea la técnica, bajá.',47.5),
+                ss(3,['Push press — 8 · 45 kg','Jalón al pecho — 10 · 65 kg'],'Superserie'),
+                iso(3,['Encogimientos — 12 · 30 kg','Elevaciones laterales — 15 · 12,5 kg']),
+                core(3,['Aguante hueco — 45 seg','Plancha lateral — 40 seg por lado']),
+                circ({fmt:'EMOM',dur:'12 min · 4 vueltas',title:'Rotando 3 ejercicios',steps:['Min 1 — 40 saltos con soga dobles','Min 2 — 12 balanceos con pesa rusa','Min 3 — 10 burpees']}) ],
+            D:[ ss(3,['Curl de bíceps — 15 · 22,5 kg','Extensión de tríceps — 15 · 20 kg'],'Superserie 1'),
+                ss(3,['Elevaciones laterales — 20 · 10 kg','Face pull — 20 · 40 kg'],'Superserie 2'),
+                iso(3,['Curl femoral — 15 · 50 kg','Elevaciones de gemelos — 20 · 55 kg']),
+                core(3,['Rueda abdominal — 12','Giros rusos — 24']) ],
+          }},
+        { n:3, theme:'Volumen máximo', note:'La semana de más trabajo del mes: una serie más y más repeticiones, con el peso apenas por debajo de la Semana 2. Vas a terminar cansado; es esperable.',
+          days:{
+            A:[ heavy('Sentadilla con barra','5×10','principal','Mucho volumen: cuidá la técnica en las últimas reps.',90),
+                heavy('Peso muerto','4×8','principal','Moderado. Si la espalda baja avisa, cortá ahí.',80),
+                ss(4,['Peso muerto rumano a una pierna — 12 por pierna · 15 kg','Zancadas inversas — 12 por pierna · 15 kg'],'Superserie'),
+                iso(4,['Curl femoral — 15 · 50 kg','Elevaciones de gemelos — 20 · 55 kg']),
+                core(4,['Rueda abdominal — 12','Plancha lateral — 45 seg por lado']),
+                circ({fmt:'FOR_TIME',dur:'medio',title:'Wall ball + Toes-to-bar',scheme:'15-12-9',note:'Anotá el tiempo.'}) ],
+            B:[ heavy('Press militar','5×10','principal','Moderado, más repeticiones.',42.5),
+                heavy('Remo con barra','5×10','secundaria','Moderado.',52.5),
+                ss(4,['Press de banca con barra — 12 · 50 kg','Jalón al pecho — 15 · 55 kg'],'Superserie'),
+                iso(4,['Elevaciones laterales — 15 · 12,5 kg','Curl de bíceps — 15 · 22,5 kg','Extensión de tríceps — 15 · 20 kg']),
+                core(4,['Giros rusos — 30','Aguante hueco — 45 seg']),
+                run('6 × 400 m fuerte','90 seg de pausa.') ],
+            C:[ heavy('Clean and jerk','5×3','principal','Técnico, sin apuro.',52.5),
+                heavy('Snatch','4×3','secundaria',null,45),
+                ss(4,['Push press — 10 · 42,5 kg','Remo con mancuerna a un brazo — 12 por lado · 25 kg'],'Superserie'),
+                iso(4,['Encogimientos — 20 · 25 kg','Face pull — 20 · 40 kg']),
+                core(4,['Caminata del granjero — 40 m · 27,5 kg','V-ups — 18']),
+                circ({fmt:'FOR_TIME',dur:'4 vueltas',title:'Rondas de 3 ejercicios',steps:['10 thrusters con mancuernas','12 saltos al cajón','30 saltos con soga dobles'],note:'Anotá el tiempo.'}) ],
+            D:[ circ({fmt:'FOR_TIME',dur:'3 vueltas',name:'"Helen"',title:'Rondas de 3 ejercicios',steps:['400 m corriendo','21 balanceos con pesa rusa','12 dominadas'],note:'Compará con el Mes 2. Anotá el tiempo.'}) ],
+          }},
+        { n:4, theme:'Descarga', deload:true, note:'Semana de recuperación: menos series y menos peso para que el cuerpo asimile el mes. Terminá cada sesión con energía de sobra.',
+          days:{
+            A:[ heavy('Sentadilla con barra','3×6','principal','Liviano-moderado.',75),
+                heavy('Peso muerto','3×5','principal','Moderado.',70),
+                ss(2,['Sentadilla goblet — 10 · 22,5 kg','Subidas al cajón — 8 por pierna · 10 kg'],'Superserie'),
+                iso(2,['Curl femoral — 10 · 50 kg','Elevaciones de gemelos — 15 · 55 kg']),
+                core(2,['Plancha — 40 seg','Bicho muerto — 12 por lado']),
+                circ({fmt:'CONTROL',dur:'3 vueltas',title:'Sin contrarreloj',steps:['10 wall ball','8 saltos al cajón']}) ],
+            B:[ heavy('Press militar','3×6','principal','Moderado.',35),
+                heavy('Remo con barra','3×8','secundaria','Liviano.',45),
+                ss(2,['Press de banca con barra — 8 · 45 kg','Dominadas cómodas (sin llegar al máximo)'],'Superserie'),
+                iso(2,['Elevaciones laterales — 12 · 12,5 kg','Curl de bíceps — 12 · 20 kg']),
+                core(2,['Giros rusos — 20','Plancha lateral — 30 seg por lado']),
+                run('3 × 400 m a ritmo cómodo','Pausa amplia.') ],
+            C:[ heavy('Clean and jerk','4×2','principal','Liviano, foco en técnica prolija.',45),
+                heavy('Snatch','3×2','secundaria','Liviano.',40),
+                ss(2,['Push press — 8 · 37,5 kg','Remo con mancuerna a un brazo — 10 por lado · 22,5 kg'],'Superserie'),
+                iso(2,['Encogimientos — 15 · 25 kg','Face pull — 15 · 35 kg']),
+                core(2,['Aguante hueco — 30 seg','V-ups — 10']),
+                circ({fmt:'AMRAP',dur:'10 min · tranquilo',title:'Rondas de 3 ejercicios',steps:['8 thrusters con mancuernas','10 saltos al cajón','15 saltos con soga dobles']}) ],
+            D:[ circ({fmt:'CONTROL',dur:'suave',name:'Aeróbico suave',title:'Trote cómodo de 30 min + práctica de saltos con soga',steps:['Trote cómodo — 30 min','Práctica de saltos con soga (técnica, sin apuro)']}) ],
+          }},
+      ]
+    },
   ]
 };
 
@@ -681,8 +787,8 @@ const PROGRAM = {
 // El día E cuida el tren superior porque el miércoles lo necesita fresco;
 // el día F prepara tobillo, cadera y hombro para el clean and jerk del viernes.
 // =====================================================================
-const MOB_E_IN  = ['Círculos de brazos — 10 adelante y 10 atrás','Rotaciones torácicas en cuatro patas — 8 por lado','Cadera 90/90 — 8 por lado','Sentadilla profunda sostenida — 30 seg'];
-const MOB_E_OUT = ['Gato-camello — 10 repeticiones','Estiramiento de flexores de cadera — 45 seg por lado'];
+const MOB_E_IN  = ['Círculos de brazos — 10 adelante y 10 atrás','Libro abierto — 8 por lado','Cadera 90/90 — 8 por lado','Sentadilla profunda sostenida — 30 seg'];
+const MOB_E_OUT = ['Rodillas al pecho — 45 seg','Estiramiento de flexores de cadera — 45 seg por lado'];
 const MOB_F_IN  = ['Movilidad de tobillo en estocada — 10 por lado','Cadera 90/90 — 8 por lado','Deslizamientos de brazos en la pared — 10','Sentadilla profunda sostenida — 30 seg'];
 const MOB_F_OUT = ['Estiramiento de isquiotibiales — 45 seg por lado','Postura del niño con rotación — 45 seg'];
 
@@ -692,6 +798,16 @@ function diaE(skillMoves,coreMoves){
 }
 function diaF(skillMoves,coreMoves){
   return [ mob(MOB_F_IN,'Entrada en calor'), skill(skillMoves[0],skillMoves[1]),
+           core(coreMoves[0],coreMoves[1]), mob(MOB_F_OUT,'Movilidad de cierre') ];
+}
+// Desde el Mes 4, sin apoyo de muñecas: el E es todo zona media y el F
+// cambia la técnica por flexiones sobre los puños + espinales.
+function diaCore(coreA,coreB){
+  return [ mob(MOB_E_IN,'Entrada en calor'), core(coreA[0],coreA[1]),
+           core(coreB[0],coreB[1]), mob(MOB_E_OUT,'Movilidad de cierre') ];
+}
+function diaFlex(pushMoves,coreMoves){
+  return [ mob(MOB_F_IN,'Entrada en calor'), ss(pushMoves[0],pushMoves[1],'Flexiones + espinales'),
            core(coreMoves[0],coreMoves[1]), mob(MOB_F_OUT,'Movilidad de cierre') ];
 }
 
@@ -749,6 +865,27 @@ const CALISTENIA = {
                [2,['Wall walk — 3','Plancha lateral — 30 seg por lado']]),
         F:diaF([3,['Sentadilla profunda con brazos arriba — 8','Pistol a la colchoneta — 5 por pierna']],
                [2,['Bicho muerto — 12 por lado','Plancha con toque de hombro — 20']]) },
+  },
+  // Mes 4: zona media clásica y nada que cargue las muñecas (sin parada de
+  // manos, L-sit, wall walk ni planchas sobre las manos). El E sigue sin tocar
+  // lumbar ni tren superior; el F suma flexiones sobre los puños y espinales.
+  4:{
+    1:{ E:diaCore([3,['Abdominales — 20','Bicho muerto — 15 por lado','Plancha — 50 seg']],
+                  [3,['Abdominales bicicleta — 20 por lado','Plancha lateral — 40 seg por lado','Aguante hueco — 40 seg']]),
+        F:diaFlex([3,['Flexiones de brazos (sobre los puños) — 12','Espinales — 12']],
+                  [3,['Abdominales bicicleta — 20 por lado','Bicho muerto — 15 por lado','Plancha lateral — 40 seg por lado']]) },
+    2:{ E:diaCore([3,['Abdominales — 25','Elevaciones de piernas acostado — 12','Plancha — 55 seg']],
+                  [3,['Giros rusos — 30','Plancha lateral — 45 seg por lado','Aguante hueco — 45 seg']]),
+        F:diaFlex([3,['Flexiones de brazos (sobre los puños) — 15','Espinales — 15']],
+                  [3,['Abdominales — 25','Aguante hueco — 45 seg','Plancha — 55 seg']]) },
+    3:{ E:diaCore([4,['Abdominales — 25','Elevaciones de piernas acostado — 15','Plancha — 60 seg']],
+                  [4,['Abdominales bicicleta — 25 por lado','Plancha lateral — 45 seg por lado','V-ups — 15']]),
+        F:diaFlex([4,['Flexiones de brazos (sobre los puños) — 15','Espinales — 15']],
+                  [4,['Giros rusos — 30','Elevaciones de piernas acostado — 15','Plancha lateral — 45 seg por lado']]) },
+    4:{ E:diaCore([2,['Abdominales — 15','Bicho muerto — 12 por lado','Plancha — 40 seg']],
+                  [2,['Plancha lateral — 30 seg por lado','Aguante hueco — 30 seg']]),
+        F:diaFlex([2,['Flexiones de brazos (sobre los puños) — 10','Espinales — 10']],
+                  [2,['Bicho muerto — 12 por lado','Plancha — 40 seg']]) },
   },
 };
 // Se suman al plan: cada semana recibe sus dos sesiones de calistenia.
@@ -889,7 +1026,9 @@ function renderHeavy(cont,b,n,type){
       '<div class="ex-info">'+
         '<div class="ex-role">'+roleLabel+'</div>'+
         '<div class="ex-name">'+b.name+'</div>'+
-        '<div class="ex-params"><span class="pchip scheme">'+b.scheme+'</span><span class="pchip">descanso '+rest+'</span></div>'+
+        '<div class="ex-params"><span class="pchip scheme">'+b.scheme+'</span>'+
+          (b.kg?'<span class="pchip kg">'+String(b.kg).replace('.',',')+' kg</span>':'')+
+          '<span class="pchip">descanso '+rest+'</span></div>'+
         (b.note?'<div class="ex-note">'+b.note+'</div>':'')+
       '</div>'+
     '</div>';
