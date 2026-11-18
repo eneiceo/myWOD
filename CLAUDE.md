@@ -23,7 +23,7 @@ Each training day (A–C) follows a fixed order: **entrada en calor** (a constan
 
 Four months are loaded: **Mes 1** (Base → Más pesado/menos reps → Más volumen → Descarga), **Mes 2** (Carga → Fuerza máxima → Volumen alto → Descarga), **Mes 3** (Acumulación → Intensificación → Pico → Test y descarga) and **Mes 4** (Acumulación → Más carga → Volumen máximo → Descarga), each 4 weeks. **Mes 4 is a hypertrophy block** (8–12 reps, 1–2 in reserve) and the first month with **suggested kg on every exercise**, derived from the user's working weights at the end of Mes 3 (squat 115, deadlift 100, military press 55, C&J 65, snatch 55, bench 60, barbell row 60…): main lifts at ~65–75 % of the estimated max; accessories at the user's weight in W1, one step up with fewer reps in W2, one step down with more reps in W3, lighter in W4. Olympic lifts stay technical (no load increase) during hypertrophy. Mes 3 peaks the block: week 4 is a short **test week** where Days A and B work up to a heavy triple on squat, deadlift and military press plus a max set of pull-ups, with accessories cut. The olympic lifts are deliberately not tested. Across months the four main lifts stay fixed (Sentadilla, Press militar, Clean and jerk, Peso muerto) so progress stays measurable, while secondary lifts, accessories and circuits rotate. "Cindy" is re-tested on Week 1 / Day D of every month as the benchmark. The app is read-only guidance: it shows the prescription per month/week/day and remembers your position; it does not log workouts.
 
-**Wrist constraint (from Mes 4):** the wrists suffer under load, so the calisthenics days avoid every hand-supported position: no handstand, L-sit, wall walk, shoulder-tap plank or all-fours drills (the shared mobility uses *Libro abierto* and *Rodillas al pecho* instead). Day E is classic core (built with `diaCore`), Day F is push-ups **on the fists** + *espinales* plus core (built with `diaFlex`). Planks go on the forearms. Months 1-3 keep their original `diaE`/`diaF` sessions as history.
+**Wrist constraint (from Mes 3):** the wrists suffer under load, so the calisthenics days avoid every hand-supported position: no handstand, L-sit, wall walk, shoulder-tap plank or all-fours drills (the shared mobility uses *Libro abierto* and *Rodillas al pecho* instead). Day E is classic core (built with `diaCore`), Day F is push-ups **on the fists** + *espinales* plus core (built with `diaFlex`). Planks go on the forearms. Months 1-2 keep their original `diaE`/`diaF` sessions as history.
 
 **Injury constraint (lower back):** the contraindicated movements are the **incline press**, the **leg press**, and the whole **hip-thrust family** — anything that drives the hips up from a supine position, which includes the barbell hip thrust and the glute bridge. Keep them out of every month, not just the newest one. Lateral raises and dips ARE allowed. The floor press covers the incline press slot; glute work goes through movements that keep the torso upright (sentadilla búlgara, zancadas inversas, subidas al cajón).
 
@@ -84,7 +84,7 @@ S = { month, week, day }  // day: 'A'..'F'
 
 ### Service Worker ([sw.js](sw.js))
 
-Cache-first with network fallback. Cache name is currently `'mywod-v23'` — **bump it whenever cached assets change**.
+Cache-first with network fallback. Cache name is currently `'mywod-v24'` — **bump it whenever cached assets change**.
 
 ## Patterns to follow
 

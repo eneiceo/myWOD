@@ -800,7 +800,7 @@ function diaF(skillMoves,coreMoves){
   return [ mob(MOB_F_IN,'Entrada en calor'), skill(skillMoves[0],skillMoves[1]),
            core(coreMoves[0],coreMoves[1]), mob(MOB_F_OUT,'Movilidad de cierre') ];
 }
-// Desde el Mes 4, sin apoyo de muñecas: el E es todo zona media y el F
+// Desde el Mes 3, sin apoyo de muñecas: el E es todo zona media y el F
 // cambia la técnica por flexiones sobre los puños + espinales.
 function diaCore(coreA,coreB){
   return [ mob(MOB_E_IN,'Entrada en calor'), core(coreA[0],coreA[1]),
@@ -848,23 +848,26 @@ const CALISTENIA = {
         F:diaF([3,['Sentadilla profunda con brazos arriba — 8','Pistol a la colchoneta — 5 por pierna']],
                [2,['Bicho muerto — 12 por lado','Plancha con toque de hombro — 20']]) },
   },
+  // Desde el Mes 3: zona media clásica, sin carga de muñecas (ver Mes 4).
+  // Arranca un escalón abajo del Mes 4 y no suma vueltas en el pico, para
+  // no restarle a la barra.
   3:{
-    1:{ E:diaE([4,['Parada de manos contra la pared — 40 seg','L-sit en el piso — 25 seg']],
-               [3,['Wall walk — 4','Aguante hueco — 45 seg']]),
-        F:diaF([4,['Sentadilla profunda con brazos arriba — 12','Pistol a la colchoneta — 8 por pierna']],
-               [3,['Bicho muerto — 15 por lado','Plancha con toque de hombro — 26']]) },
-    2:{ E:diaE([4,['Parada de manos contra la pared — 45 seg','L-sit en el piso — 30 seg']],
-               [3,['Wall walk — 5','Plancha lateral — 40 seg por lado']]),
-        F:diaF([4,['Sentadilla profunda con brazos arriba — 12','Pistol completo — 5 por pierna']],
-               [3,['Bicho muerto — 15 por lado','Plancha lateral — 40 seg por lado']]) },
-    3:{ E:diaE([5,['Parada de manos contra la pared — 45 seg','L-sit en el piso — 30 seg']],
-               [4,['Wall walk — 5','Aguante hueco — 50 seg']]),
-        F:diaF([5,['Sentadilla profunda con brazos arriba — 12','Pistol completo — 6 por pierna']],
-               [4,['Bicho muerto — 15 por lado','Plancha con toque de hombro — 28']]) },
-    4:{ E:diaE([3,['Parada de manos contra la pared — 30 seg','L-sit en el piso — 20 seg']],
-               [2,['Wall walk — 3','Plancha lateral — 30 seg por lado']]),
-        F:diaF([3,['Sentadilla profunda con brazos arriba — 8','Pistol a la colchoneta — 5 por pierna']],
-               [2,['Bicho muerto — 12 por lado','Plancha con toque de hombro — 20']]) },
+    1:{ E:diaCore([3,['Abdominales — 15','Bicho muerto — 12 por lado','Plancha — 40 seg']],
+                  [3,['Abdominales bicicleta — 15 por lado','Plancha lateral — 35 seg por lado','Aguante hueco — 35 seg']]),
+        F:diaFlex([3,['Flexiones de brazos (sobre los puños) — 10','Espinales — 10']],
+                  [3,['Abdominales bicicleta — 15 por lado','Bicho muerto — 12 por lado','Plancha lateral — 35 seg por lado']]) },
+    2:{ E:diaCore([3,['Abdominales — 20','Elevaciones de piernas acostado — 10','Plancha — 45 seg']],
+                  [3,['Giros rusos — 24','Plancha lateral — 40 seg por lado','Aguante hueco — 40 seg']]),
+        F:diaFlex([3,['Flexiones de brazos (sobre los puños) — 12','Espinales — 12']],
+                  [3,['Abdominales — 20','Aguante hueco — 40 seg','Plancha — 45 seg']]) },
+    3:{ E:diaCore([3,['Abdominales — 20','Elevaciones de piernas acostado — 12','Plancha — 50 seg']],
+                  [3,['Abdominales bicicleta — 20 por lado','Plancha lateral — 40 seg por lado','V-ups — 12']]),
+        F:diaFlex([3,['Flexiones de brazos (sobre los puños) — 12','Espinales — 12']],
+                  [3,['Giros rusos — 24','Elevaciones de piernas acostado — 12','Plancha lateral — 40 seg por lado']]) },
+    4:{ E:diaCore([2,['Abdominales — 15','Bicho muerto — 12 por lado','Plancha — 40 seg']],
+                  [2,['Plancha lateral — 30 seg por lado','Aguante hueco — 30 seg']]),
+        F:diaFlex([2,['Flexiones de brazos (sobre los puños) — 8','Espinales — 10']],
+                  [2,['Bicho muerto — 12 por lado','Plancha — 40 seg']]) },
   },
   // Mes 4: zona media clásica y nada que cargue las muñecas (sin parada de
   // manos, L-sit, wall walk ni planchas sobre las manos). El E sigue sin tocar

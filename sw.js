@@ -1,4 +1,4 @@
-const CACHE = 'mywod-v23';
+const CACHE = 'mywod-v24';
 const ASSETS = [
   '/mywod/',
   '/mywod/index.html',
