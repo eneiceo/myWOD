@@ -1,6 +1,6 @@
 # MYWOD — Training App
 
-App de entrenamiento de gimnasio organizada por meses: 4 días fijos con roles distintos (piernas pesado, tren superior + correr, potencia + saltos, cuerpo completo + circuito largo) más un 5º día sorpresa opcional. Cada día combina fuerza pesada + un circuito, y el contenido rota cada semana.
+App de entrenamiento organizada por meses: 3 días de gimnasio (piernas pesado, tren superior + correr, potencia + cuerpo completo), 2 sesiones cortas de calistenia en casa (martes y jueves) y un día extra opcional. El contenido rota cada semana y la app abre directo en la sesión del día.
 
 ## Cómo subirla a GitHub Pages (5 pasos)
 
@@ -52,8 +52,8 @@ git push -u origin main
 ## Características
 - ✅ Funciona offline (Service Worker)
 - ✅ Guarda tu posición (mes / semana / día) en el navegador (localStorage)
-- ✅ Mes de 4 semanas: Base → Más pesado/menos reps → Más volumen → Descarga
-- ✅ 4 días fijos (A/B/C/D) + Día E sorpresa opcional, con color por día
+- ✅ 3 meses de 4 semanas, con descarga, benchmarks y una semana de test al final del Mes 3
+- ✅ 3 días de gimnasio + 2 de calistenia + 1 extra opcional, con color y día de la semana
 - ✅ Vista Referencia: cómo leer series×reps, formatos de circuito y glosario de ejercicios
 - ✅ Estructura preparada para sumar más meses
 - ✅ Ícono personalizado en pantalla de inicio

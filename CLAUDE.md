@@ -6,26 +6,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 MYWOD is a personal **gym training PWA**. It is a **no-build, no-framework** static web app: plain HTML/CSS/vanilla JS, deployed to GitHub Pages. The entire application lives in a single file: [index.html](index.html) at the repo root.
 
-The program is organized **by months**. Each month is 4 weeks with a fixed weekly structure of **5 day roles** (the roles never change; the content inside them rotates every week):
+The program is organized **by months**. Each month is 4 weeks with a fixed weekly structure of **3 gym days + 2 early-morning calisthenics days + 1 optional extra** (the roles never change; the content inside them rotates every week). `DAY_META[k].dow` records the weekday each role falls on:
 
-- **Día A** — Piernas pesado + circuito corto
-- **Día B** — Tren superior + correr
-- **Día C** — Potencia + saltos
-- **Día D** — Cuerpo completo + circuito largo
-- **Día E** — Día sorpresa (opcional)
+- **Día A** — Lunes. Piernas pesado (Sentadilla + Peso muerto, both as `principal`)
+- **Día B** — Miércoles. Tren superior (empuje/tracción) + correr
+- **Día C** — Viernes. Potencia + cuerpo completo (Clean and jerk + Snatch)
+- **Día D** — Fin de semana, optional. Alternates by week: benchmark (W1, W3), accessories/isolation (W2), easy aerobic (W4).
+- **Día E** — Martes. Calistenia: control y zona media.
+- **Día F** — Jueves. Calistenia: movilidad y piernas.
 
-Each day (A–D) follows a fixed order: **entrada en calor** (a constant warm-up) → **fuerza principal** (heavy lift, 2–3 min rest) → **fuerza secundaria** (secondary lift, 1–2 min rest) → **superserie(s)** (one or two) → **zona media** (core rounds) → **circuito** (or a run on Day B). Day E is a single standalone WOD (no warm-up section). Today only **Mes 1** is loaded (4 weeks: Base → Más pesado/menos reps → Más volumen → Descarga), but the data structure is built to add more months later. The app is read-only guidance: it shows the prescription per month/week/day and remembers your position; it does not log workouts.
+On load the app opens on the day matching today's weekday (via `diaDeHoy()`, derived from `DAY_META.dow`) and marks that pill "hoy"; month and week come from saved state.
+
+The two calisthenics days are done **at home with nothing but a mat** (floor + a wall are the only other requirements — no bar, parallettes, box or stick), 30-40 min, deliberately **low fatigue** (técnica → zona media → movilidad, never to failure): they sit between gym days, so they must not steal recovery. Day E follows heavy legs, so it loads neither the lower back nor the legs and keeps the upper body fresh for Wednesday; Day F follows the upper-body day and prepares ankle, hip and shoulder for Friday's olympic lifts. They back off in week 4 like everything else. They carry `ownWarmup:true` (the standard barbell warm-up does not apply) and their own `note` in `DAY_META` (the week's theme talks about bar loads, which would be wrong on these days).
+
+Each training day (A–C) follows a fixed order: **entrada en calor** (a constant warm-up) → **fuerza principal** (heavy lift, 2–3 min rest; Day A has two) → **fuerza secundaria** (1–2 min rest) → **superserie** → **aislados** (single-joint work that the three compound days would otherwise miss) → **zona media** (core rounds) → **circuito** (or a run on Day B). The warm-up renders on every session except pure-recovery days (those whose only block is a `CONTROL` circuit).
+
+Three months are loaded: **Mes 1** (Base → Más pesado/menos reps → Más volumen → Descarga), **Mes 2** (Carga → Fuerza máxima → Volumen alto → Descarga) and **Mes 3** (Acumulación → Intensificación → Pico → Test y descarga), each 4 weeks. Mes 3 peaks the block: week 4 is a short **test week** where Days A and B work up to a heavy triple on squat, deadlift and military press plus a max set of pull-ups, with accessories cut. The olympic lifts are deliberately not tested. Across months the four main lifts stay fixed (Sentadilla, Press militar, Clean and jerk, Peso muerto) so progress stays measurable, while secondary lifts, accessories and circuits rotate. "Cindy" is re-tested on Week 1 / Day D of every month as the benchmark. The app is read-only guidance: it shows the prescription per month/week/day and remembers your position; it does not log workouts.
+
+**Injury constraint (lower back):** the contraindicated movements are the **incline press**, the **leg press**, and the whole **hip-thrust family** — anything that drives the hips up from a supine position, which includes the barbell hip thrust and the glute bridge. Keep them out of every month, not just the newest one. Lateral raises and dips ARE allowed. The floor press covers the incline press slot; glute work goes through movements that keep the torso upright (sentadilla búlgara, zancadas inversas, subidas al cajón).
 
 ## Development
 
 No build step. Open [index.html](index.html) directly in a browser, or serve the repo root with any static HTTP server:
 
 ```bash
-# Python
 python -m http.server 8080
-
-# Node (if available)
-npx serve .
 ```
 
 There are no tests, no linting setup, and no package manager.
@@ -38,58 +43,52 @@ Push to `main` on GitHub; GitHub Pages publishes automatically from the repo roo
 
 ### Single-file SPA
 
-All app code is in [index.html](index.html): embedded `<style>`, inline `<script>`, and two hidden `<div>` views toggled with `.active` (display none/block) via `switchView()`.
+All app code is in [index.html](index.html): embedded `<style>`, inline `<script>`, and two hidden `<div>` views toggled with `.active` via `switchView()`.
 
-### Views
-- `#view-workout` — default view: month tabs + week strip + day pills (A–E), then the session content (strength lifts, supersets, circuits, runs) for the selected month/week/day.
-- `#view-info` — the "Referencia" view: how to read notation (series×reps, superserie, descanso), the circuit-format glossary, the weekly structure, the exercise glossary, and how to measure progress.
+- `#view-workout` — month tabs + week strip + day pills (A–F), then the session for the selected month/week/day.
+- `#view-info` — the "Referencia" view: notation, circuit formats, weekly structure, exercise glossary, progress tracking.
 
 ### State
 
-State is minimal — just the user's position in the program — persisted to `localStorage` under key `'mywod_v9'`. The previous HYROX schema (`'mywod_v8'`) is a different domain and is **not** migrated.
+Only the user's position, persisted to `localStorage` under `'mywod_v9'`:
 
 ```js
-S = { month, week, day }  // month: 1-based month number; week: week number within the month; day: 'A'|'B'|'C'|'D'|'E'
+S = { month, week, day }  // day: 'A'..'F'
 ```
 
-`loadState()` / `saveState()` handle serialization and validate that `month`/`week`/`day` exist in `PROGRAM`. Every user action that changes state calls `saveState()` then the relevant render function.
+`loadState()` / `saveState()` validate against `PROGRAM`. Every state change calls `saveState()` then the relevant render function.
 
 ### Plan data
 
-- `PROGRAM` — the whole plan: `PROGRAM.months` is an array of months; each month has `{n, name, weeks}`; each week has `{n, theme, note, deload?, days}`; `days` maps `A`–`E` to an ordered array of **blocks**. `currentMonth()` / `currentWeek()` resolve the selected position.
-- **Block constructors** keep the data compact:
-  - `heavy(name, scheme, role, note)` → `{k:'heavy', ...}` — a strength lift. `role` is `'principal'` (rest 2–3 min) or `'secundaria'` (rest 1–2 min); rest is derived from `role` at render time, not stored. `scheme` is a free string (`'5×3'`, `'4 × máx'`).
-  - `ss(rounds, moves, label)` → `{k:'super', ...}` — a superset (N rounds, list of move strings, optional `label` like `'Superserie 1'`).
-  - `core(rounds, moves)` → `{k:'core', ...}` — a zona-media (core) block; same shape as a superset, rendered with the "Zona media" label.
-  - `run(presc, cue)` → `{k:'run', ...}` — a running prescription.
-  - `circ({fmt, dur, title, scheme, steps, note, name})` → `{k:'circ', ...}` — a circuit. `fmt` keys into `FMT`.
-- `WARMUP` — the constant `{dur, steps}` warm-up rendered at the top of every non-optional day (A–D).
-- `FMT` — circuit-format metadata: `FOR_TIME`, `AMRAP`, `EMOM`, `CHIPPER`, `CONTROL`, each `{name, tag}`.
-- `DAY_META` — the fixed role, color `type`, badge, and title for each day A–E; `DAY_ORDER` is `['A','B','C','D','E']`. `ACCENT` maps each day `type` to its hex color (used for inline accent styling of superset/core/circuit cards).
-- `GLOSARIO` — the exercise catalog, grouped by category: an array of `{cat, items:[{name, desc}]}` shown in the Referencia view.
-
-### Rendering
-
-- `renderHeader()` — draws month tabs (from `PROGRAM.months`, plus a locked "próximo" placeholder), the week strip (deload weeks marked `↓`), and the A–E day pills.
-- `renderSession()` — reads the selected week/day, sets the title/badge/banner, renders the warm-up (for non-optional days), then iterates the day's blocks with a running number. It prepends a section label when the block **group** changes (`groupOf()` → Fuerza principal / Fuerza secundaria / Superseries / Zona media / Correr / Circuito) and dispatches to `renderHeavy` / `renderSuper` (also handles `core`) / `renderRun` / `renderCirc`.
-- `renderRef()` — builds the Referencia cards (cómo leer, formatos de circuito, estructura de la semana, glosario, progreso).
+- `PROGRAM.months` — array of `{n, name, weeks}`; each week is `{n, theme, note, deload?, days}`; `days` maps A–D to an ordered array of **blocks**.
+- **Block constructors:**
+  - `heavy(name, scheme, role, note)` — strength lift. `role` `'principal'` (rest 2–3 min) or `'secundaria'` (1–2 min); rest is derived at render time. `scheme` is a free string (`'5×3'`, `'4 × máx'`, `'hasta 1×3 pesado'`).
+  - `ss(rounds, moves, label)` — superset.
+  - `iso(rounds, moves)` — isolation work ("Aislados").
+  - `core(rounds, moves)` — zona media.
+  - `skill(rounds, moves)` — calisthenics skill practice ("Técnica", never to failure).
+  - `mob(moves, label)` — one pass of mobility drills; `label` names the section.
+  - `run(presc, cue)` — running prescription.
+  - `circ({fmt, dur, title, scheme, steps, note, name})` — circuit; `fmt` keys into `FMT`.
+- `CALISTENIA[month][week] = {E, F}` — built by `diaE`/`diaF` from the shared mobility constants (`MOB_E_IN`, `MOB_E_OUT`, `MOB_F_IN`, `MOB_F_OUT`) and merged into `PROGRAM` by the loop right after it.
+- `WARMUP` — barbell warm-up; skipped on pure-recovery days and on days flagged `ownWarmup`.
+- `FMT` — `FOR_TIME`, `AMRAP`, `EMOM`, `CHIPPER`, `CONTROL`.
+- `DAY_META` — role, color `type`, badge, `dow`, title, optional `note`/`optional`/`ownWarmup`. `DAY_ORDER` is `['A','B','C','D','E','F']`. `ACCENT` maps `type` → hex.
+- `GLOSARIO` — `[{cat, items:[{name, desc}]}]`. It must match the routine exactly: every movement used has an entry, and no entry is left unused.
 
 ### Color coding (by day)
 
-Each day role has a color, applied via CSS classes and JS `ACCENT` hexes:
-`A` strength/yellow, `B` aerobic/blue, `C` quality/red, `D` cond/purple, `E` surprise/green.
+`A` strength/yellow, `B` aerobic/blue, `C` quality/red, `D` surprise/green, `E` cond/purple, `F` calis/teal.
 
 ### Service Worker ([sw.js](sw.js))
 
-Cache-first strategy with network fallback. Cache name is currently `'mywod-v12'` — **bump this version whenever cached assets change** (icons, manifest, index.html) so users get the update.
+Cache-first with network fallback. Cache name is currently `'mywod-v22'` — **bump it whenever cached assets change**.
 
 ## Patterns to follow
 
-- **Add a new month:** push a `{n, name, weeks:[...]}` object onto `PROGRAM.months`. The month tabs render automatically. Keep the week/day/block shapes consistent.
-- **Edit prescriptions:** edit the relevant `days` arrays using the block constructors (`heavy`, `ss`, `core`, `run`, `circ`). Keep the per-day order (principal → secundaria → superserie(s) → zona media → circuito/run). Don't hand-write block objects unless adding a new field.
-- **New exercise explanation:** add a `{name, desc}` entry under the right category in `GLOSARIO`.
-- **New circuit format:** add an entry to `FMT` and reference its key as `fmt` in a `circ(...)` block.
-- State mutations: always `saveState()` immediately after, then the relevant `render*()`.
-- When changing the `localStorage` schema, bump the key (e.g. `'mywod_v9'` → `'mywod_v10'`) and adapt `loadState()`.
-- When modifying cached files, bump `CACHE` in [sw.js](sw.js).
-- No frameworks, no chart libraries, no build step — keep the no-build constraint.
+- **Add a new month:** append `{n, name, weeks:[...]}` to `PROGRAM.months` (mind the comma after the previous month) **and** add `CALISTENIA[n]` for weeks 1-4, or days E/F will be missing.
+- **Edit prescriptions** with the block constructors, keeping the per-day order (principal → secundaria → superserie → aislados → zona media → circuito/run).
+- **Replacing an exercise across the program:** edit the specific blocks, never pair old/new lines by position from a diff — neighbouring changed lines get mismatched and a superset can silently disappear. After any bulk edit, check that every A–C day (except the Mes 3 test week) still has exactly one `super` and at most one `iso`.
+- State mutations: `saveState()` then `render*()`.
+- Changing the `localStorage` schema: bump the key and adapt `loadState()`.
+- No frameworks, no build step.

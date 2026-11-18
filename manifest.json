@@ -1,7 +1,7 @@
 {
-  "name": "MYWOD — Gimnasio",
+  "name": "MYWOD",
   "short_name": "MYWOD",
-  "description": "Rutina de gimnasio por meses: 3 días fijos (piernas, tren superior, potencia) + día extra opcional, con fuerza, aislados y circuitos.",
+  "description": "Rutina por meses: 3 días de gimnasio (piernas, tren superior, potencia), 2 de calistenia en casa y un día extra opcional.",
   "start_url": "/mywod/",
   "scope": "/mywod/",
   "display": "standalone",
