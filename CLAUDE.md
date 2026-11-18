@@ -25,7 +25,7 @@ Four months are loaded: **Mes 1** (Base → Más pesado/menos reps → Más volu
 
 **Wrist constraint (from Mes 3):** the wrists suffer under load, so the calisthenics days avoid every hand-supported position: no handstand, L-sit, wall walk, shoulder-tap plank or all-fours drills (the shared mobility uses *Libro abierto* and *Rodillas al pecho* instead). Day E is classic core (built with `diaCore`), Day F is push-ups **on the fists** + *espinales* plus core (built with `diaFlex`). Planks go on the forearms. Months 1-2 keep their original `diaE`/`diaF` sessions as history.
 
-**Injury constraint (lower back):** the contraindicated movements are the **incline press**, the **leg press**, and the whole **hip-thrust family** — anything that drives the hips up from a supine position, which includes the barbell hip thrust and the glute bridge. Keep them out of every month, not just the newest one. Lateral raises and dips ARE allowed. The floor press covers the incline press slot; glute work goes through movements that keep the torso upright (sentadilla búlgara, zancadas inversas, subidas al cajón).
+**Injury constraint (lower back):** the contraindicated movements are the **incline press**, the **leg press**, and the whole **hip-thrust family** — anything that drives the hips up from a supine position, which includes the barbell hip thrust and the glute bridge. Keep them out of every month, not just the newest one. Lateral raises and dips ARE allowed. The flat bench press is fine: from Mes 3 on it replaces the floor press (which stays only in the Mes 1-2 history); glute work goes through movements that keep the torso upright (sentadilla búlgara, zancadas inversas, subidas al cajón).
 
 ## Development
 
@@ -84,7 +84,7 @@ S = { month, week, day }  // day: 'A'..'F'
 
 ### Service Worker ([sw.js](sw.js))
 
-Cache-first with network fallback. Cache name is currently `'mywod-v25'` — **bump it whenever cached assets change**.
+Cache-first with network fallback. Cache name is currently `'mywod-v26'` — **bump it whenever cached assets change**.
 
 ## Patterns to follow
 
